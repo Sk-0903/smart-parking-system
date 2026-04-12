@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="animate__animated animate__fadeIn">
+
+    <h2 class="text-center mb-4 title-glow">
+        <i class="fas fa-user-shield"></i> Admin Dashboard
+    </h2>
+
+    <!-- 🔥 STATS CARDS -->
+    <div class="row text-center mb-4">
+
+        <div class="col-md-4 mb-3">
+            <div class="card p-3 bg-success text-white shadow">
+                <h5>Total Vehicles</h5>
+                <h2>{{ users|length }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card p-3 bg-warning text-dark shadow">
+                <h5>Currently Parked</h5>
+                <h2>{{ users | selectattr(8, 'equalto', 'parked') | list | length }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card p-3 bg-danger text-white shadow">
+                <h5>Exited Vehicles</h5>
+                <h2>{{ users | selectattr(8, 'equalto', 'exited') | list | length }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🔥 TABLE -->
+    <div class="card p-4 shadow">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-bordered align-middle text-center">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Vehicle</th>
+                        <th>Plate</th>
+                        <th>Slot</th>
+                        <th>Entry</th>
+                        <th>Exit</th>
+                        <th>Fee</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for u in users %}
+                    <tr>
+
+                        <td>{{ u[0] }}</td>
+
+                        <td>
+                            <i class="fas fa-user"></i> {{ u[1] }}
+                        </td>
+
+                        <td>
+                            {% if u[2] == "car" %}
+                                🚗 Car
+                            {% else %}
+                                🏍️ Bike
+                            {% endif %}
+                        </td>
+
+                        <td><strong>{{ u[3] }}</strong></td>
+
+                        <td>
+                            <span class="badge bg-primary">Slot {{ u[4] }}</span>
+                        </td>
+
+                        <td>{{ u[5] }}</td>
+
+                        <td>
+                            {% if u[6] %}
+                                {{ u[6] }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if u[7] %}
+                                ₹{{ u[7] }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if u[8] == "parked" %}
+                                <span class="badge bg-success">Parked</span>
+                            {% else %}
+                                <span class="badge bg-danger">Exited</span>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

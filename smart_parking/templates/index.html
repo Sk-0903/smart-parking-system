@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center mt-5 animate__animated animate__fadeIn">
+
+    <h1 class="display-3 mb-4 title-glow">🚗 Smart Parking</h1>
+
+    <div class="glass col-md-6 mx-auto">
+
+        <div class="d-grid gap-3">
+
+            <a href="/register" class="btn btn-primary">
+                <i class="fas fa-parking"></i> Park Vehicle
+            </a>
+
+            <a href="/camera" class="btn btn-success">
+                <i class="fas fa-camera"></i> Use Camera
+            </a>
+
+            <a href="/exit" class="btn btn-danger">
+                <i class="fas fa-sign-out-alt"></i> Exit
+            </a>
+
+            <a href="/admin" class="btn btn-dark">
+                <i class="fas fa-user-shield"></i> Admin
+            </a>
+
+            <a href="/reset" class="btn btn-warning">
+                <i class="fas fa-sync"></i> Reset Data
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

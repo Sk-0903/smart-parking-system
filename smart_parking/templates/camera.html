@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>📷 Capture Vehicle</h2>
+
+<video id="video" width="400" autoplay></video>
+<br><br>
+
+<button onclick="capture()" class="btn btn-primary">Capture</button>
+
+<form method="POST" action="/capture" enctype="multipart/form-data">
+    <input type="hidden" name="image_data" id="image_data">
+    <button type="submit" class="btn btn-success mt-2">Submit</button>
+</form>
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+<script>
+    const video = document.getElementById('video');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+        });
+
+    function capture() {
+        const canvas = document.getElementById('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0);
+
+        const data = canvas.toDataURL('image/jpeg', 0.5);
+        document.getElementById('image_data').value = data;
+
+        alert("Image captured! Click submit.");
+    }
+</script>
+
+{% endblock %}
