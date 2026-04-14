@@ -13,6 +13,18 @@
 </form>
 
 {% if fee %}
+<div class="text-center mt-3">
+    <h4>💰 Fee: ₹{{ fee }}</h4>
+
+    <p>Scan QR to Pay</p>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PAY{{ fee }}" />
+
+    <br><br>
+    <button class="btn btn-success">Payment Done</button>
+</div>
+{% endif %}
+
+{% if fee %}
 <div class="alert alert-success text-center mt-3">
     💰 Parking Fee: ₹{{ fee }}
 </div>

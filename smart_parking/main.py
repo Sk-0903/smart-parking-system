@@ -14,14 +14,14 @@ from ultralytics import YOLO
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-# 🔴 Tesseract Path
 pytesseract.pytesseract.tesseract_cmd = r"C:\Users\Keshav.S\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
-
-# 🔥 YOLO MODEL
 model = YOLO("yolov8n.pt")
 
+# 🔐 BLACKLIST SYSTEM
+BLACKLIST = ["KA01AB1234", "KA05XY9999"]
 
-# ------------------ AI FUNCTION ------------------
+
+# ---------------- AI ----------------
 def detect_plate(image_path):
     img = cv2.imread(image_path)
 
@@ -33,14 +33,12 @@ def detect_plate(image_path):
     for r in results:
         for box in r.boxes.xyxy:
             x1, y1, x2, y2 = map(int, box)
-
             plate_img = img[y1:y2, x1:x2]
 
             if plate_img.size == 0:
                 continue
 
             gray = cv2.cvtColor(plate_img, cv2.COLOR_BGR2GRAY)
-            gray = cv2.GaussianBlur(gray, (5, 5), 0)
             _, thresh = cv2.threshold(gray, 120, 255, cv2.THRESH_BINARY)
 
             text = pytesseract.image_to_string(
@@ -48,31 +46,14 @@ def detect_plate(image_path):
                 config='--psm 7 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
             )
 
-            print("YOLO OCR TEXT:", text)
-
             plate = re.findall(r'[A-Z]{2}\d{2}[A-Z]{2}\d{4}', text)
-
             if plate:
                 return plate[0]
 
-    # fallback OCR
-    print("Fallback OCR...")
-
-    img = cv2.resize(img, None, fx=2, fy=2)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    _, thresh = cv2.threshold(gray, 120, 255, cv2.THRESH_BINARY)
-
-    text = pytesseract.image_to_string(
-        thresh,
-        config='--psm 7 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    )
-
-    plate = re.findall(r'[A-Z]{2}\d{2}[A-Z]{2}\d{4}', text)
-
-    return plate[0] if plate else "NOT DETECTED"
+    return "NOT DETECTED"
 
 
-# ------------------ DB ------------------
+# ---------------- DB ----------------
 def init_db():
     conn = sqlite3.connect('parking.db')
     cur = conn.cursor()
@@ -97,6 +78,7 @@ def init_db():
 init_db()
 
 
+# 🧠 SMART SLOT LOGIC
 def get_available_slot():
     conn = sqlite3.connect('parking.db')
     cur = conn.cursor()
@@ -112,7 +94,7 @@ def get_available_slot():
     return None
 
 
-# ------------------ ROUTES ------------------
+# ---------------- ROUTES ----------------
 
 @app.route('/')
 def index():
@@ -126,8 +108,6 @@ def register():
     detected_plate = request.args.get('detected_plate')
     image_path = request.args.get('image')
 
-    print("IMAGE PATH:", image_path)
-
     if request.method == 'POST':
 
         name = request.form['name']
@@ -136,10 +116,6 @@ def register():
 
         if image and image.filename != "":
             filename = secure_filename(image.filename)
-
-            if not filename.lower().endswith(('.png', '.jpg', '.jpeg')):
-                return render_template('register.html', error="Only JPG/PNG allowed!")
-
             os.makedirs("static", exist_ok=True)
             path = os.path.join("static", filename)
             image.save(path)
@@ -148,22 +124,33 @@ def register():
 
             if plate == "NOT DETECTED":
                 plate = request.form['plate']
-                if not plate:
-                    return render_template('register.html', error="Enter plate manually if AI fails!")
-
         else:
             plate = request.form['plate']
-            if not plate:
-                return render_template('register.html', error="Plate number is required!")
 
-        slot = get_available_slot()
-        if slot is None:
-            return render_template('register.html', error="Parking Full!")
+        if not plate:
+            return render_template('register.html', error="Plate required!")
 
-        entry_time = datetime.now()
+        # 🔐 BLACKLIST CHECK
+        if plate in BLACKLIST:
+            return render_template('register.html', error="🚫 Blacklisted Vehicle!")
 
         conn = sqlite3.connect('parking.db')
         cur = conn.cursor()
+
+        # 🔐 DUPLICATE DETECTION
+        cur.execute("SELECT * FROM users WHERE plate=? AND status='parked'", (plate,))
+        existing = cur.fetchone()
+
+        if existing:
+            conn.close()
+            return render_template('register.html', error="⚠️ Vehicle already parked!")
+
+        slot = get_available_slot()
+        if slot is None:
+            conn.close()
+            return render_template('register.html', error="Parking Full!")
+
+        entry_time = datetime.now()
 
         try:
             cur.execute("""
@@ -175,18 +162,69 @@ def register():
 
         except sqlite3.IntegrityError:
             conn.close()
-            return render_template('register.html', error="Number plate already exists!")
+            return render_template('register.html', error="Plate already exists!")
 
         conn.close()
         return redirect(url_for('dashboard', plate=plate))
 
-    # 🔥 ONLY ADDED THIS (cache fix)
     return render_template(
         'register.html',
         detected_plate=detected_plate,
         image_path=image_path,
         cache_bust=time.time()
     )
+
+
+# ---------------- RESERVATION SYSTEM ----------------
+@app.route('/reserve', methods=['GET', 'POST'])
+def reserve():
+    if request.method == 'POST':
+        name = request.form['name']
+        plate = request.form['plate']
+
+        slot = get_available_slot()
+
+        return render_template('reserve.html',
+                               message=f"Slot {slot} reserved for {plate}")
+
+    return render_template('reserve.html')
+
+
+# ---------------- PARKING MAP ----------------
+@app.route('/map')
+def parking_map():
+    conn = sqlite3.connect('parking.db')
+    cur = conn.cursor()
+
+    cur.execute("SELECT slot FROM users WHERE status='parked'")
+    occupied = [row[0] for row in cur.fetchall()]
+
+    conn.close()
+
+    return render_template('map.html', occupied=occupied)
+
+
+# ---------------- ANALYTICS ----------------
+@app.route('/analytics')
+def analytics():
+    conn = sqlite3.connect('parking.db')
+    cur = conn.cursor()
+
+    cur.execute("SELECT status FROM users")
+    data = cur.fetchall()
+
+    cur.execute("SELECT SUM(fee) FROM users WHERE fee IS NOT NULL")
+    revenue = cur.fetchone()[0] or 0
+
+    parked = sum(1 for d in data if d[0] == 'parked')
+    exited = sum(1 for d in data if d[0] == 'exited')
+
+    conn.close()
+
+    return render_template('analytics.html',
+                           parked=parked,
+                           exited=exited,
+                           revenue=revenue)
 
 
 # ---------------- CAMERA ----------------
@@ -198,7 +236,6 @@ def camera():
 @app.route('/capture', methods=['POST'])
 def capture():
     data = request.form['image_data']
-
     image_data = data.split(",")[1]
     img_bytes = base64.b64decode(image_data)
 
@@ -209,8 +246,6 @@ def capture():
 
     with open(path, "wb") as f:
         f.write(img_bytes)
-
-    print("Saved image:", path)   # 🔥 debug added
 
     plate = detect_plate(path)
 
@@ -250,7 +285,6 @@ def exit_vehicle():
             vehicle = data[1]
 
             exit_time = datetime.now()
-
             hours = ceil((exit_time - entry_time).seconds / 3600)
             rate = 20 if vehicle == "bike" else 50
             fee = hours * rate
