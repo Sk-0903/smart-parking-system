@@ -67,66 +67,89 @@ import os
 
 def detect_plate(image_path):
     try:
+        print("===== DEBUG START =====")
+
+        # 🔥 DEBUG: env + file
+        print("API KEY:", os.getenv("K84237357888957"))
+        print("IMAGE PATH:", image_path)
+        print("FILE EXISTS:", os.path.exists(image_path))
+
         # 🔥 STEP 1: Read image
         img = cv2.imread(image_path)
 
         if img is None:
-            print("Image not found:", image_path)
+            print("❌ Image not loaded")
             return "NOT DETECTED"
 
-        # 🔥 STEP 2: Resize (improves OCR a lot)
-        img = cv2.resize(img, None, fx=3, fy=3)
+        # 🔥 STEP 2: Resize
+        img = cv2.resize(img, None, fx=4, fy=4)
 
-        # 🔥 STEP 3: Convert to grayscale
+        # 🔥 STEP 3: Grayscale
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        # 🔥 STEP 4: CLAHE (best for low contrast)
-        clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8))
+        # 🔥 STEP 4: Contrast boost
+        gray = cv2.convertScaleAbs(gray, alpha=3.5, beta=90)
+
+        # 🔥 STEP 5: CLAHE
+        clahe = cv2.createCLAHE(clipLimit=4.0, tileGridSize=(8,8))
         gray = clahe.apply(gray)
 
-        # 🔥 STEP 5: Sharpen
+        # 🔥 STEP 6: Sharpen
         kernel = np.array([[0,-1,0],[-1,5,-1],[0,-1,0]])
-        sharp = cv2.filter2D(gray, -1, kernel)
+        gray = cv2.filter2D(gray, -1, kernel)
 
-        # 🔥 STEP 6: Threshold (auto)
+        # 🔥 STEP 7: Threshold
         _, thresh = cv2.threshold(
-            sharp, 0, 255,
+            gray, 0, 255,
             cv2.THRESH_BINARY + cv2.THRESH_OTSU
         )
 
-        # 🔥 STEP 7: Save processed image
+        # 🔥 Save processed image
         processed_path = "processed.jpg"
         cv2.imwrite(processed_path, thresh)
 
-        # 🔥 STEP 8: OCR API call
-        url = "https://api.ocr.space/parse/image"
+        # 🔥 OCR function
+        def ocr_call(path):
+            url = "https://api.ocr.space/parse/image"
 
-        payload = {
-            'apikey': os.getenv("K84237357888957"),  # 🔥 put your key
-            'language': 'eng',
-            'OCREngine': 2,
-            'scale': True,
-            'detectOrientation': True,
-            'isOverlayRequired': False
-        }
+            payload = {
+                'apikey': os.getenv("K84237357888957"),
+                'language': 'eng',
+                'OCREngine': 2,
+                'scale': True,
+                'detectOrientation': True,
+                'isOverlayRequired': False
+            }
 
-        with open(processed_path, 'rb') as f:
-            response = requests.post(url, files={'file': f}, data=payload)
+            with open(path, 'rb') as f:
+                response = requests.post(url, files={'file': f}, data=payload)
 
-        try:
-            result = response.json()
-        except:
-            print("Invalid response:", response.text)
+            try:
+                result = response.json()
+            except:
+                print("❌ Invalid OCR response:", response.text)
+                return ""
+
+            print(f"OCR RESULT ({path}):", result)
+
+            if "ParsedResults" not in result:
+                return ""
+
+            return result['ParsedResults'][0]['ParsedText']
+
+        # 🔥 STEP 8: Try BOTH images
+        text1 = ocr_call(image_path)       # original
+        text2 = ocr_call(processed_path)   # processed
+
+        print("RAW ORIGINAL:", text1)
+        print("RAW PROCESSED:", text2)
+
+        # 🔥 choose better
+        text = text1 if len(text1) > len(text2) else text2
+
+        if not text:
+            print("❌ No text detected")
             return "NOT DETECTED"
-
-        print("OCR RAW:", result)
-
-        # 🔥 Safety check
-        if "ParsedResults" not in result:
-            return "NOT DETECTED"
-
-        text = result['ParsedResults'][0]['ParsedText']
-        print("RAW TEXT:", text)
 
         # 🔥 STEP 9: Clean text
         text = text.upper()
@@ -138,20 +161,25 @@ def detect_plate(image_path):
         text = text.replace("Z", "2")
         text = text.replace("S", "5")
 
-        # 🔥 STEP 11: Indian plate pattern
+        print("CLEANED TEXT:", text)
+
+        # 🔥 STEP 11: Pattern match
         match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}', text)
         if match:
+            print("✅ MATCH FOUND:", match[0])
             return match[0]
 
-        # 🔥 fallback (loose match)
+        # 🔥 fallback
         match = re.findall(r'[A-Z0-9]{6,12}', text)
         if match:
+            print("⚠️ FALLBACK MATCH:", match[0])
             return match[0]
 
+        print("❌ FINAL: NOT DETECTED")
         return "NOT DETECTED"
 
     except Exception as e:
-        print("OCR ERROR:", e)
+        print("🔥 OCR ERROR:", e)
         return "NOT DETECTED"
 # ---------------- DB ----------------
 def init_db():
