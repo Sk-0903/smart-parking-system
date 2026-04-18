@@ -725,7 +725,6 @@ def upload():
         if not file:
             return jsonify({"plate": "NO_FILE"})
 
-        # 🔥 Save file
         os.makedirs("static", exist_ok=True)
 
         filename = f"upload_{int(time.time())}.jpg"
@@ -733,17 +732,16 @@ def upload():
 
         file.save(path)
 
-        print("📸 Uploaded image saved:", path)
+        print("📸 Saved:", path)
 
-        # 🔥 OCR
         plate = detect_plate(path)
 
-        print("🔍 FINAL PLATE:", plate)
+        print("🔍 Plate:", plate)
 
         return jsonify({"plate": plate})
 
     except Exception as e:
-        print("🔥 UPLOAD ERROR:", e)
+        print("🔥 ERROR:", e)
         return jsonify({"plate": "ERROR"})
 
 import re
