@@ -69,40 +69,43 @@ def detect_plate(image_path):
     try:
         print("===== DEBUG START =====")
 
-        # 🔥 DEBUG: env + file
+        # 🔥 DEBUG
         print("API KEY:", os.getenv("K84237357888957"))
         print("IMAGE PATH:", image_path)
         print("FILE EXISTS:", os.path.exists(image_path))
 
-        # 🔥 STEP 1: Read image
+        # 🔥 Load image
         img = cv2.imread(image_path)
 
         if img is None:
             print("❌ Image not loaded")
             return "NOT DETECTED"
 
-        # 🔥 STEP 2: Resize
+        # 🔥 Resize (important)
         img = cv2.resize(img, None, fx=4, fy=4)
 
-        # 🔥 STEP 3: Grayscale
+        # 🔥 Grayscale
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        # 🔥 STEP 4: Contrast boost
-        gray = cv2.convertScaleAbs(gray, alpha=3.5, beta=90)
+        # 🔥 Strong contrast boost (for pencil text)
+        gray = cv2.convertScaleAbs(gray, alpha=4.5, beta=120)
 
-        # 🔥 STEP 5: CLAHE
+        # 🔥 CLAHE
         clahe = cv2.createCLAHE(clipLimit=4.0, tileGridSize=(8,8))
         gray = clahe.apply(gray)
 
-        # 🔥 STEP 6: Sharpen
+        # 🔥 Sharpen
         kernel = np.array([[0,-1,0],[-1,5,-1],[0,-1,0]])
         gray = cv2.filter2D(gray, -1, kernel)
 
-        # 🔥 STEP 7: Threshold
+        # 🔥 Threshold
         _, thresh = cv2.threshold(
             gray, 0, 255,
             cv2.THRESH_BINARY + cv2.THRESH_OTSU
         )
+
+        # 🔥 Noise removal
+        thresh = cv2.medianBlur(thresh, 3)
 
         # 🔥 Save processed image
         processed_path = "processed.jpg"
@@ -115,7 +118,7 @@ def detect_plate(image_path):
             payload = {
                 'apikey': os.getenv("K84237357888957"),
                 'language': 'eng',
-                'OCREngine': 2,
+                'OCREngine': 3,   # 🔥 BEST engine
                 'scale': True,
                 'detectOrientation': True,
                 'isOverlayRequired': False
@@ -137,25 +140,25 @@ def detect_plate(image_path):
 
             return result['ParsedResults'][0]['ParsedText']
 
-        # 🔥 STEP 8: Try BOTH images
-        text1 = ocr_call(image_path)       # original
-        text2 = ocr_call(processed_path)   # processed
+        # 🔥 Try BOTH images
+        text_raw = ocr_call(image_path)        # original
+        text_processed = ocr_call(processed_path)  # processed
 
-        print("RAW ORIGINAL:", text1)
-        print("RAW PROCESSED:", text2)
+        print("RAW ORIGINAL:", text_raw)
+        print("RAW PROCESSED:", text_processed)
 
-        # 🔥 choose better
-        text = text1 if len(text1) > len(text2) else text2
+        # 🔥 Choose best result
+        text = text_raw if len(text_raw) > len(text_processed) else text_processed
 
         if not text:
             print("❌ No text detected")
             return "NOT DETECTED"
 
-        # 🔥 STEP 9: Clean text
+        # 🔥 Clean text
         text = text.upper()
         text = re.sub(r'[^A-Z0-9]', '', text)
 
-        # 🔥 STEP 10: Smart corrections
+        # 🔥 Smart corrections
         text = text.replace("O", "0")
         text = text.replace("I", "1")
         text = text.replace("Z", "2")
@@ -163,13 +166,13 @@ def detect_plate(image_path):
 
         print("CLEANED TEXT:", text)
 
-        # 🔥 STEP 11: Pattern match
+        # 🔥 Indian plate match
         match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}', text)
         if match:
             print("✅ MATCH FOUND:", match[0])
             return match[0]
 
-        # 🔥 fallback
+        # 🔥 fallback match
         match = re.findall(r'[A-Z0-9]{6,12}', text)
         if match:
             print("⚠️ FALLBACK MATCH:", match[0])
