@@ -67,15 +67,9 @@ import os
 
 def detect_plate(image_path):
     try:
-        print("===== DEBUG START =====")
-
-        # 🔍 Debug info
-        print("API KEY:", os.getenv("K84237357888957"))
-        print("IMAGE PATH:", image_path)
-        print("FILE EXISTS:", os.path.exists(image_path))
+        print("===== OCR DEBUG START =====")
 
         img = cv2.imread(image_path)
-
         if img is None:
             print("❌ Image not loaded")
             return "NOT DETECTED"
@@ -86,7 +80,7 @@ def detect_plate(image_path):
         # 🔥 Grayscale
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        # 🔥 Strong contrast boost
+        # 🔥 Strong contrast
         gray = cv2.convertScaleAbs(gray, alpha=4.5, beta=120)
 
         # 🔥 CLAHE
@@ -98,98 +92,83 @@ def detect_plate(image_path):
         gray = cv2.filter2D(gray, -1, kernel)
 
         # 🔥 Threshold
-        _, thresh = cv2.threshold(
-            gray, 0, 255,
-            cv2.THRESH_BINARY + cv2.THRESH_OTSU
-        )
+        _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-        # 🔥 Noise removal
-        thresh = cv2.medianBlur(thresh, 3)
-
-        # 🔥 Save processed images
+        # 🔥 Save processed
         processed_path = "processed.jpg"
         cv2.imwrite(processed_path, thresh)
 
-        # 🔥 Inverted version (important for faint text)
-        thresh_inv = cv2.bitwise_not(thresh)
-        inv_path = "processed_inv.jpg"
-        cv2.imwrite(inv_path, thresh_inv)
-
-        # 🔥 OCR function
+        # 🔥 OCR CALL (SAFE)
         def ocr_call(path):
-            url = "https://api.ocr.space/parse/image"
-
-            payload = {
-                'apikey': 'K84237357888957',
-                'language': 'eng',
-                'OCREngine': 3,  # 🔥 best engine
-                'scale': True,
-                'detectOrientation': True,
-                'isOverlayRequired': False
-            }
-
-            with open(path, 'rb') as f:
-                response = requests.post(url, files={'file': f}, data=payload)
-
             try:
+                api_key = os.getenv("K84237357888957")
+                print("API KEY:", api_key)
+
+                if not api_key:
+                    print("❌ API KEY MISSING")
+                    return ""
+
+                url = "https://api.ocr.space/parse/image"
+
+                with open(path, 'rb') as f:
+                    response = requests.post(
+                        url,
+                        files={'file': f},
+                        data={
+                            'apikey': 'K84237357888957',
+                            'language': 'eng',
+                            'OCREngine': 3,
+                            'scale': True
+                        }
+                    )
+
                 result = response.json()
-            except:
-                print("❌ Invalid OCR response:", response.text)
+                print("OCR RESULT:", result)
+
+                if "ParsedResults" not in result:
+                    return ""
+
+                return result['ParsedResults'][0]['ParsedText']
+
+            except Exception as e:
+                print("❌ OCR ERROR:", e)
                 return ""
 
-            print(f"OCR RESULT ({path}):", result)
-
-            if "ParsedResults" not in result:
-                return ""
-
-            return result['ParsedResults'][0]['ParsedText']
-
-        # 🔥 Try all versions
+        # 🔥 Try raw + processed
         text_raw = ocr_call(image_path)
         text_processed = ocr_call(processed_path)
-        text_inv = ocr_call(inv_path)
 
-        print("RAW:", text_raw)
-        print("PROCESSED:", text_processed)
-        print("INVERTED:", text_inv)
-
-        # 🔥 Pick best result
-        texts = [text_raw, text_processed, text_inv]
-        text = max(texts, key=lambda t: len(t) if t else 0)
+        text = text_raw if len(text_raw) > len(text_processed) else text_processed
 
         if not text:
             print("❌ No text detected")
             return "NOT DETECTED"
 
-        # 🔥 Clean text
+        # 🔥 CLEAN TEXT
         text = text.upper()
         text = re.sub(r'[^A-Z0-9]', '', text)
 
-        # 🔥 Smart corrections
-        text = text.replace("O", "0")
-        text = text.replace("I", "1")
-        text = text.replace("Z", "2")
-        text = text.replace("S", "5")
-
         print("CLEANED TEXT:", text)
 
-        # 🔥 Indian plate format
+        # 🔥 FILTER GARBAGE OCR
+        if any(word in text for word in ["WATERMARK", "PAGE", "OFFICIAL", "COPY"]):
+            print("❌ Garbage OCR detected")
+            return "NOT DETECTED"
+
+        # 🔥 STRICT INDIAN PLATE MATCH
         match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}', text)
-        if match:
-            print("✅ MATCH FOUND:", match[0])
-            return match[0]
 
-        # 🔥 fallback
-        match = re.findall(r'[A-Z0-9]{6,12}', text)
-        if match:
-            print("⚠️ FALLBACK MATCH:", match[0])
-            return match[0]
+        if not match:
+            print("❌ Not valid plate pattern")
+            return "NOT DETECTED"
 
-        print("❌ FINAL: NOT DETECTED")
-        return "NOT DETECTED"
+        plate = match[0]
+        print("✅ FINAL PLATE:", plate)
+
+        return plate
 
     except Exception as e:
-        print("🔥 OCR ERROR:", e)
+        print("🔥 FINAL OCR ERROR:", e)
         return "NOT DETECTED"
 # ---------------- DB ----------------
 def init_db():
@@ -514,11 +493,9 @@ def camera():
 @app.route('/capture', methods=['POST'])
 def capture():
     try:
-        # 🔥 SAFE input read
         data = request.form.get('image_data')
 
         if not data:
-            print("❌ No image_data received")
             return redirect(url_for('register', error="No image received"))
 
         image_data = data.split(",")[1]
@@ -534,16 +511,14 @@ def capture():
 
         print("📸 Image saved:", path)
 
-        # 🤖 Detect plate
         plate = detect_plate(path)
 
         print("🔍 Detected plate:", plate)
 
-        # 🔥 HANDLE ALL BAD CASES
         if not plate or plate == "NOT DETECTED":
             return redirect(url_for('register', detected_plate="NOT DETECTED", image=filename))
 
-        # 🔐 Validation (SAFE)
+        # 🔐 Safe validation
         try:
             if not valid_plate(plate):
                 return redirect(url_for('register', error="Invalid plate"))
@@ -557,23 +532,6 @@ def capture():
         except Exception as e:
             print("⚠️ Validation error:", e)
             return redirect(url_for('register', error="Validation error"))
-
-        # 🗄️ DB check
-        conn = sqlite3.connect('parking.db')
-        cur = conn.cursor()
-
-        cur.execute("SELECT * FROM users WHERE plate=? AND status='parked'", (plate,))
-        if cur.fetchone():
-            conn.close()
-            return redirect(url_for('register', error="Vehicle already parked"))
-
-        # 🅿️ Slot
-        slot = get_available_slot()
-        if slot is None:
-            conn.close()
-            return redirect(url_for('register', error="Parking Full"))
-
-        conn.close()
 
         return redirect(url_for('register', detected_plate=plate, image=filename))
 
