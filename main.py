@@ -101,7 +101,7 @@ def detect_plate(image_path):
         # 🔥 OCR CALL (SAFE)
         def ocr_call(path):
             try:
-                api_key = os.getenv("K84237357888957")
+                api_key = os.getenv("OCR_API_KEY")
                 print("API KEY:", api_key)
 
                 if not api_key:
