@@ -69,25 +69,24 @@ def detect_plate(image_path):
     try:
         print("===== DEBUG START =====")
 
-        # 🔥 DEBUG
+        # 🔍 Debug info
         print("API KEY:", os.getenv("K84237357888957"))
         print("IMAGE PATH:", image_path)
         print("FILE EXISTS:", os.path.exists(image_path))
 
-        # 🔥 Load image
         img = cv2.imread(image_path)
 
         if img is None:
             print("❌ Image not loaded")
             return "NOT DETECTED"
 
-        # 🔥 Resize (important)
+        # 🔥 Resize
         img = cv2.resize(img, None, fx=4, fy=4)
 
         # 🔥 Grayscale
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        # 🔥 Strong contrast boost (for pencil text)
+        # 🔥 Strong contrast boost
         gray = cv2.convertScaleAbs(gray, alpha=4.5, beta=120)
 
         # 🔥 CLAHE
@@ -107,9 +106,14 @@ def detect_plate(image_path):
         # 🔥 Noise removal
         thresh = cv2.medianBlur(thresh, 3)
 
-        # 🔥 Save processed image
+        # 🔥 Save processed images
         processed_path = "processed.jpg"
         cv2.imwrite(processed_path, thresh)
+
+        # 🔥 Inverted version (important for faint text)
+        thresh_inv = cv2.bitwise_not(thresh)
+        inv_path = "processed_inv.jpg"
+        cv2.imwrite(inv_path, thresh_inv)
 
         # 🔥 OCR function
         def ocr_call(path):
@@ -118,7 +122,7 @@ def detect_plate(image_path):
             payload = {
                 'apikey': os.getenv("K84237357888957"),
                 'language': 'eng',
-                'OCREngine': 3,   # 🔥 BEST engine
+                'OCREngine': 3,  # 🔥 best engine
                 'scale': True,
                 'detectOrientation': True,
                 'isOverlayRequired': False
@@ -140,15 +144,18 @@ def detect_plate(image_path):
 
             return result['ParsedResults'][0]['ParsedText']
 
-        # 🔥 Try BOTH images
-        text_raw = ocr_call(image_path)        # original
-        text_processed = ocr_call(processed_path)  # processed
+        # 🔥 Try all versions
+        text_raw = ocr_call(image_path)
+        text_processed = ocr_call(processed_path)
+        text_inv = ocr_call(inv_path)
 
-        print("RAW ORIGINAL:", text_raw)
-        print("RAW PROCESSED:", text_processed)
+        print("RAW:", text_raw)
+        print("PROCESSED:", text_processed)
+        print("INVERTED:", text_inv)
 
-        # 🔥 Choose best result
-        text = text_raw if len(text_raw) > len(text_processed) else text_processed
+        # 🔥 Pick best result
+        texts = [text_raw, text_processed, text_inv]
+        text = max(texts, key=lambda t: len(t) if t else 0)
 
         if not text:
             print("❌ No text detected")
@@ -166,13 +173,13 @@ def detect_plate(image_path):
 
         print("CLEANED TEXT:", text)
 
-        # 🔥 Indian plate match
+        # 🔥 Indian plate format
         match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}', text)
         if match:
             print("✅ MATCH FOUND:", match[0])
             return match[0]
 
-        # 🔥 fallback match
+        # 🔥 fallback
         match = re.findall(r'[A-Z0-9]{6,12}', text)
         if match:
             print("⚠️ FALLBACK MATCH:", match[0])
