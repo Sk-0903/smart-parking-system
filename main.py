@@ -60,7 +60,6 @@ BLACKLIST = ["KA01AB1234", "KA05XY9999"]
 
 
 import cv2
-import numpy as np
 import requests
 import re
 import os
@@ -70,78 +69,55 @@ def detect_plate(image_path):
         print("===== OCR DEBUG START =====")
 
         img = cv2.imread(image_path)
+
         if img is None:
             print("❌ Image not loaded")
             return "NOT DETECTED"
 
-        # 🔥 Resize
-        img = cv2.resize(img, None, fx=4, fy=4)
+        # 🔥 SMALL RESIZE (VERY IMPORTANT)
+        img = cv2.resize(img, (600, 300))
 
-        # 🔥 Grayscale
+        # 🔥 SIMPLE PROCESSING (LIGHT)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
 
-        # 🔥 Strong contrast
-        gray = cv2.convertScaleAbs(gray, alpha=4.5, beta=120)
-
-        # 🔥 CLAHE
-        clahe = cv2.createCLAHE(clipLimit=4.0, tileGridSize=(8,8))
-        gray = clahe.apply(gray)
-
-        # 🔥 Sharpen
-        kernel = np.array([[0,-1,0],[-1,5,-1],[0,-1,0]])
-        gray = cv2.filter2D(gray, -1, kernel)
-
-        # 🔥 Threshold
-        _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-        # 🔥 Save processed
         processed_path = "processed.jpg"
         cv2.imwrite(processed_path, thresh)
 
-        # 🔥 OCR CALL (SAFE)
-        def ocr_call(path):
-            try:
-                api_key = os.getenv("OCR_API_KEY")
-                print("API KEY:", api_key)
+        # 🔥 OCR CALL (ONLY ONCE)
+        api_key = os.getenv("OCR_API_KEY")
 
-                if not api_key:
-                    print("❌ API KEY MISSING")
-                    return ""
+        if not api_key:
+            print("❌ API KEY MISSING")
+            return "NOT DETECTED"
 
-                url = "https://api.ocr.space/parse/image"
+        url = "https://api.ocr.space/parse/image"
 
-                with open(path, 'rb') as f:
-                    response = requests.post(
-                        url,
-                        files={'file': f},
-                        data={
-                            'apikey': 'K84237357888957',
-                            'language': 'eng',
-                            'OCREngine': 3,
-                            'scale': True
-                        }
-                    )
+        with open(processed_path, 'rb') as f:
+            response = requests.post(
+                url,
+                files={'file': f},
+                data={
+                    'apikey': api_key,
+                    'language': 'eng',
+                    'OCREngine': 2,   # 👈 LIGHTER ENGINE
+                    'scale': True
+                }
+            )
 
-                result = response.json()
-                print("OCR RESULT:", result)
+        result = response.json()
+        print("OCR RESULT:", result)
 
-                if "ParsedResults" not in result:
-                    return ""
+        # 🔥 DELETE TEMP FILE (VERY IMPORTANT)
+        if os.path.exists(processed_path):
+            os.remove(processed_path)
 
-                return result['ParsedResults'][0]['ParsedText']
+        if "ParsedResults" not in result:
+            return "NOT DETECTED"
 
-            except Exception as e:
-                print("❌ OCR ERROR:", e)
-                return ""
-
-        # 🔥 Try raw + processed
-        text_raw = ocr_call(image_path)
-        text_processed = ocr_call(processed_path)
-
-        text = text_raw if len(text_raw) > len(text_processed) else text_processed
+        text = result['ParsedResults'][0]['ParsedText']
 
         if not text:
-            print("❌ No text detected")
             return "NOT DETECTED"
 
         # 🔥 CLEAN TEXT
@@ -150,16 +126,14 @@ def detect_plate(image_path):
 
         print("CLEANED TEXT:", text)
 
-        # 🔥 FILTER GARBAGE OCR
+        # 🔥 FILTER GARBAGE
         if any(word in text for word in ["WATERMARK", "PAGE", "OFFICIAL", "COPY"]):
-            print("❌ Garbage OCR detected")
             return "NOT DETECTED"
 
-        # 🔥 STRICT INDIAN PLATE MATCH
+        # 🔥 STRICT MATCH
         match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}', text)
 
         if not match:
-            print("❌ Not valid plate pattern")
             return "NOT DETECTED"
 
         plate = match[0]
@@ -168,7 +142,7 @@ def detect_plate(image_path):
         return plate
 
     except Exception as e:
-        print("🔥 FINAL OCR ERROR:", e)
+        print("🔥 OCR ERROR:", e)
         return "NOT DETECTED"
 # ---------------- DB ----------------
 def init_db():
