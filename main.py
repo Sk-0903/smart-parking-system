@@ -736,14 +736,16 @@ def upload():
 
         plate = detect_plate(path)
 
-        print("🔍 Plate:", plate)
+        # 🔥 ADD THIS LINE (VERY IMPORTANT)
+        os.remove(path)
+
+        print("🗑️ Deleted:", path)
 
         return jsonify({"plate": plate})
 
     except Exception as e:
         print("🔥 ERROR:", e)
         return jsonify({"plate": "ERROR"})
-
 import re
 
 def clean_plate(text):
