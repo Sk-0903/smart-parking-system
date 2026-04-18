@@ -1,0 +1,2080 @@
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 104-946-275
+INFO:werkzeug: * Detected change in 'C:\\Users\\Keshav.S\\OneDrive\\Desktop\\Workshop_project\\smart_parking\\main.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 104-946-275
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:36] "GET /attack-demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:40] "GET /attack-demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:42] "GET /attack-demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:44] "GET /attack-demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:47] "GET /attack-demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:51] "[32mGET /admin HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:51] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:54] "GET /attack-demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:14:57] "GET /attack-demo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:15:04] "GET /attack-demo HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 104-946-275
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:35:09] "GET /attack-demo HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 104-946-275
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:41:54] "[33mGET /attack-demo HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:41:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:42:13] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 19:42:17] "GET /attack123 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.9:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 104-946-275
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.9:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.9:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 22:32:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 22:32:23] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 22:32:30] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Apr/2026 22:32:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:192.168.1.7 - - [16/Apr/2026 22:39:10] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:192.168.1.7 - - [16/Apr/2026 22:39:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:22:45] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776430330.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:22:45] "[33mGET /static/captured_1776430330.png?v=1776430365.2843874 HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:22:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:23:15] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:23:15] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776430395.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:23:15] "GET /static/captured_1776430395.png?v=1776430395.8388243 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:25:50] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776430395.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:25:50] "GET /static/captured_1776430395.png?v=1776430550.821663 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:25:51] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:25:58] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:25:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:26:00] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:26:26] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:26:26] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776430586.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:26:26] "GET /static/captured_1776430586.png?v=1776430586.6502104 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:26:32] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776430586.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:26:32] "GET /static/captured_1776430586.png?v=1776430592.4023461 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:26:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:29:11] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776430586.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:29:11] "GET /static/captured_1776430586.png?v=1776430751.2376583 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:29:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:29:19] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:29:41] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:29:41] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776430780.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:29:41] "GET /static/captured_1776430780.png?v=1776430781.303676 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:32:43] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:32:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:33:04] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:33:04] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776430983.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:33:04] "GET /static/captured_1776430983.png?v=1776430984.0331774 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:33:38] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:33:38] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776431017.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:33:38] "GET /static/captured_1776431017.png?v=1776431018.157598 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:35:53] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:35:53] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776431153.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:35:53] "GET /static/captured_1776431153.png?v=1776431153.4337409 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:38:08] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776431153.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:38:08] "GET /static/captured_1776431153.png?v=1776431288.3662994 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:38:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:38:12] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:38:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:38:14] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:39:29] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:39:29] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776431369.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:39:29] "GET /static/captured_1776431369.png?v=1776431369.427571 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:40:34] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:40:34] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776431434.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:40:34] "GET /static/captured_1776431434.png?v=1776431434.660238 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:42:35] "[32mGET /admin HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:42:35] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:42:45] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:42:45] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:42:55] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:43:04] "[32mGET /reset HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:43:04] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:43:47] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:45:14] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:45:14] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776431714.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:45:14] "GET /static/captured_1776431714.png?v=1776431714.7832806 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Neither CUDA nor MPS are available - defaulting to CPU. Note: This module is much faster with a GPU.
+WARNING:easyocr.easyocr:Downloading detection model, please wait. This may take several minutes depending upon your network connection.
+INFO:easyocr.easyocr:Download complete
+WARNING:easyocr.easyocr:Downloading recognition model, please wait. This may take several minutes depending upon your network connection.
+INFO:easyocr.easyocr:Download complete.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:51:31] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:51:34] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:51:34] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:51:37] "GET /camera HTTP/1.1" 200 -
+ERROR:main:Exception on /capture [POST]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 303, in capture
+    plate = detect_plate(path)
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 72, in detect_plate
+    result = reader.readtext(image_path)
+  File "C:\Users\Keshav.S\AppData\Roaming\Python\Python314\site-packages\easyocr\easyocr.py", line 468, in readtext
+    result = self.recognize(img_cv_grey, horizontal_list, free_list,\
+                            decoder, beamWidth, batch_size,\
+                            workers, allowlist, blocklist, detail, rotation_info,\
+                            paragraph, contrast_ths, adjust_contrast,\
+                            filter_ths, y_ths, x_ths, False, output_format)
+  File "C:\Users\Keshav.S\AppData\Roaming\Python\Python314\site-packages\easyocr\easyocr.py", line 383, in recognize
+    image_list, max_width = get_image_list(h_list, f_list, img_cv_grey, model_height = imgH)
+                            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\AppData\Roaming\Python\Python314\site-packages\easyocr\utils.py", line 582, in get_image_list
+    maximum_y,maximum_x = img.shape
+    ^^^^^^^^^^^^^^^^^^^
+ValueError: too many values to unpack (expected 2, got 3)
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:52:32] "[35m[1mPOST /capture HTTP/1.1[0m" 500 -
+ERROR:main:Exception on /capture [POST]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 303, in capture
+    plate = detect_plate(path)
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 72, in detect_plate
+    result = reader.readtext(image_path)
+  File "C:\Users\Keshav.S\AppData\Roaming\Python\Python314\site-packages\easyocr\easyocr.py", line 468, in readtext
+    result = self.recognize(img_cv_grey, horizontal_list, free_list,\
+                            decoder, beamWidth, batch_size,\
+                            workers, allowlist, blocklist, detail, rotation_info,\
+                            paragraph, contrast_ths, adjust_contrast,\
+                            filter_ths, y_ths, x_ths, False, output_format)
+  File "C:\Users\Keshav.S\AppData\Roaming\Python\Python314\site-packages\easyocr\easyocr.py", line 383, in recognize
+    image_list, max_width = get_image_list(h_list, f_list, img_cv_grey, model_height = imgH)
+                            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\AppData\Roaming\Python\Python314\site-packages\easyocr\utils.py", line 582, in get_image_list
+    maximum_y,maximum_x = img.shape
+    ^^^^^^^^^^^^^^^^^^^
+ValueError: too many values to unpack (expected 2, got 3)
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:52:50] "[35m[1mPOST /capture HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:52:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:56:04] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:56:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:56:06] "GET /camera HTTP/1.1" 200 -
+ERROR:main:Exception on /capture [POST]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 303, in capture
+    plate = detect_plate(path)
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 72, in detect_plate
+    result = reader.readtext(image_path)
+  File "C:\Users\Keshav.S\AppData\Roaming\Python\Python314\site-packages\easyocr\easyocr.py", line 468, in readtext
+    result = self.recognize(img_cv_grey, horizontal_list, free_list,\
+                            decoder, beamWidth, batch_size,\
+                            workers, allowlist, blocklist, detail, rotation_info,\
+                            paragraph, contrast_ths, adjust_contrast,\
+                            filter_ths, y_ths, x_ths, False, output_format)
+  File "C:\Users\Keshav.S\AppData\Roaming\Python\Python314\site-packages\easyocr\easyocr.py", line 383, in recognize
+    image_list, max_width = get_image_list(h_list, f_list, img_cv_grey, model_height = imgH)
+                            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\AppData\Roaming\Python\Python314\site-packages\easyocr\utils.py", line 582, in get_image_list
+    maximum_y,maximum_x = img.shape
+    ^^^^^^^^^^^^^^^^^^^
+ValueError: too many values to unpack (expected 2, got 3)
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:56:52] "[35m[1mPOST /capture HTTP/1.1[0m" 500 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:59:03] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:59:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:59:05] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:59:38] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:59:38] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776432565.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 18:59:38] "GET /static/captured_1776432565.png?v=1776432578.504912 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:03:28] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:03:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:03:31] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:03:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:03:34] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:04:21] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:04:21] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776432847.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:04:21] "GET /static/captured_1776432847.png?v=1776432861.1892745 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:07:31] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:07:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:07:34] "GET /attack123 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:07:37] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:08:10] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:08:10] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776433076.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:08:10] "GET /static/captured_1776433076.png?v=1776433090.6813707 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:12:41] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776433076.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:12:41] "GET /static/captured_1776433076.png?v=1776433361.826547 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:12:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:13:06] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:13:06] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776433380.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:13:06] "GET /static/captured_1776433380.png?v=1776433386.6284168 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:14:47] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:14:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:15:01] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:15:01] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776433501.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:15:01] "GET /static/captured_1776433501.png?v=1776433501.2317574 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:20:07] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776433501.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:20:07] "GET /static/captured_1776433501.png?v=1776433807.3134835 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:20:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:21:02] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:21:02] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776433826.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:21:02] "GET /static/captured_1776433826.png?v=1776433862.7850103 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:26:20] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776433826.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:26:20] "GET /static/captured_1776433826.png?v=1776434180.849984 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:26:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:28:13] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:28:13] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776434293.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:28:13] "GET /static/captured_1776434293.png?v=1776434293.889495 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:30:46] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:30:46] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776434446.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:30:46] "GET /static/captured_1776434446.png?v=1776434446.7488658 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:34:14] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776434446.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:34:14] "GET /static/captured_1776434446.png?v=1776434654.0767283 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:34:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:36:29] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:36:29] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776434724.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:36:29] "GET /static/captured_1776434724.png?v=1776434789.4274335 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:42:27] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776434724.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:42:27] "GET /static/captured_1776434724.png?v=1776435147.619047 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:42:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:42:33] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:42:34] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:42:36] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:42:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:42:39] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:42:45] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:44:12] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:44:12] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776435186.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:44:12] "GET /static/captured_1776435186.png?v=1776435252.3461285 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:46:09] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:46:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:root:2026-04-17 19:46:49.217855 - RJ14CVO002 auto-entered
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:46:49] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:46:49] "GET /dashboard/RJ14CVO002 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:46:52] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:46:59] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:46:59] "GET /map-data HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:47:02] "GET /map-data HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:47:03] "[32mGET /admin HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:47:03] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:47:09] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:47:09] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:47:19] "GET /analytics HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:50:41] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:50:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:50:48] "[32mGET /reset HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:50:48] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:50:50] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:50:54] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:51:36] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:51:36] "GET /register?detected_plate=JILCVO0OZ&image=captured_1776435675.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:51:36] "GET /static/captured_1776435675.png?v=1776435696.3271277 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:51:53] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:52:35] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:52:35] "GET /register?detected_plate=ITCVC&image=captured_1776435735.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:52:35] "GET /static/captured_1776435735.png?v=1776435755.038118 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:53:01] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:53:03] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:53:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:53:50] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:53:50] "GET /register?detected_plate=RJ14CV00&image=captured_1776435810.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:53:51] "GET /static/captured_1776435810.png?v=1776435830.997493 HTTP/1.1" 200 -
+INFO:root:2026-04-17 19:54:04.261429 - Attempt to park: RJ14CV00
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:54:04] "[32mPOST /register?detected_plate=RJ14CV00&image=captured_1776435810.png HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:54:04] "GET /dashboard/RJ14CV00 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:54:07] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:54:10] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:55:33] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:55:38] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:10] "GET /map-data HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:13] "GET /map-data HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:16] "GET /map-data HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:19] "GET /map-data HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:22] "GET /exit HTTP/1.1" 200 -
+INFO:root:2026-04-17 19:56:28.963031 - RJ14CV00 exited system
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:28] "POST /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:32] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:38] "GET /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:41] "POST /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:45] "POST /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:56:49] "GET /exit HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:57:49] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:57:57] "POST /register HTTP/1.1" 200 -
+INFO:root:2026-04-17 19:58:04.794954 - Attempt to park: RJ14CV00
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:04] "POST /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:08] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:12] "[32mGET /reset HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:12] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:14] "GET /register HTTP/1.1" 200 -
+INFO:root:2026-04-17 19:58:22.198722 - Attempt to park: RJ14CV00
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:22] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:22] "GET /dashboard/RJ14CV00 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:25] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:28] "GET /exit HTTP/1.1" 200 -
+INFO:root:2026-04-17 19:58:31.756677 - RJ14CV00 exited system
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:31] "POST /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 19:58:41] "GET / HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:02] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:06] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:06] "GET /map-data HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:12] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:16] "[32mGET /admin HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:16] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:23] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:23] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:35] "[32mGET /reset HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:35] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:37] "GET /register HTTP/1.1" 200 -
+INFO:root:2026-04-17 20:08:43.771528 - Attempt to park: RJ14CV00
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:43] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:43] "GET /dashboard/RJ14CV00 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:48] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:52] "GET /map-data HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:08:57] "GET /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:09:00] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:09:12] "GET /analytics HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:09] "[32mGET /reset HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:09] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:11] "GET /register HTTP/1.1" 200 -
+INFO:root:2026-04-17 20:18:16.691141 - Attempt to park: RJ14CV00
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:16] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:16] "GET /dashboard/RJ14CV00 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:31] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:37] "GET /exit HTTP/1.1" 200 -
+INFO:root:2026-04-17 20:18:41.207912 - RJ14CV00 exited system
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:41] "POST /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:18:56] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:19:19] "[32mGET /reset HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:19:19] "GET / HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:19] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:26] "GET /register HTTP/1.1" 200 -
+INFO:root:2026-04-17 20:22:31.252261 - Attempt to park: RJ14CV00
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:31] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:31] "GET /dashboard/RJ14CV00 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:46] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:57] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:22:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:06] "[32mGET /admin HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:06] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:11] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:12] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:23] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:23:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:08] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:14] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:24:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:08] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:14] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:25:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:08] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:14] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:26:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:27:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:27:08] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:27:14] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:27:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:27:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:27:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:27:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:27:44] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:27] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:33] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:48] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:53] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:29:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:27] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:39] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:30:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:31:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:21] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:40] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:53] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:32:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:34:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:34:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:35:12] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:35:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:root:2026-04-17 20:35:23.185574 - RJ14CV00 exited system
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:35:23] "POST /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 20:35:38] "GET / HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:39:53] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:39:55] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:39:57] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:40:02] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:40:12] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:40:22] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:40:32] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:40:42] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:40:52] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:41:03] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:41:05] "[32mGET /reset HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:41:05] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:42:58] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:43:01] "GET /register HTTP/1.1" 200 -
+INFO:root:2026-04-17 21:43:05.660841 - Attempt to park: RJ14CV00
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:43:05] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:43:05] "GET /dashboard/RJ14CV00 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:43:20] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:43:22] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:43:30] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:47:02] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:47:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:47:05] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:47:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:47:20] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:08] "GET /attack123 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:15] "GET /simulate-attack/sql HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:16] "GET /simulate-attack/invalid HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:26] "GET /simulate-attack/spam HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:36] "GET /simulate-attack/sql HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:36] "GET /simulate-attack/invalid HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:37] "GET /simulate-attack/spam HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:47] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:48:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:23] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:29] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:35] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:53] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:49:59] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:05] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:11] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:17] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:23] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:35] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:41] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:47] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:53] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:50:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:05] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:11] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:17] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:35] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:45] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:48] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 21:51:55] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:01:24] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:01:25] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:01:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:01:36] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:01:36] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:01:39] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:01:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:01:51] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:01:57] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:02:00] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:02:04] "GET /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:02:06] "[32mGET /admin HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:02:06] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:02:12] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:02:12] "GET /admin HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:03] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:06] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:11] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:18] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:28] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:42] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:04:54] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:05:05] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:05:16] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:05:27] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:05:38] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:05:49] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:06:00] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:06:11] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:06:21] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:06:32] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:06:44] "GET /analytics HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:07] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:10] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:18] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:23] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:33] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:07:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:08:02] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:08:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:08:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:08:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:08:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:08:27] "GET /analytics HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:08:56] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:08:57] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:09:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:09:08] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:09:21] "GET /map HTTP/1.1" 200 -
+INFO:root:2026-04-17 22:09:26.350060 - RJ14CV00 exited system
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:09:26] "POST /exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:09:41] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:09:45] "[32mGET /reset HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:09:45] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:09:47] "GET /attack123 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:09:57] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:02] "GET /register HTTP/1.1" 200 -
+INFO:root:2026-04-17 22:10:07.848837 - Attempt to park: RJ14CV00
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:07] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:07] "GET /dashboard/RJ14CV00 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:24] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:29] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:35] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:41] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:47] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:53] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:10:59] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:11] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:17] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:35] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:41] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:47] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:53] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:11:59] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:12:05] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:12:11] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:12:17] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:12:23] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:12:29] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:12:35] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:12:41] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:12:47] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:12:52] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:16:39] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:16:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:16:49] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:16:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:16:52] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:16:56] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:16:59] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:17:03] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:17:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:17:09] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:19:36] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:19:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:19:41] "GET /attack123 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:19:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:19:49] "GET /register HTTP/1.1" 200 -
+INFO:root:2026-04-17 22:20:09.037701 - Attempt to park: KA05HM878
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:20:09] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:20:09] "GET /dashboard/KA05HM878 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:20:24] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:20:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:20:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:20:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:20:48] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:20:53] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:20:59] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:21:05] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:21:11] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:21:18] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:21:24] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:21:30] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:21:36] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:21:42] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:21:48] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:21:54] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:00] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:06] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:12] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:18] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:23] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:30] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:36] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:41] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:48] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:22:54] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:00] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:06] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:11] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:18] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:24] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:30] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:36] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:42] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:47] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:23:54] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:24:39] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:24:45] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:24:51] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:25:09] "[32mGET /logout HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:25:09] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:25:11] "[32mGET /admin HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:25:11] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:25:16] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:25:16] "GET /admin HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:57:15] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:58:07] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 22:59:01] "POST /upload HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:02:50] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:06:15] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:11:20] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:15:50] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:15:52] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:16:27] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:16:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:16:52] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:17:12] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:24:18] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:26:25] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:27:17] "[31m[1mGET /upload HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:27:24] "[31m[1mGET /upload HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:27:26] "[31m[1mGET /upload HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:33:52] "[31m[1mGET /upload HTTP/1.1[0m" 405 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:36:03] "[31m[1mGET /upload HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:36:05] "[31m[1mGET /upload HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:36:06] "[31m[1mGET /upload HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:38:48] "[31m[1mGET /upload HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:39:09] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:40:06] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [17/Apr/2026 23:42:14] "GET /attack123 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:38:54] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:38:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:40:22] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:40:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:44:41] "POST /upload HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:49:35] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:49:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:49:38] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:49:42] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:49:45] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:49:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:50:22] "POST /upload HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:53:28] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:53:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:53:51] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:54:05] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:54:15] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:55:13] "POST /upload HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:59:11] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:59:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:59:28] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 15:59:36] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:02:01] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:02:13] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:02:18] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:03:17] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:04:15] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:04:20] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:04:26] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:04:48] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:04:57] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:05:00] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:05:21] "POST /upload HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:06:36] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:06:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:06:51] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:06:58] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:12:33] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:12:52] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:17:31] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:17:44] "POST /upload HTTP/1.1" 200 -
+INFO:root:2026-04-18 16:17:54.863090 - Attempt to park: 7X14CV002
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:17:54] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:17:55] "GET /dashboard/7X14CV002 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:28:54] "[31m[1mPOST /upload HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:29:08] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:30:45] "[31m[1mPOST /upload HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:31:11] "[31m[1mPOST /upload HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:31:17] "POST /upload HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:32:02] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:32:14] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:32:25] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:32:34] "POST /upload HTTP/1.1" 200 -
+INFO:root:2026-04-18 16:32:45.537059 - Attempt to park: RJ14CV002
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:32:45] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:32:45] "GET /dashboard/RJ14CV002 HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:41:33] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:41:46] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:41:58] "POST /upload HTTP/1.1" 200 -
+INFO:root:2026-04-18 16:42:06.558804 - Attempt to park: R14CV002
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:42:06] "POST /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:42:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:42:21] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:42:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:42:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:42:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:42:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:42:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:42:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:08] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:14] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:43:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:08] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:14] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:44:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:08] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:14] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:45:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:08] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:14] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:46:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:08] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:14] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:20] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:44] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:50] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:47:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:02] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:15] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:21] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:27] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:33] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:39] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:45] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:51] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:48:57] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:03] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:09] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:17] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:49:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:50:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:51:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:52:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:53:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:54:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:55:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:56:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:57:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:58:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 16:59:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:00:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:28] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:34] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:40] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:46] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:52] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:01:58] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:02:04] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:02:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:02:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:02:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:02:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:02:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:02:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:03:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:04:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:05:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:55] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:06:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:01] "GET /map HTTP/1.1" 200 -
+INFO:root:2026-04-18 17:07:04.611115 - Attempt to park: RJ140V002
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:04] "POST /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:07:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:08:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:09:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:10:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:11:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:12:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:13:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:43] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:49] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:14:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:15:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:15:07] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:15:13] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:15:19] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:15:25] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:15:31] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:15:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:18:03] "GET /status HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:17] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:21] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:27] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:33] "GET /map HTTP/1.1" 200 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:35] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:37] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:38] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:39] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:43] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:45] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:51] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:21:57] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:22:03] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:22:09] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:22:15] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:22:21] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:22:27] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:22:33] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:22:39] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:22:45] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:22:51] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:59:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 17:59:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:00:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:00:15] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:00:21] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:00:31] "GET /attack123 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:00:38] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:00:42] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:00:52] "GET /analytics HTTP/1.1" 200 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:07:44] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:07:45] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:07:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:01] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:06] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:11] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:11] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:21] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:26] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:33] "GET /analytics HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:40] "[32mGET /admin HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:40] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:47] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:08:48] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:09:04] "[32mGET /logout HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:09:04] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:24:55] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:25:00] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:25:05] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:25:10] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:25:11] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:25:15] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:25:21] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:25:26] "GET /map HTTP/1.1" 200 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:30:08] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:30:09] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:30:16] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:30:22] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:30:27] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:30:32] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:30:34] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:30:37] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:30:42] "GET /map HTTP/1.1" 200 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:46:07] "GET /status HTTP/1.1" 200 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:46:09] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:46:23] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:46:39] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 18:46:42] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:58:50] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:58:54] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:00] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:02] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:03] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:14] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:15] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:23] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:25] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:26] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:35] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:37] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:42] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:45] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:46] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 19:59:56] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:00] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:04] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:06] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:08] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:14] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:17] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:23] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:26] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:26] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:33] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:34] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:42] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:48] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:50] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:50] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:00:51] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:07:08] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:07:10] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:07:13] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:07:22] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:07:25] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:07:28] "POST /upload HTTP/1.1" 200 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:07:32] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:07:34] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:37:11] "GET /status HTTP/1.1" 200 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:37:11] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:37:27] "GET /stats HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:37:42] "GET /status HTTP/1.1" 200 -
+ERROR:main:Exception on /slots [GET]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 745, in get_slots
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        SELECT slot, name, vehicle
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        FROM parking
+        ^^^^^^^^^^^^
+        WHERE exit_time IS NULL
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    """)
+    ^^^^
+sqlite3.OperationalError: no such table: parking
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:37:42] "[35m[1mGET /slots HTTP/1.1[0m" 500 -
+WARNING:easyocr.easyocr:Using CPU. Note: This module is much faster with a GPU.
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:49:38] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:49:38] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:49:45] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:49:45] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:49:56] "GET /map HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:58:06] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:58:06] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:58:23] "GET /stats HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:58:45] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:58:47] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:58:58] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:03] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:07] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:08] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:09] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:11] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:12] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:18] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:19] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:20] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:22] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:23] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:25] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:25] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:26] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:27] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:27] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:28] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:30] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:34] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:35] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:40] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:42] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:44] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:44] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:49] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:51] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:54] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:55] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 20:59:56] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:00] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:04] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:04] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:05] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:08] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:09] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:12] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:15] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:16] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:21] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:23] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:23] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:24] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:26] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:27] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:30] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:32] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:38] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:40] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:45] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:48] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:48] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:48] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:48] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:49] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:50] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:50] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:50] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:51] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:51] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:52] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:52] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:53] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:54] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:57] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:57] "POST /upload HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:57] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:00:57] "POST /api/exit HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:25:02] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:25:02] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:29:28] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:29:28] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:29:32] "GET /stats HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:37:54] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:37:54] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:40:40] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:40:40] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:52:01] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 21:52:01] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:02:12] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:02:12] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:02:12] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:02:35] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:04:12] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:04:12] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:04:12] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:08:04] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:08:04] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:08:04] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:28:40] "GET /slots HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:28:40] "GET /status HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:28:40] "GET /slots HTTP/1.1" 200 -
+ERROR:main:Exception on /upload [POST]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 670, in upload
+    plate = detect_plate(path)  # or your saved file path
+                         ^^^^
+NameError: name 'path' is not defined
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:29:02] "[35m[1mPOST /upload HTTP/1.1[0m" 500 -
+ERROR:main:Exception on /upload [POST]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 670, in upload
+    plate = detect_plate(path)  # or your saved file path
+                         ^^^^
+NameError: name 'path' is not defined
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:29:08] "[35m[1mPOST /upload HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:29:19] "GET /slots HTTP/1.1" 200 -
+ERROR:main:Exception on /upload [POST]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 670, in upload
+    plate = detect_plate(path)  # or your saved file path
+                         ^^^^
+NameError: name 'path' is not defined
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:29:19] "[35m[1mPOST /upload HTTP/1.1[0m" 500 -
+ERROR:main:Exception on /upload [POST]
+Traceback (most recent call last):
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Keshav.S\AppData\Local\Programs\Python\Python314\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Keshav.S\OneDrive\Desktop\Workshop_project\smart_parking\main.py", line 670, in upload
+    plate = detect_plate(path)  # or your saved file path
+                         ^^^^
+NameError: name 'path' is not defined
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:29:20] "[35m[1mPOST /upload HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:29:29] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:29:29] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776531567.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:29:29] "GET /static/captured_1776531567.png?v=1776531569.2786012 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:33:07] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776531567.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:33:07] "GET /static/captured_1776531567.png?v=1776531787.197781 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:33:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:33:22] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:33:22] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776531800.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:33:23] "GET /static/captured_1776531800.png?v=1776531802.9893568 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:39:28] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:39:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:39:43] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:39:43] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776532180.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:39:43] "GET /static/captured_1776532180.png?v=1776532183.491466 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:43:43] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:43:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:44:04] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:44:04] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776532440.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:44:04] "GET /static/captured_1776532440.png?v=1776532444.1300714 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:46:20] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:46:20] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776532577.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:46:20] "GET /static/captured_1776532577.png?v=1776532580.795008 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:53:28] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:53:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:54:22] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:54:22] "GET /register?error=Invalid+plate HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:57:20] "GET /register?error=Invalid+plate HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:57:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:57:23] "GET /camera HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:57:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:57:39] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:57:39] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776533256.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:57:39] "GET /static/captured_1776533256.png?v=1776533259.1276329 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 23:03:42] "GET /register?detected_plate=NOT+DETECTED&image=captured_1776533256.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 23:03:42] "[33mGET /static/captured_1776533256.png?v=1776533622.9283605 HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 23:03:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 23:04:07] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 23:04:07] "GET /register?detected_plate=KA05HM00&image=captured_1776533643.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 23:04:07] "GET /static/captured_1776533643.png?v=1776533647.1988223 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 23:04:54] "[32mPOST /capture HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 23:04:54] "GET /register?detected_plate=XA05HM0903&image=captured_1776533690.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 23:04:54] "GET /static/captured_1776533690.png?v=1776533694.307147 HTTP/1.1" 200 -

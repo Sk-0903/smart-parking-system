@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- 🔥 ADDED WRAPPER + ANIMATION -->
+<div class="col-md-6 mx-auto animate__animated animate__fadeInUp">
+
+<h2 class="mb-3 text-center title-glow">Register Vehicle</h2>
+
+<!-- 🔴 Error Message -->
+{% if error %}
+<div class="alert-box">{{ error }}</div>
+{% endif %}
+
+<!-- 🟢 Success AI Detection -->
+{% if detected_plate and detected_plate != "NOT DETECTED" %}
+<div class="alert alert-success text-center">
+    ✅ Plate detected automatically: <strong>{{ detected_plate }}</strong>
+</div>
+{% elif detected_plate == "NOT DETECTED" %}
+<div class="alert alert-warning text-center">
+    ⚠️ AI could not detect plate. Please enter manually.
+</div>
+{% endif %}
+
+<!-- 📷 FIXED IMAGE (cache issue solved) -->
+{% if image_path %}
+<div class="text-center mb-3">
+    <img src="{{ url_for('static', filename=image_path) }}?v={{ cache_bust }}"
+         class="img-fluid rounded shadow"
+         style="max-width:400px; border-radius:15px;">
+</div>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data" class="card p-4 shadow">
+
+    <!-- 👤 Name -->
+    <input type="text" name="name" placeholder="Enter Name" class="form-control mb-3" required>
+
+    <!-- 🚗 Vehicle -->
+    <select name="vehicle" class="form-control mb-3">
+        <option value="">Select Vehicle Type</option>
+        <option value="bike">Bike</option>
+        <option value="truck">Truck</option>
+        <option value="bus">Bus</option>
+        <option value="car">Car</option>
+    </select>
+
+    <!-- 🔥 Plate Field -->
+    {% if detected_plate and detected_plate != "NOT DETECTED" %}
+        <input type="text" name="plate" value="{{ detected_plate }}" class="form-control mb-3" readonly>
+    {% else %}
+        <input type="text" name="plate" placeholder="Enter Plate Number" class="form-control mb-3">
+    {% endif %}
+
+    <!-- 📤 Upload -->
+    <label class="mb-1 fw-bold">Upload Vehicle Image (Optional)</label>
+    <input type="file" name="image" class="form-control mb-3">
+
+    <!-- 🚀 Submit -->
+    <button class="btn btn-success w-100">
+        <i class="fas fa-check"></i> Submit
+    </button>
+
+</form>
+
+</div>
+<style>
+.alert-box {
+    background: linear-gradient(45deg, #ff4d4d, #ff9900);
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    animation: shake 0.4s;
+    box-shadow: 0 0 10px rgba(255,0,0,0.5);
+}
+
+@keyframes shake {
+    0% {transform: translateX(0);}
+    25% {transform: translateX(-5px);}
+    50% {transform: translateX(5px);}
+    75% {transform: translateX(-5px);}
+    100% {transform: translateX(0);}
+}
+</style>
+
+{% endblock %}

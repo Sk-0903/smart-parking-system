@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="text-center mb-4">⏱️ Reserve Slot</h2>
+
+<form method="POST" class="card p-4">
+    <input name="name" placeholder="Name" class="form-control mb-2" required>
+    <input name="plate" placeholder="Plate Number" class="form-control mb-2" required>
+
+    <button class="btn btn-primary w-100">Reserve</button>
+</form>
+
+{% if message %}
+<div class="alert alert-success mt-3 text-center">
+    {{ message }}
+</div>
+{% endif %}
+
+{% endblock %}

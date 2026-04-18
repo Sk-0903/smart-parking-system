@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-center mb-3 animate__animated animate__fadeInDown">
+    🗺️ Smart Parking Map
+</h2>
+
+<!-- 🔥 PREDICTION -->
+<div class="text-center mb-3 animate__animated animate__fadeIn">
+    <div class="alert alert-info shadow">
+        {{ prediction }}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+
+        {% for i in range(1,21) %}
+
+        {% set use = usage.get(i, 0) %}
+
+        <!-- 🔥 HEATMAP -->
+        {% if use < 3 %}
+            {% set color = 'bg-success' %}
+        {% elif use < 6 %}
+            {% set color = 'bg-warning' %}
+        {% else %}
+            {% set color = 'bg-danger' %}
+        {% endif %}
+
+        {% if i in occupied_slots %}
+
+            {% for s in slots %}
+                {% if s.slot == i %}
+
+                <div class="col-3 col-md-2 m-2 animate__animated animate__zoomIn">
+                    <div class="card text-center shadow border-0 {{ color }} text-white slot-card"
+                         onclick="openSlot('{{ s.plate|escape }}','{{ s.time }}','{{ s.fee }}')">
+
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+
+                            <div style="font-size:22px;">🚗</div>
+
+                            <div class="fw-bold mt-1">Slot {{ i }}</div>
+
+                            <div class="small">{{ s.plate }}</div>
+
+                            <div class="mt-2 small">⏱️ {{ s.time }}</div>
+
+                            <div class="fw-bold mt-1">💰 ₹{{ s.fee }}</div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+
+        <div class="col-3 col-md-2 m-2 animate__animated animate__fadeIn">
+            <div class="card text-center shadow border-0 bg-light slot-card">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center text-dark">
+
+                    <div style="font-size:22px;">🅿️</div>
+
+                    <div class="fw-bold mt-1">Slot {{ i }}</div>
+
+                    <div class="text-success small mt-1">Available</div>
+
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+
+        {% endfor %}
+
+    </div>
+</div>
+
+<!-- 🔥 POPUP -->
+<div id="popup" class="popup">
+    <div class="popup-content animate__animated animate__zoomIn">
+        <h4>🚗 Slot Details</h4>
+
+        <p><strong>Plate:</strong> <span id="p_plate">--</span></p>
+        <p><strong>Time:</strong> <span id="p_time">--</span></p>
+        <p><strong>Fee:</strong> ₹<span id="p_fee">0</span></p>
+
+        <form method="POST" action="/exit">
+            <input type="hidden" name="plate" id="p_input">
+            <button class="btn btn-danger w-100 mt-2">🚪 Exit Vehicle</button>
+        </form>
+
+        <button onclick="closePopup()" class="btn btn-secondary mt-2 w-100">Close</button>
+    </div>
+</div>
+
+<style>
+.slot-card {
+    border-radius: 15px;
+    transition: 0.3s;
+}
+.slot-card:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.card-body {
+    min-height: 120px;
+}
+
+/* 🔥 Popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    padding: 20px;
+    border-radius: 15px;
+    width: 300px;
+    text-align: center;
+}
+</style>
+
+<script>
+function openSlot(plate, time, fee) {
+    document.getElementById("popup").style.display = "flex";
+
+    document.getElementById("p_plate").textContent = plate || "N/A";
+    document.getElementById("p_time").textContent = time || "N/A";
+    document.getElementById("p_fee").textContent = fee || "0";
+
+    document.getElementById("p_input").value = plate;
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+/* 🔥 Smart refresh */
+setInterval(() => {
+    if (document.getElementById("popup").style.display !== "flex") {
+        location.reload();
+    }
+}, 5000);
+</script>
+
+{% endblock %}

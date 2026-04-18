@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-center mb-4 animate__animated animate__fadeInDown">
+    📊 Analytics Dashboard
+</h2>
+
+<div class="container">
+
+    <!-- 🔥 TOP CARDS -->
+    <div class="row text-center mb-4">
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-primary text-white p-3">
+                <h5>📊 Total</h5>
+                <h2>{{ total }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-success text-white p-3">
+                <h5>🚗 Parked</h5>
+                <h2>{{ parked }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-danger text-white p-3">
+                <h5>🚪 Exited</h5>
+                <h2>{{ exited }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-dark text-white p-3">
+                <h5>💰 Revenue</h5>
+                <h2>₹{{ revenue }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🔥 STATUS CHART -->
+    <div class="card p-4 shadow mb-4">
+        <h5 class="text-center mb-3">Vehicle Status</h5>
+        <canvas id="statusChart"></canvas>
+    </div>
+
+    <!-- 🔥 REVENUE CHART -->
+    <div class="card p-4 shadow">
+        <h5 class="text-center mb-3">Revenue Overview</h5>
+        <canvas id="revenueChart"></canvas>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const parked = {{ parked | default(0) }};
+    const exited = {{ exited | default(0) }};
+    const revenue = {{ revenue | default(0) }};
+
+    // 🔥 STATUS DOUGHNUT
+    new Chart(document.getElementById("statusChart"), {
+        type: 'doughnut',
+        data: {
+            labels: ['Parked', 'Exited'],
+            datasets: [{
+                data: [parked, exited],
+                backgroundColor: ['#28a745', '#dc3545'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+    // 🔥 REVENUE BAR
+    new Chart(document.getElementById("revenueChart"), {
+        type: 'bar',
+        data: {
+            labels: ['Total Revenue'],
+            datasets: [{
+                label: '₹ Earnings',
+                data: [revenue],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+});
+
+// 🔥 AUTO REFRESH
+setInterval(() => {
+    location.reload();
+}, 10000);
+
+</script>
+
+{% endblock %}

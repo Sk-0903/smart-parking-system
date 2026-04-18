@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Exit Vehicle</h2>
+
+<form method="POST" class="card p-4">
+
+    <input type="text" name="plate" placeholder="Plate Number" class="form-control mb-2" required>
+
+    <button class="btn btn-danger">Calculate Fee</button>
+
+</form>
+
+{% if fee %}
+<div class="text-center mt-3">
+
+    <h4>💰 Fee: ₹{{ fee }}</h4>
+
+    {% if duration %}
+    <h5>⏱️ Time Parked: {{ duration }}</h5>
+    {% endif %}
+
+    <p>Scan QR to Pay</p>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PAY{{ fee }}" />
+
+    <br><br>
+    <button class="btn btn-success">Payment Done</button>
+</div>
+
+<div class="alert alert-success text-center mt-3">
+    ✅ Payment Successful!  
+    💰 Fee: ₹{{ fee }}  
+    {% if duration %}<br>⏱️ Time Parked: {{ duration }}{% endif %}
+</div>
+
+<p class="text-center text-muted">Redirecting to home...</p>
+
+<script>
+    setTimeout(() => {
+        window.location.href = "/";
+    }, 15000); 
+</script>
+
+{% endif %}
+
+{% endblock %}
