@@ -103,7 +103,7 @@ def detect_plate(image_path):
         url = "https://api.ocr.space/parse/image"
 
         payload = {
-            'apikey': 'K84237357888957',  # 🔥 put your key
+            'apikey': os.getenv("K84237357888957"),  # 🔥 put your key
             'language': 'eng',
             'OCREngine': 2,
             'scale': True,
