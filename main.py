@@ -3,7 +3,6 @@ import sqlite3
 from datetime import datetime
 from math import ceil
 import cv2
-import pytesseract
 import re
 import os
 import base64
