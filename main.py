@@ -719,30 +719,32 @@ def test():
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    file = request.files['file']
+    try:
+        file = request.files.get('file')
 
-    # Read image
-    img = np.frombuffer(file.read(), np.uint8)
-    img = cv2.imdecode(img, cv2.IMREAD_COLOR)
+        if not file:
+            return jsonify({"plate": "NO_FILE"})
 
-    # 🔥 Resize (VERY IMPORTANT for speed)
-    img = cv2.resize(img, (600, 300))
+        # 🔥 Save file
+        os.makedirs("static", exist_ok=True)
 
-    # Convert to gray (faster OCR)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        filename = f"upload_{int(time.time())}.jpg"
+        path = os.path.join("static", filename)
 
-    # OCR
-    plate = detect_plate(path)  # or your saved file path
+        file.save(path)
 
-    print("OCR RESULT:", result)
+        print("📸 Uploaded image saved:", path)
 
-    plate = "NO_PLATE"
+        # 🔥 OCR
+        plate = detect_plate(path)
 
-    if len(result) > 0:
-        raw_text = result[0]
-        plate = clean_plate(raw_text)
+        print("🔍 FINAL PLATE:", plate)
 
-    return jsonify({"plate": plate})
+        return jsonify({"plate": plate})
+
+    except Exception as e:
+        print("🔥 UPLOAD ERROR:", e)
+        return jsonify({"plate": "ERROR"})
 
 import re
 
