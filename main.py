@@ -513,53 +513,73 @@ def camera():
 
 @app.route('/capture', methods=['POST'])
 def capture():
-    data = request.form['image_data']
-    image_data = data.split(",")[1]
-    img_bytes = base64.b64decode(image_data)
+    try:
+        # 🔥 SAFE input read
+        data = request.form.get('image_data')
 
-    os.makedirs("static", exist_ok=True)
+        if not data:
+            print("❌ No image_data received")
+            return redirect(url_for('register', error="No image received"))
 
-    filename = f"captured_{int(time.time())}.png"
-    path = os.path.join("static", filename)
+        image_data = data.split(",")[1]
+        img_bytes = base64.b64decode(image_data)
 
-    with open(path, "wb") as f:
-        f.write(img_bytes)
+        os.makedirs("static", exist_ok=True)
 
-    # 🤖 Detect plate
-    plate = detect_plate(path)
+        filename = f"captured_{int(time.time())}.png"
+        path = os.path.join("static", filename)
 
-    # ❌ If not detected → fallback
-    if plate == "NOT DETECTED":
+        with open(path, "wb") as f:
+            f.write(img_bytes)
+
+        print("📸 Image saved:", path)
+
+        # 🤖 Detect plate
+        plate = detect_plate(path)
+
+        print("🔍 Detected plate:", plate)
+
+        # 🔥 HANDLE ALL BAD CASES
+        if not plate or plate == "NOT DETECTED":
+            return redirect(url_for('register', detected_plate="NOT DETECTED", image=filename))
+
+        # 🔐 Validation (SAFE)
+        try:
+            if not valid_plate(plate):
+                return redirect(url_for('register', error="Invalid plate"))
+
+            if detect_suspicious(plate):
+                return redirect(url_for('register', error="Suspicious activity"))
+
+            if plate in BLACKLIST:
+                return redirect(url_for('register', error="Blacklisted vehicle"))
+
+        except Exception as e:
+            print("⚠️ Validation error:", e)
+            return redirect(url_for('register', error="Validation error"))
+
+        # 🗄️ DB check
+        conn = sqlite3.connect('parking.db')
+        cur = conn.cursor()
+
+        cur.execute("SELECT * FROM users WHERE plate=? AND status='parked'", (plate,))
+        if cur.fetchone():
+            conn.close()
+            return redirect(url_for('register', error="Vehicle already parked"))
+
+        # 🅿️ Slot
+        slot = get_available_slot()
+        if slot is None:
+            conn.close()
+            return redirect(url_for('register', error="Parking Full"))
+
+        conn.close()
+
         return redirect(url_for('register', detected_plate=plate, image=filename))
 
-    # 🔐 Validation
-    if not valid_plate(plate):
-        return redirect(url_for('register', error="Invalid plate"))
-
-    if detect_suspicious(plate):
-        return redirect(url_for('register', error="Suspicious activity"))
-
-    if plate in BLACKLIST:
-        return redirect(url_for('register', error="Blacklisted vehicle"))
-
-    conn = sqlite3.connect('parking.db')
-    cur = conn.cursor()
-
-    # ❌ Already parked
-    cur.execute("SELECT * FROM users WHERE plate=? AND status='parked'", (plate,))
-    if cur.fetchone():
-        conn.close()
-        return redirect(url_for('register', error="Vehicle already parked"))
-
-    # 🅿️ Slot
-    slot = get_available_slot()
-    if slot is None:
-        conn.close()
-        return redirect(url_for('register', error="Parking Full"))
-
-    entry_time = datetime.now()
-
-    return redirect(url_for('register', detected_plate=plate, image=filename))
+    except Exception as e:
+        print("🔥 CAPTURE ERROR:", e)
+        return "Internal Server Error", 500
 
 
 # ---------------- DASHBOARD ----------------
