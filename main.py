@@ -790,8 +790,9 @@ def get_slots():
     for i in range(1, 7):
         slots.append({
             "slot": i,
-            "occupied": i in occupied_slots
-        })
+            "occupied": True,
+            "plate": row[1]  # 👈 IMPORTANT
+      })
 
     conn.close()
     return jsonify(slots)
