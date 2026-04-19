@@ -124,36 +124,29 @@ def detect_plate(image_path):
 
         print("RAW CLEANED:", text)
 
-        # 🔥 EXTRACT CANDIDATES
-        candidates = re.findall(r'[A-Z0-9]{8,12}', text)
+        # 🔥 QUICK FIXES
+        text = text.replace("O", "0")
+        text = text.replace("I", "1")
+        text = text.replace("Z", "2")
+        text = text.replace("S", "5")
 
-        for cand in candidates:
-            print("🔍 Checking:", cand)
+        print("AFTER CORRECTION:", text)
 
-            if len(cand) < 8:
-                continue
+        # 🔥 STRICT MATCH
+        match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{3,4}', text)
 
-            # 🔥 NORMALIZE PATTERN
-            part1 = ''.join([c for c in cand[0:2] if c.isalpha()])
-            part2 = ''.join([c if c.isdigit() else '0' for c in cand[2:4]])
-            part3 = ''.join([c if c.isalpha() else 'A' for c in cand[4:6]])
-            part4 = ''.join([c if c.isdigit() else '0' for c in cand[6:10]])
+        if match:
+            print("✅ MATCH:", match[0])
+            return match[0]
 
-            plate = part1 + part2 + part3 + part4
-
-            # 🔥 FINAL VALIDATION
-            if re.match(r'^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$', plate):
-                print("✅ FINAL PLATE:", plate)
-                return plate
-
-        # 🔥 LAST FALLBACK
-        fallback = re.findall(r'[A-Z0-9]{7,12}', text)
+        # 🔥 FALLBACK
+        fallback = re.findall(r'[A-Z0-9]{6,12}', text)
 
         if fallback:
             print("⚠️ FALLBACK:", fallback[0])
             return fallback[0]
 
-        print("❌ Not detected")
+        print("❌ NOT DETECTED")
         return "NOT DETECTED"
 
     except Exception as e:
