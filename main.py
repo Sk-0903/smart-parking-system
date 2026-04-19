@@ -8,6 +8,7 @@ import os
 import base64
 import time
 import logging
+from matplotlib.pyplot import gray
 import numpy as np
 from werkzeug.utils import secure_filename
 from datetime import timedelta
@@ -76,13 +77,13 @@ def detect_plate(image_path):
         img = cv2.resize(img, (600, 300))
 
         # 🔥 SIMPLE PROCESSING
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
 
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         processed_path = "processed.jpg"
-        cv2.imwrite(processed_path, thresh)
+        cv2.imwrite(processed_path, gray)
 
         # 🔥 OCR CALL
+        
         api_key = os.getenv("OCR_API_KEY")
 
         if not api_key:
