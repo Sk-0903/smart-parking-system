@@ -74,17 +74,17 @@ def detect_plate(image_path):
             print("❌ Image not loaded")
             return "NOT DETECTED"
 
-        # 🔥 SMALL RESIZE (VERY IMPORTANT)
+        # 🔥 SMALL RESIZE
         img = cv2.resize(img, (600, 300))
 
-        # 🔥 SIMPLE PROCESSING (LIGHT)
+        # 🔥 SIMPLE PROCESSING
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
 
         processed_path = "processed.jpg"
         cv2.imwrite(processed_path, thresh)
 
-        # 🔥 OCR CALL (ONLY ONCE)
+        # 🔥 OCR CALL
         api_key = os.getenv("OCR_API_KEY")
 
         if not api_key:
@@ -100,7 +100,7 @@ def detect_plate(image_path):
                 data={
                     'apikey': api_key,
                     'language': 'eng',
-                    'OCREngine': 2,   # 👈 LIGHTER ENGINE
+                    'OCREngine': 2,
                     'scale': True
                 }
             )
@@ -108,7 +108,7 @@ def detect_plate(image_path):
         result = response.json()
         print("OCR RESULT:", result)
 
-        # 🔥 DELETE TEMP FILE (VERY IMPORTANT)
+        # 🔥 DELETE TEMP FILE
         if os.path.exists(processed_path):
             os.remove(processed_path)
 
@@ -124,6 +124,10 @@ def detect_plate(image_path):
         text = text.upper()
         text = re.sub(r'[^A-Z0-9]', '', text)
 
+        # 🔥 SMART CORRECTIONS (IMPORTANT)
+        text = text.replace("O", "0")
+        text = text.replace("I", "1")
+
         print("CLEANED TEXT:", text)
 
         # 🔥 FILTER GARBAGE
@@ -133,13 +137,19 @@ def detect_plate(image_path):
         # 🔥 STRICT MATCH
         match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}', text)
 
-        if not match:
-            return "NOT DETECTED"
+        if match:
+            print("✅ STRICT:", match[0])
+            return match[0]
 
-        plate = match[0]
-        print("✅ FINAL PLATE:", plate)
+        # 🔥 FALLBACK MATCH
+        fallback = re.findall(r'[A-Z]{2,3}[0-9]{1,4}[A-Z]{0,2}[0-9]{1,4}', text)
 
-        return plate
+        if fallback:
+            print("⚠️ FALLBACK:", fallback[0])
+            return fallback[0]
+
+        print("❌ Not detected")
+        return "NOT DETECTED"
 
     except Exception as e:
         print("🔥 OCR ERROR:", e)
