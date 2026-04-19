@@ -761,41 +761,39 @@ def map_data():
     return jsonify(occupied)
 
 
-@app.route('/status')
-def status():
+@app.route('/slots')
+def get_slots():
     conn = sqlite3.connect('parking.db')
     cur = conn.cursor()
-    cur.execute("SELECT COUNT(*) FROM users WHERE status='parked'")
-    count = cur.fetchone()[0]
-    conn.close()
-    return jsonify({"occupied": count})
-
-@app.route("/slots", methods=["GET"])
-def get_slots():
-    conn = sqlite3.connect("parking.db")
-    cur = conn.cursor()
-
-    cur.execute("""
-        SELECT slot
-        FROM users
-        WHERE status='parked'
-    """)
-
-    rows = cur.fetchall()
-
-    occupied_slots = [row[0] for row in rows]
 
     slots = []
 
-    for i in range(1, 7):
-        slots.append({
-            "slot": i,
-            "occupied": True,
-            "plate": row[1]  # 👈 IMPORTANT
-      })
+    for i in range(1, 21):
+
+        cur.execute("""
+            SELECT plate FROM users
+            WHERE slot=? AND status='parked'
+            ORDER BY entry_time DESC LIMIT 1
+        """, (i,))
+
+        row = cur.fetchone()
+
+        if row:
+            slots.append({
+                "slot": i,
+                "occupied": True,
+                "plate": row[0]   # ✅ FIX HERE
+            })
+        else:
+            slots.append({
+                "slot": i,
+                "occupied": False,
+                "plate": ""
+            })
 
     conn.close()
     return jsonify(slots)
+
 
 @app.route('/api/exit', methods=['POST'])
 def exit_vehicle_api():
