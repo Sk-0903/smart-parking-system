@@ -57,8 +57,6 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 BLACKLIST = ["KA01AB1234", "KA05XY9999"]
 
 # ---------------- AI ----------------
-
-
 import cv2
 import requests
 import re
@@ -124,25 +122,32 @@ def detect_plate(image_path):
         text = text.upper()
         text = re.sub(r'[^A-Z0-9]', '', text)
 
-        # 🔥 SMART CORRECTIONS (IMPORTANT)
-        text = text.replace("O", "0")
-        text = text.replace("I", "1")
+        print("RAW CLEANED:", text)
 
-        print("CLEANED TEXT:", text)
+        # 🔥 EXTRACT CANDIDATES
+        candidates = re.findall(r'[A-Z0-9]{8,12}', text)
 
-        # 🔥 FILTER GARBAGE
-        if any(word in text for word in ["WATERMARK", "PAGE", "OFFICIAL", "COPY"]):
-            return "NOT DETECTED"
+        for cand in candidates:
+            print("🔍 Checking:", cand)
 
-        # 🔥 STRICT MATCH
-        match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}', text)
+            if len(cand) < 8:
+                continue
 
-        if match:
-            print("✅ STRICT:", match[0])
-            return match[0]
+            # 🔥 NORMALIZE PATTERN
+            part1 = ''.join([c for c in cand[0:2] if c.isalpha()])
+            part2 = ''.join([c if c.isdigit() else '0' for c in cand[2:4]])
+            part3 = ''.join([c if c.isalpha() else 'A' for c in cand[4:6]])
+            part4 = ''.join([c if c.isdigit() else '0' for c in cand[6:10]])
 
-        # 🔥 FALLBACK MATCH
-        fallback = re.findall(r'[A-Z]{2,3}[0-9]{1,4}[A-Z]{0,2}[0-9]{1,4}', text)
+            plate = part1 + part2 + part3 + part4
+
+            # 🔥 FINAL VALIDATION
+            if re.match(r'^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$', plate):
+                print("✅ FINAL PLATE:", plate)
+                return plate
+
+        # 🔥 LAST FALLBACK
+        fallback = re.findall(r'[A-Z0-9]{7,12}', text)
 
         if fallback:
             print("⚠️ FALLBACK:", fallback[0])
