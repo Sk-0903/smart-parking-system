@@ -9,7 +9,7 @@
 
 <!-- 🔴 Error Message -->
 {% if error %}
-<div class="alert-box">{{ error }}</div>
+<div class="alert alert-danger text-center">{{ error }}</div>
 {% endif %}
 
 <!-- 🟢 Success AI Detection -->
@@ -65,25 +65,5 @@
 </form>
 
 </div>
-<style>
-.alert-box {
-    background: linear-gradient(45deg, #ff4d4d, #ff9900);
-    color: white;
-    padding: 12px;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: bold;
-    animation: shake 0.4s;
-    box-shadow: 0 0 10px rgba(255,0,0,0.5);
-}
-
-@keyframes shake {
-    0% {transform: translateX(0);}
-    25% {transform: translateX(-5px);}
-    50% {transform: translateX(5px);}
-    75% {transform: translateX(-5px);}
-    100% {transform: translateX(0);}
-}
-</style>
 
 {% endblock %}

@@ -151,14 +151,4 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
 }
 </style>
 
-<a href="/logout" class="btn btn-danger">
-    <i class="fas fa-sign-out-alt"></i> Logout
-</a>
-
-{% if users|length > 0 %}
-    <a href="/analytics" class="btn btn-dark">
-        <i class="fas fa-chart-bar"></i> Analytics
-    </a>
-{% endif %}
-
 {% endblock %}

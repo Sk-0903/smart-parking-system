@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container text-center mt-5">
+
+    <h1 class="mb-4">🛡️ Cyber Security Attack Demo</h1>
+
+    <!-- 🔘 BUTTONS -->
+    <div class="mb-4">
+        <button class="btn btn-danger m-2" onclick="runAttack('sql')">⚠️ SQL Injection</button>
+        <button class="btn btn-warning m-2" onclick="runAttack('invalid')">❌ Invalid Input</button>
+        <button class="btn btn-dark m-2" onclick="runAttack('spam')">🚨 Spam Attack</button>
+    </div>
+
+    <!-- 💻 TERMINAL -->
+    <div id="terminal" class="terminal p-4 text-start mx-auto">
+        <p>> Click a button to simulate attack...</p>
+        <span class="cursor">|</span>
+    </div>
+
+</div>
+
+<style>
+
+/* TERMINAL */
+.terminal {
+    background: black;
+    color: #00ff00;
+    border-radius: 10px;
+    font-family: monospace;
+    max-width: 600px;
+    box-shadow: 0 0 20px rgba(0,255,0,0.5);
+    min-height: 250px;
+}
+
+/* COLORS */
+.error { color: red; }
+.success { color: #00ff00; }
+
+/* CURSOR */
+.cursor {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {opacity:1;}
+    50% {opacity:0;}
+    100% {opacity:1;}
+}
+
+</style>
+
+<script>
+
+async function runAttack(type) {
+    const terminal = document.getElementById("terminal");
+    terminal.innerHTML = "";
+
+    const lines = [
+        "> Initializing system...",
+        "> Scanning vulnerabilities...",
+        `> Launching ${type} attack...`
+    ];
+
+    // type each line slowly
+    for (let line of lines) {
+        await typeLine(terminal, line);
+        await delay(500);
+    }
+
+    // call backend
+    const response = await fetch(`/simulate-attack/${type}`);
+    const result = await response.text();
+
+    let colorClass = "success";
+    if (result.includes("❌") || result.includes("🚨")) {
+        colorClass = "error";
+    }
+
+    await typeLine(terminal, result, colorClass);
+    await delay(300);
+
+    await typeLine(terminal, "> SYSTEM CHECK COMPLETE", "success");
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function typeLine(container, text, className="") {
+    const p = document.createElement("p");
+    if (className) p.classList.add(className);
+
+    container.appendChild(p);
+
+    for (let i = 0; i < text.length; i++) {
+        p.textContent += text[i];
+        await delay(30);  // typing speed
+    }
+}
+
+</script>
+
+{% endblock %}

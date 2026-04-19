@@ -14,12 +14,7 @@
 
 {% if fee %}
 <div class="text-center mt-3">
-
     <h4>💰 Fee: ₹{{ fee }}</h4>
-
-    {% if duration %}
-    <h5>⏱️ Time Parked: {{ duration }}</h5>
-    {% endif %}
 
     <p>Scan QR to Pay</p>
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PAY{{ fee }}" />
@@ -27,21 +22,19 @@
     <br><br>
     <button class="btn btn-success">Payment Done</button>
 </div>
+{% endif %}
 
+{% if fee %}
 <div class="alert alert-success text-center mt-3">
-    ✅ Payment Successful!  
-    💰 Fee: ₹{{ fee }}  
-    {% if duration %}<br>⏱️ Time Parked: {{ duration }}{% endif %}
+    💰 Parking Fee: ₹{{ fee }}
 </div>
-
 <p class="text-center text-muted">Redirecting to home...</p>
 
 <script>
     setTimeout(() => {
         window.location.href = "/";
-    }, 15000); 
+    }, 3000); // ⏳ 3 seconds delay
 </script>
-
 {% endif %}
 
 {% endblock %}

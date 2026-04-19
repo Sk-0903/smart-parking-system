@@ -5,6 +5,7 @@
 <!-- 🔥 HERO -->
 <div class="text-center mt-5 animate__animated animate__fadeInDown">
 
+    <!-- ✅ UPDATED LOGO -->
     <h1 class="display-3 mb-2 logo-gradient">
         <span class="logo-icon">🚗</span> Smart Parking
     </h1>
@@ -101,11 +102,7 @@
         ⏱️ Reserve Slot
     </a>
 
-    <a href="/attack123" class="btn btn-outline-light px-4 shadow">
-    🛡️ Security Demo
-    </a>
-
-    <a href="/reset" class="btn btn-warning px-4 ms-2 shadow">
+    <a href="/reset" class="btn btn-warning px-4 shadow">
         🔄 Reset
     </a>
 
@@ -123,10 +120,11 @@
     text-shadow: 0 0 20px rgba(255,255,255,0.3);
 }
 
-/* 🚗 ICON */
+/* 🚗 ICON STYLE */
 .logo-icon {
     font-size: 60px;
     margin-right: 10px;
+    text-shadow: none;
 }
 
 /* FEATURE CARDS */
@@ -138,7 +136,7 @@
     backdrop-filter: blur(10px);
 }
 
-/* PRIMARY */
+/* PRIMARY BIG CARDS */
 .feature-card.primary {
     background: rgba(255,255,255,0.95);
     color: black;
@@ -149,12 +147,12 @@
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 
-/* EXIT */
+/* EXIT SPECIAL */
 .feature-card.danger {
     border: 2px solid #dc3545;
 }
 
-/* SECONDARY */
+/* SECONDARY SMALL CARDS */
 .feature-card.secondary {
     background: rgba(255,255,255,0.15);
     color: white;
@@ -164,39 +162,7 @@
     transform: scale(1.05);
 }
 
-/* 🔐 SECURITY BUTTON */
-.btn-security {
-    padding: 12px 28px;
-    border-radius: 14px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    background: linear-gradient(135deg, #00f5a0, #00d9f5, #7f00ff);
-    box-shadow: 0 0 15px rgba(0, 217, 245, 0.6);
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-/* HOVER */
-.btn-security:hover {
-    transform: translateY(-5px) scale(1.07);
-    box-shadow: 0 0 30px rgba(0, 217, 245, 1);
-}
-
-/* ICON ANIMATION */
-.shield-icon {
-    display: inline-block;
-    margin-right: 6px;
-    animation: pulseShield 1.5s infinite;
-}
-
-@keyframes pulseShield {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-
-/* TEXT */
+/* TEXT OPACITY */
 .opacity-75 {
     opacity: 0.75;
 }

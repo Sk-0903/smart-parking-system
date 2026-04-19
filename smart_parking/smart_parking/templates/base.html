@@ -16,7 +16,7 @@
 
     <style>
 
-        /* 🌈 GRADIENT BACKGROUND */
+        /* 🌈 PREMIUM STATIC BACKGROUND */
         body {
             background: linear-gradient(135deg, #1d2671, #c33764);
             color: white;
@@ -38,51 +38,49 @@
             border-radius: 50%;
             background: rgba(255,255,255,0.15);
             animation: floatUp linear infinite;
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
+        /* DIFFERENT SIZES */
         .particles span:nth-child(odd) {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             animation-duration: 12s;
         }
 
         .particles span:nth-child(even) {
-            width: 10px;
-            height: 10px;
+            width: 14px;
+            height: 14px;
             animation-duration: 18s;
         }
 
+        /* FLOATING EFFECT */
         @keyframes floatUp {
             0% {
-                transform: translateY(100vh);
+                transform: translateY(100vh) scale(0);
                 opacity: 0;
             }
             20% { opacity: 1; }
             100% {
-                transform: translateY(-10vh);
+                transform: translateY(-10vh) scale(1);
                 opacity: 0;
             }
         }
 
-        /* ✅ CLEAN CARDS */
+        /* 💎 CARDS */
         .card {
-            background: white;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.95);
             color: black;
-            border-radius: 15px;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            backdrop-filter: blur(12px);
             transition: 0.3s;
         }
 
         .card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px);
         }
 
         /* 🔘 BUTTONS */
-        .btn {
-            transition: 0.3s;
-        }
-
         .btn:hover {
             transform: scale(1.05);
         }
@@ -90,7 +88,6 @@
         /* 🌙 DARK MODE */
         .dark-mode {
             background: #121212 !important;
-            color: white;
         }
 
         .dark-mode .card {
@@ -100,14 +97,8 @@
 
         /* 🚗 NAVBAR */
         .navbar {
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
-        }
-
-        .navbar-brand {
-            color: white;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(15px);
         }
 
         /* 🎥 LOADER */
@@ -124,27 +115,19 @@
             font-size: 24px;
         }
 
-        /* ✅ POPUP */
-        .popup-content {
-            background: white;
-            color: black;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-
     </style>
-
 </head>
 
 <body>
 
 <!-- 🎥 LOADER -->
 <div id="loader">
-    🚀 Loading Smart Parking...
+    🚗 Loading Smart Parking...
 </div>
 
 <!-- ✨ PARTICLES -->
 <div class="particles">
+    <!-- 30 bubbles -->
     <span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span>
@@ -163,9 +146,9 @@
         <i class="fas fa-car text-warning"></i> Smart Parking
     </span>
 
-    <div>
-        <button onclick="toggleDark()" class="btn btn-outline-light btn-sm">🌙</button>
-    </div>
+    <button onclick="toggleDark()" class="btn btn-outline-light">
+        🌙
+    </button>
 
 </nav>
 
