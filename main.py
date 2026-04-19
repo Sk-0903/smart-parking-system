@@ -866,6 +866,21 @@ def stats():
         "revenue": revenue
     })
 
+@app.route('/status')
+def status():
+    conn = sqlite3.connect('parking.db')
+    cur = conn.cursor()
+
+    # Count only parked vehicles
+    cur.execute("SELECT COUNT(*) FROM users WHERE status='parked'")
+    count = cur.fetchone()[0]
+
+    conn.close()
+
+    return jsonify({
+        "occupied": count
+    })
+
 if __name__ == '__main__':
     print("STARTING SERVER...")
     app.run(host="0.0.0.0", port=8000)
