@@ -8,7 +8,6 @@ import os
 import base64
 import time
 import logging
-from matplotlib.pyplot import gray
 import numpy as np
 from werkzeug.utils import secure_filename
 from datetime import timedelta
@@ -83,7 +82,7 @@ def detect_plate(image_path):
         cv2.imwrite(processed_path, gray)
 
         # 🔥 OCR CALL
-        
+
         api_key = os.getenv("OCR_API_KEY")
 
         if not api_key:
