@@ -4,7 +4,6 @@ from datetime import datetime
 from math import ceil
 import cv2
 import re
-import os
 import base64
 import time
 import logging
@@ -12,6 +11,11 @@ import numpy as np
 from werkzeug.utils import secure_filename
 from datetime import timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, 'parking.db')
 
 # ================= CYBER SECURITY LAYER =================
 
@@ -154,7 +158,7 @@ def detect_plate(image_path):
         return "NOT DETECTED"
 # ---------------- DB ----------------
 def init_db():
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     cur.execute('''
@@ -179,7 +183,7 @@ init_db()
 
 # 🧠 SMART SLOT LOGIC
 def get_available_slot():
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     cur.execute("SELECT slot FROM users WHERE status='parked'")
@@ -269,7 +273,7 @@ def register():
                 return jsonify({"error": "Blacklisted 🚫"})
             return render_template('register.html', error="🚫 Blacklisted Vehicle!")
 
-        conn = sqlite3.connect('parking.db')
+        conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
 
         # 🔐 DUPLICATE
@@ -350,7 +354,7 @@ import sqlite3
 # ---------------- MAP ----------------
 @app.route('/map')
 def parking_map():
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     # 🔥 IMPORTANT:
@@ -441,7 +445,7 @@ def parking_map():
 # ---------------- ANALYTICS ----------------
 @app.route('/analytics')
 def analytics():
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     cur.execute("SELECT COUNT(*) FROM users")
@@ -529,7 +533,7 @@ from math import ceil
 # ---------------- DASHBOARD ----------------
 @app.route('/dashboard/<string:plate>')
 def dashboard(plate):
-    conn = sqlite3.connect('parking.db')
+    conn = ssqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM users WHERE plate=?", (plate,))
@@ -578,7 +582,7 @@ def exit_vehicle():
     if request.method == 'POST':
         plate = request.form['plate']
 
-        conn = sqlite3.connect('parking.db')
+        conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
 
         cur.execute(
@@ -628,7 +632,7 @@ def admin():
     if not session.get('admin'):
         return redirect('/login')
 
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM users")
@@ -643,7 +647,7 @@ def admin():
     
 @app.route('/reset')
 def reset():
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     cur.execute("DELETE FROM users")
@@ -753,7 +757,7 @@ def clean_plate(text):
 
 @app.route('/map-data')
 def map_data():
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
     cur.execute("SELECT slot FROM users WHERE status='parked'")
     occupied = [row[0] for row in cur.fetchall()]
@@ -864,7 +868,7 @@ def exit_vehicle_api():
 
 @app.route('/stats')
 def stats():
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     cur.execute("SELECT COUNT(*) FROM users")
@@ -890,7 +894,7 @@ def stats():
 
 @app.route('/status')
 def status():
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     # Count only parked vehicles

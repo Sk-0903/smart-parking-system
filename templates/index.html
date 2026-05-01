@@ -6,10 +6,10 @@
 <div class="text-center mt-5 animate__animated animate__fadeInDown">
 
     <h1 class="display-3 mb-2 logo-gradient">
-        <span class="logo-icon">🚗</span> Smart Parking
+        <span class="logo-icon text-shadow-cyan"><i class="fas fa-car-side"></i></span> SMART PARKING
     </h1>
 
-    <p class="lead opacity-75">
+    <p class="lead text-muted">
         AI-powered parking system with real-time tracking, analytics & automation
     </p>
 
@@ -18,36 +18,38 @@
 <!-- 🚀 PRIMARY ACTIONS -->
 <div class="container mt-5">
 
-    <h5 class="mb-3 text-light opacity-75">🚀 Quick Actions</h5>
+    <h5 class="mb-3 text-light opacity-75 fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.9rem;">
+        <i class="fas fa-bolt text-warning"></i> Quick Actions
+    </h5>
 
     <div class="row g-4">
 
         <div class="col-md-4">
             <a href="/camera" class="text-decoration-none">
-                <div class="feature-card primary">
-                    <i class="fas fa-camera fa-2x mb-2 text-success"></i>
-                    <h5>Use Camera</h5>
-                    <small>Scan number plate instantly</small>
+                <div class="feature-card glass-panel text-center p-4">
+                    <i class="fas fa-camera fa-2x mb-3 text-info" style="text-shadow: 0 0 15px #00f0ff;"></i>
+                    <h5 class="text-light fw-bold">Use Camera</h5>
+                    <small class="text-muted">Scan number plate instantly</small>
                 </div>
             </a>
         </div>
 
         <div class="col-md-4">
             <a href="/register" class="text-decoration-none">
-                <div class="feature-card primary">
-                    <i class="fas fa-parking fa-2x mb-2 text-primary"></i>
-                    <h5>Park Vehicle</h5>
-                    <small>Manual or AI entry</small>
+                <div class="feature-card glass-panel text-center p-4">
+                    <i class="fas fa-parking fa-2x mb-3 text-primary" style="text-shadow: 0 0 15px #8a2be2;"></i>
+                    <h5 class="text-light fw-bold">Park Vehicle</h5>
+                    <small class="text-muted">Manual or AI entry</small>
                 </div>
             </a>
         </div>
 
         <div class="col-md-4">
             <a href="/exit" class="text-decoration-none">
-                <div class="feature-card primary danger">
-                    <i class="fas fa-sign-out-alt fa-2x mb-2 text-danger"></i>
-                    <h5>Exit</h5>
-                    <small>Calculate parking fee</small>
+                <div class="feature-card glass-panel text-center p-4 border-danger-glass">
+                    <i class="fas fa-sign-out-alt fa-2x mb-3 text-danger" style="text-shadow: 0 0 15px #ff003c;"></i>
+                    <h5 class="text-light fw-bold">Exit</h5>
+                    <small class="text-muted">Calculate parking fee</small>
                 </div>
             </a>
         </div>
@@ -59,33 +61,35 @@
 <!-- 🧠 SECONDARY FEATURES -->
 <div class="container mt-5">
 
-    <h5 class="mb-3 text-light opacity-75">🧠 Insights & Management</h5>
+    <h5 class="mb-3 text-light opacity-75 fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.9rem;">
+        <i class="fas fa-network-wired text-info"></i> Insights & Management
+    </h5>
 
     <div class="row g-4">
 
         <div class="col-md-4">
             <a href="/map" class="text-decoration-none">
-                <div class="feature-card secondary">
-                    <i class="fas fa-map fa-lg mb-2 text-info"></i>
-                    <h6>Parking Map</h6>
+                <div class="feature-card glass-panel text-center p-3">
+                    <i class="fas fa-map fa-lg mb-2" style="color: #00f0ff;"></i>
+                    <h6 class="text-light m-0">Parking Map</h6>
                 </div>
             </a>
         </div>
 
         <div class="col-md-4">
             <a href="/analytics" class="text-decoration-none">
-                <div class="feature-card secondary">
-                    <i class="fas fa-chart-pie fa-lg mb-2 text-warning"></i>
-                    <h6>Analytics</h6>
+                <div class="feature-card glass-panel text-center p-3">
+                    <i class="fas fa-chart-pie fa-lg mb-2" style="color: #ff9900;"></i>
+                    <h6 class="text-light m-0">Analytics</h6>
                 </div>
             </a>
         </div>
 
         <div class="col-md-4">
             <a href="/admin" class="text-decoration-none">
-                <div class="feature-card secondary">
-                    <i class="fas fa-user-shield fa-lg mb-2 text-light"></i>
-                    <h6>Admin Panel</h6>
+                <div class="feature-card glass-panel text-center p-3">
+                    <i class="fas fa-user-shield fa-lg mb-2" style="color: #8a2be2;"></i>
+                    <h6 class="text-light m-0">Admin Panel</h6>
                 </div>
             </a>
         </div>
@@ -95,18 +99,18 @@
 </div>
 
 <!-- ⚙️ FOOTER ACTIONS -->
-<div class="text-center mt-5">
+<div class="text-center mt-5 mb-5">
 
-    <a href="/reserve" class="btn btn-info px-4 me-2 shadow">
-        ⏱️ Reserve Slot
+    <a href="/reserve" class="btn btn-neon me-2">
+        <i class="fas fa-clock"></i> Reserve Slot
     </a>
 
-    <a href="/attack123" class="btn btn-outline-light px-4 shadow">
-    🛡️ Security Demo
+    <a href="/attack123" class="btn btn-neon-purple shadow">
+        <i class="fas fa-shield-alt shield-icon"></i> Security Demo
     </a>
 
-    <a href="/reset" class="btn btn-warning px-4 ms-2 shadow">
-        🔄 Reset
+    <a href="/reset" class="btn btn-neon-pink ms-2 shadow">
+        <i class="fas fa-sync-alt"></i> Reset
     </a>
 
 </div>
@@ -116,89 +120,52 @@
 
 /* 🌈 LOGO GRADIENT */
 .logo-gradient {
-    background: linear-gradient(45deg, #00f5a0, #00d9f5, #f857a6);
+    background: linear-gradient(90deg, #00f0ff, #8a2be2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: bold;
-    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+    font-weight: 800;
+    text-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+    letter-spacing: 2px;
 }
 
 /* 🚗 ICON */
 .logo-icon {
-    font-size: 60px;
-    margin-right: 10px;
+    font-size: 50px;
+    margin-right: 15px;
+    -webkit-text-fill-color: #00f0ff;
+    display: inline-block;
+}
+
+.text-shadow-cyan {
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
 }
 
 /* FEATURE CARDS */
 .feature-card {
-    padding: 25px;
-    border-radius: 18px;
-    text-align: center;
-    transition: 0.3s;
-    backdrop-filter: blur(10px);
-}
-
-/* PRIMARY */
-.feature-card.primary {
-    background: rgba(255,255,255,0.95);
-    color: black;
-}
-
-.feature-card.primary:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* EXIT */
-.feature-card.danger {
-    border: 2px solid #dc3545;
+.border-danger-glass {
+    border-color: rgba(255, 0, 60, 0.3) !important;
 }
 
-/* SECONDARY */
-.feature-card.secondary {
-    background: rgba(255,255,255,0.15);
-    color: white;
-}
-
-.feature-card.secondary:hover {
-    transform: scale(1.05);
-}
-
-/* 🔐 SECURITY BUTTON */
-.btn-security {
-    padding: 12px 28px;
-    border-radius: 14px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    background: linear-gradient(135deg, #00f5a0, #00d9f5, #7f00ff);
-    box-shadow: 0 0 15px rgba(0, 217, 245, 0.6);
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-/* HOVER */
-.btn-security:hover {
-    transform: translateY(-5px) scale(1.07);
-    box-shadow: 0 0 30px rgba(0, 217, 245, 1);
+.border-danger-glass:hover {
+    box-shadow: 0 15px 35px rgba(255, 0, 60, 0.2) !important;
+    border-color: rgba(255, 0, 60, 0.6) !important;
 }
 
 /* ICON ANIMATION */
 .shield-icon {
     display: inline-block;
     margin-right: 6px;
-    animation: pulseShield 1.5s infinite;
+    animation: pulseShield 2s infinite;
 }
 
 @keyframes pulseShield {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-
-/* TEXT */
-.opacity-75 {
-    opacity: 0.75;
+    0% { transform: scale(1); text-shadow: 0 0 10px #8a2be2; }
+    50% { transform: scale(1.3); text-shadow: 0 0 20px #8a2be2; }
+    100% { transform: scale(1); text-shadow: 0 0 10px #8a2be2; }
 }
 
 </style>

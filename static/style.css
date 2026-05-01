@@ -1,51 +1,108 @@
-/* 🌈 PREMIUM BACKGROUND */
+/* 🌌 FUTURISTIC THEME VARIABLES */
+:root {
+    --bg-dark: #0a0a0f;
+    --bg-card: rgba(20, 20, 30, 0.6);
+    --neon-cyan: #00f0ff;
+    --neon-purple: #8a2be2;
+    --neon-pink: #ff003c;
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+}
+
+/* 🌌 BASE STYLE */
 body {
-    background: linear-gradient(135deg, #1d2671, #c33764);
-    color: white;
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(138, 43, 226, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.15), transparent 25%);
+    color: var(--text-main);
     min-height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Outfit', sans-serif;
     transition: 0.3s;
 }
 
-/* 💎 CARD STYLE */
-.card {
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    color: black;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    backdrop-filter: blur(10px);
-    transition: 0.3s;
+/* 💎 GLASSMORPHISM CARDS */
+.card, .glass-panel {
+    border-radius: 16px;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--text-main) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* ✨ HOVER EFFECT */
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+.card:hover, .glass-panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 240, 255, 0.15);
+    border-color: rgba(0, 240, 255, 0.3) !important;
 }
 
-/* 🔘 BUTTON STYLE */
+/* 🔘 BUTTON STYLE (NEON) */
 .btn {
     border-radius: 12px;
-    font-weight: bold;
-    transition: 0.3s;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
 }
 
-.btn:hover {
+.btn-neon {
+    background: rgba(0, 240, 255, 0.1) !important;
+    border: 1px solid var(--neon-cyan) !important;
+    color: var(--neon-cyan) !important;
+}
+
+.btn-neon:hover {
+    background: var(--neon-cyan) !important;
+    color: #000 !important;
+    box-shadow: 0 0 20px var(--neon-cyan) !important;
+    transform: scale(1.05);
+}
+
+.btn-neon-purple {
+    background: rgba(138, 43, 226, 0.1) !important;
+    border: 1px solid var(--neon-purple) !important;
+    color: #d8b4fe !important;
+}
+
+.btn-neon-purple:hover {
+    background: var(--neon-purple) !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px var(--neon-purple) !important;
+    transform: scale(1.05);
+}
+
+.btn-neon-pink {
+    background: rgba(255, 0, 60, 0.1) !important;
+    border: 1px solid var(--neon-pink) !important;
+    color: #fda4af !important;
+}
+
+.btn-neon-pink:hover {
+    background: var(--neon-pink) !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px var(--neon-pink) !important;
     transform: scale(1.05);
 }
 
 /* 🌟 TITLE GLOW */
 .title-glow {
-    text-shadow: 0 0 25px rgba(255,255,255,0.7);
+    text-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
 }
 
-/* 🌙 DARK MODE */
+/* FORCING DARK MODE AS DEFAULT */
 .dark-mode {
-    background: #121212 !important;
-    color: white !important;
+    background: var(--bg-dark) !important;
+    color: var(--text-main) !important;
 }
 
 .dark-mode .card {
-    background: #1e1e1e;
-    color: white;
+    background: var(--bg-card);
+    color: var(--text-main);
 }
