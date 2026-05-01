@@ -14,28 +14,28 @@
         <div class="col-md-3">
             <div class="card shadow border-0 bg-primary text-white p-3">
                 <h5>📊 Total</h5>
-                <h2>{{ total }}</h2>
+                <h2 id="total">{{ total }}</h2>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="card shadow border-0 bg-success text-white p-3">
                 <h5>🚗 Parked</h5>
-                <h2>{{ parked }}</h2>
+                <h2 id="parked">{{ parked }}</h2>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="card shadow border-0 bg-danger text-white p-3">
                 <h5>🚪 Exited</h5>
-                <h2>{{ exited }}</h2>
+                <h2 id="exited">{{ exited }}</h2>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="card shadow border-0 bg-dark text-white p-3">
                 <h5>💰 Revenue</h5>
-                <h2>₹{{ revenue }}</h2>
+                <h2 id="revenue">₹{{ revenue }}</h2>
             </div>
         </div>
 
@@ -58,6 +58,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+let statusChart, revenueChart;
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const parked = {{ parked | default(0) }};
@@ -65,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const revenue = {{ revenue | default(0) }};
 
     // 🔥 STATUS DOUGHNUT
-    new Chart(document.getElementById("statusChart"), {
+    statusChart = new Chart(document.getElementById("statusChart"), {
         type: 'doughnut',
         data: {
             labels: ['Parked', 'Exited'],
@@ -87,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // 🔥 REVENUE BAR
-    new Chart(document.getElementById("revenueChart"), {
+    revenueChart = new Chart(document.getElementById("revenueChart"), {
         type: 'bar',
         data: {
             labels: ['Total Revenue'],
@@ -106,13 +108,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // start auto update AFTER charts created
+    setInterval(updateAnalytics, 5000);
 });
 
-// 🔥 AUTO REFRESH
-setInterval(() => {
-    location.reload();
-}, 10000);
+// 🔥 AUTO REFRESH (smooth)
+function updateAnalytics() {
+    fetch('/stats')
+        .then(res => res.json())
+        .then(data => {
 
+            // Update numbers
+            document.getElementById("total").innerText = data.total;
+            document.getElementById("parked").innerText = data.active;
+            document.getElementById("exited").innerText = data.exited;
+            document.getElementById("revenue").innerText = "₹" + data.revenue;
+
+            // Update chart safely
+            if (statusChart && revenueChart) {
+                statusChart.data.datasets[0].data = [data.active, data.exited];
+                statusChart.update();
+
+                revenueChart.data.datasets[0].data = [data.revenue];
+                revenueChart.update();
+            }
+        });
+}
 </script>
 
 {% endblock %}

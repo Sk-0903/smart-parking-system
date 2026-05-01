@@ -20,7 +20,6 @@
 
         {% set use = usage.get(i, 0) %}
 
-        <!-- 🔥 HEATMAP -->
         {% if use < 3 %}
             {% set color = 'bg-success' %}
         {% elif use < 6 %}
@@ -29,52 +28,45 @@
             {% set color = 'bg-danger' %}
         {% endif %}
 
-        {% if i in occupied_slots %}
-
-            {% for s in slots %}
-                {% if s.slot == i %}
-
-                <div class="col-3 col-md-2 m-2 animate__animated animate__zoomIn">
-                    <div class="card text-center shadow border-0 {{ color }} text-white slot-card"
-                         onclick="openSlot('{{ s.plate|escape }}','{{ s.time }}','{{ s.fee }}')">
-
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-
-                            <div style="font-size:22px;">🚗</div>
-
-                            <div class="fw-bold mt-1">Slot {{ i }}</div>
-
-                            <div class="small">{{ s.plate }}</div>
-
-                            <div class="mt-2 small">⏱️ {{ s.time }}</div>
-
-                            <div class="fw-bold mt-1">💰 ₹{{ s.fee }}</div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                {% endif %}
-            {% endfor %}
-
-        {% else %}
+        {% set found = namespace(s=None) %}
+        {% for s in slots %}
+            {% if s.slot == i %}
+                {% set found.s = s %}
+            {% endif %}
+        {% endfor %}
 
         <div class="col-3 col-md-2 m-2 animate__animated animate__fadeIn">
-            <div class="card text-center shadow border-0 bg-light slot-card">
-                <div class="card-body d-flex flex-column justify-content-center align-items-center text-dark">
 
-                    <div style="font-size:22px;">🅿️</div>
+            <div id="slot-{{ i }}"
+                 class="card text-center shadow border-0 slot-card
+                 {% if found.s %} {{ color }} text-white {% else %} bg-light {% endif %}"
+                 data-plate="{{ found.s.plate if found.s else '' }}"
+                 data-time="{{ found.s.time if found.s else '' }}"
+                 data-fee="{{ found.s.fee if found.s else '' }}"
+                 onclick="handleClick(this)">
+
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+
+                    <div style="font-size:22px;">
+                        {% if found.s %} 🚗 {% else %} 🅿️ {% endif %}
+                    </div>
 
                     <div class="fw-bold mt-1">Slot {{ i }}</div>
 
-                    <div class="text-success small mt-1">Available</div>
+                    {% if found.s %}
+                        <div id="plate-{{ i }}" class="small">{{ found.s.plate }}</div>
+                        <div id="time-{{ i }}" class="mt-2 small">⏱️ {{ found.s.time }}</div>
+                        <div id="fee-{{ i }}" class="fw-bold mt-1">💰 ₹{{ found.s.fee }}</div>
+                    {% else %}
+                        <div id="plate-{{ i }}" class="text-success small mt-1">Available</div>
+                        <div id="time-{{ i }}" style="display:none;"></div>
+                        <div id="fee-{{ i }}" style="display:none;"></div>
+                    {% endif %}
 
                 </div>
             </div>
-        </div>
 
-        {% endif %}
+        </div>
 
         {% endfor %}
 
@@ -136,13 +128,18 @@
 </style>
 
 <script>
-function openSlot(plate, time, fee) {
-    document.getElementById("popup").style.display = "flex";
+// 🔥 CLICK HANDLER (stable even after updates)
+function handleClick(card) {
+    const plate = card.getAttribute("data-plate");
+    const time = card.getAttribute("data-time");
+    const fee = card.getAttribute("data-fee");
 
-    document.getElementById("p_plate").textContent = plate || "N/A";
+    if (!plate) return;
+
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("p_plate").textContent = plate;
     document.getElementById("p_time").textContent = time || "N/A";
     document.getElementById("p_fee").textContent = fee || "0";
-
     document.getElementById("p_input").value = plate;
 }
 
@@ -150,12 +147,52 @@ function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
 
-/* 🔥 Smart refresh */
+// 🔥 LIVE UPDATE (NO RELOAD, NO UI BREAK)
+function updateSlots() {
+    fetch('/slots')
+        .then(res => res.json())
+        .then(data => {
+
+            data.forEach(slot => {
+
+                const card = document.getElementById(`slot-${slot.slot}`);
+                const plateEl = document.getElementById(`plate-${slot.slot}`);
+
+                if (!card || !plateEl) return;
+
+                if (slot.occupied) {
+                    card.classList.remove("bg-light");
+                    card.classList.add("bg-danger", "text-white");
+
+                    plateEl.innerText = slot.plate;
+
+                    // store data for popup
+                    card.setAttribute("data-plate", slot.plate);
+                    card.setAttribute("data-time", slot.time || "-");
+                    card.setAttribute("data-fee", slot.fee || 0);
+
+                } else {
+                    card.classList.remove("bg-danger");
+                    card.classList.add("bg-light");
+
+                    plateEl.innerText = "Available";
+
+                    card.setAttribute("data-plate", "");
+                    card.setAttribute("data-time", "");
+                    card.setAttribute("data-fee", "");
+                }
+
+            });
+
+        });
+}
+
+// 🔥 refresh every 3 sec (pause when popup open)
 setInterval(() => {
     if (document.getElementById("popup").style.display !== "flex") {
-        location.reload();
+        updateSlots();
     }
-}, 5000);
+}, 3000);
 </script>
 
 {% endblock %}

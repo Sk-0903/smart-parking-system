@@ -761,9 +761,9 @@ def map_data():
     return jsonify(occupied)
 
 
-@app.route('/slots')
+@app.route("/slots", methods=["GET"])
 def get_slots():
-    conn = sqlite3.connect('parking.db')
+    conn = sqlite3.connect("parking.db")
     cur = conn.cursor()
 
     slots = []
@@ -771,7 +771,8 @@ def get_slots():
     for i in range(1, 21):
 
         cur.execute("""
-            SELECT plate FROM users
+            SELECT plate, entry_time, vehicle
+            FROM users
             WHERE slot=? AND status='parked'
             ORDER BY entry_time DESC LIMIT 1
         """, (i,))
@@ -779,16 +780,37 @@ def get_slots():
         row = cur.fetchone()
 
         if row:
+            plate, entry_time, vehicle = row
+
+            entry_time = datetime.fromisoformat(entry_time)
+            now = datetime.now()
+
+            duration = now - entry_time
+            total_minutes = int(duration.total_seconds() / 60)
+
+            hours = total_minutes // 60
+            minutes = total_minutes % 60
+
+            time_display = f"{hours}h {minutes}m"
+
+            rate = 20 if vehicle == "bike" else 50
+            fee = max(1, ceil(total_minutes / 60)) * rate
+
             slots.append({
                 "slot": i,
                 "occupied": True,
-                "plate": row[0]   # ✅ FIX HERE
+                "plate": plate,
+                "time": time_display,
+                "fee": fee
             })
+
         else:
             slots.append({
                 "slot": i,
                 "occupied": False,
-                "plate": ""
+                "plate": "",
+                "time": "",
+                "fee": ""
             })
 
     conn.close()
