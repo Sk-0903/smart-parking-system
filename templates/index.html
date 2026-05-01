@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<!-- 🔥 3D CYBERPUNK BACKGROUND (Dimmed for readability) -->
+<!-- 🔥 3D CYBERPUNK BACKGROUND -->
 <div id="terrain-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;"></div>
 
 <!-- 🌌 AURORA GLOWS -->
@@ -10,9 +10,10 @@
 <div class="aurora" style="top: 40%; right: 10%; background: radial-gradient(circle, rgba(138,43,226,0.15) 0%, transparent 60%);"></div>
 
 <!-- 🚀 HERO SECTION -->
-<div class="d-flex flex-column justify-content-center align-items-center text-center reveal-on-scroll" style="min-height: 90vh; margin-top: -50px; position: relative; z-index: 10;">
+<div class="d-flex flex-column justify-content-center align-items-center text-center reveal-on-scroll visible" style="min-height: 90vh; margin-top: -50px; position: relative; z-index: 10;">
     
-    <div class="hero-glass p-5">
+    <!-- Added glass-panel and animate__zoomIn for smooth entrance and VanillaTilt -->
+    <div class="hero-glass glass-panel p-5 animate__animated animate__zoomIn" style="animation-duration: 1.2s;">
         <h1 class="hero-title mb-3">
             SMART<br><span class="text-gradient">PARKING</span>
         </h1>
@@ -39,7 +40,7 @@
     <div class="row g-4">
         <!-- Feature 1 (Large Card) -->
         <div class="col-md-8 reveal-on-scroll">
-            <div class="premium-card p-5 h-100 d-flex flex-column justify-content-center">
+            <div class="premium-card p-5 h-100 d-flex flex-column justify-content-center glass-panel">
                 <i class="fas fa-robot fa-3x text-info mb-4"></i>
                 <h3 class="text-white fw-bold mb-3">AI Optical Recognition</h3>
                 <p class="text-light-gray fs-5 m-0">
@@ -50,7 +51,7 @@
 
         <!-- Feature 2 (Small Card) -->
         <div class="col-md-4 reveal-on-scroll" style="transition-delay: 0.2s;">
-            <div class="premium-card p-4 h-100">
+            <div class="premium-card p-4 h-100 glass-panel">
                 <i class="fas fa-cubes fa-2x text-warning mb-3"></i>
                 <h4 class="text-white fw-bold">Live 3D Mapping</h4>
                 <p class="text-light-gray">Monitor your entire facility via a real-time, interactive 3D digital twin.</p>
@@ -59,7 +60,7 @@
 
         <!-- Feature 3 (Small Card) -->
         <div class="col-md-5 reveal-on-scroll">
-            <div class="premium-card p-4 h-100" style="border-bottom: 3px solid #ff003c;">
+            <div class="premium-card p-4 h-100 glass-panel" style="border-bottom: 3px solid #ff003c;">
                 <i class="fas fa-shield-alt fa-2x text-danger mb-3"></i>
                 <h4 class="text-white fw-bold">Military-Grade Security</h4>
                 <p class="text-light-gray">Encrypted database core with instant blacklisting and alert notifications for unauthorized vehicles.</p>
@@ -68,7 +69,7 @@
 
         <!-- Feature 4 (Medium Card) -->
         <div class="col-md-7 reveal-on-scroll" style="transition-delay: 0.2s;">
-            <div class="premium-card p-4 h-100" style="background: linear-gradient(135deg, rgba(10,10,15,0.9), rgba(138,43,226,0.1));">
+            <div class="premium-card p-4 h-100 glass-panel" style="background: linear-gradient(135deg, rgba(10,10,15,0.9), rgba(138,43,226,0.1));">
                 <i class="fas fa-chart-line fa-2x text-purple mb-3" style="color: #c084fc;"></i>
                 <h4 class="text-white fw-bold">Predictive Analytics</h4>
                 <p class="text-light-gray fs-5">
@@ -91,7 +92,7 @@
         <div class="col-md-10">
             <div class="accordion" id="faqAccordion">
                 
-                <div class="accordion-item premium-card mb-4 reveal-on-scroll">
+                <div class="accordion-item premium-card mb-4 reveal-on-scroll glass-panel">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button bg-transparent text-white fw-bold fs-5 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
                             How does the AI automation handle failed scans?
@@ -104,7 +105,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item premium-card mb-4 reveal-on-scroll">
+                <div class="accordion-item premium-card mb-4 reveal-on-scroll glass-panel">
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button bg-transparent text-white fw-bold fs-5 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
                             How are the financial transactions processed?
@@ -164,7 +165,7 @@
 }
 .hero-subtitle {
     font-size: 1.25rem;
-    color: #cbd5e1; /* Very readable crisp gray */
+    color: #cbd5e1;
     font-weight: 400;
 }
 .text-light-gray {
@@ -265,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("visible");
-                observer.unobserve(entry.target); // only animate once
+                observer.unobserve(entry.target); 
             }
         });
     }, {
@@ -279,26 +280,23 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<!-- 🔥 THREE.JS CYBERPUNK GRID -->
+<!-- 🔥 THREE.JS CYBERPUNK MOUSE PARALLAX GRID -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     
-    // Hide old particles
     const oldParticles = document.querySelector('.particles');
     if(oldParticles) oldParticles.style.display = 'none';
 
     const container = document.getElementById('terrain-container');
     const scene = new THREE.Scene();
     
-    // Fog helps blend the grid into the dark background
     scene.fog = new THREE.FogExp2(0x05050a, 0.015);
 
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 5, 40);
-    camera.lookAt(0, 0, 0);
-
+    
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -306,18 +304,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const geometry = new THREE.PlaneGeometry(200, 200, 50, 50);
     
-    // DIMMED the opacity from 0.25 to 0.1 for better text readability
     const material = new THREE.MeshBasicMaterial({ 
-        color: 0x8a2be2, 
+        color: 0x00f0ff, 
         wireframe: true, 
         transparent: true, 
-        opacity: 0.08 
+        opacity: 0.25 
     });
     
     const terrain = new THREE.Mesh(geometry, material);
     terrain.rotation.x = -Math.PI / 2;
     terrain.position.y = -10;
     scene.add(terrain);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    const windowHalfX = window.innerWidth / 2;
+    const windowHalfY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX - windowHalfX) * 0.05;
+        mouseY = (event.clientY - windowHalfY) * 0.05;
+    });
 
     const clock = new THREE.Clock();
 
@@ -336,9 +345,15 @@ document.addEventListener("DOMContentLoaded", function() {
             
             position.setZ(i, wave1 + wave2);
         }
-        
         position.needsUpdate = true;
-        terrain.rotation.z = Math.sin(time * 0.05) * 0.05;
+        
+        targetX = mouseX;
+        targetY = mouseY;
+        
+        camera.position.x += (targetX - camera.position.x) * 0.05;
+        camera.position.y += (-targetY + 5 - camera.position.y) * 0.05; 
+        
+        camera.lookAt(scene.position);
 
         renderer.render(scene, camera);
     }
