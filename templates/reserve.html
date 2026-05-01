@@ -1,19 +1,55 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
-<h2 class="text-center mb-4">⏱️ Reserve Slot</h2>
+<div class="col-md-5 mx-auto animate__animated animate__fadeInUp">
 
-<form method="POST" class="card p-4">
-    <input name="name" placeholder="Name" class="form-control mb-2" required>
-    <input name="plate" placeholder="Plate Number" class="form-control mb-2" required>
+    <div class="glass-panel p-5 text-center" style="border-radius: 20px;">
+        <h2 class="title-glow text-light mb-4"><i class="fas fa-clock text-warning"></i> Pre-Reserve Bay</h2>
 
-    <button class="btn btn-primary w-100">Reserve</button>
-</form>
+        <form method="POST" class="text-start">
+            
+            <div class="input-group mb-3 cyber-input">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <input name="name" placeholder="Pilot Name" class="form-control" required>
+            </div>
+            
+            <div class="input-group mb-4 cyber-input">
+                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                <input name="plate" placeholder="License Plate" class="form-control text-uppercase" required>
+            </div>
 
-{% if message %}
-<div class="alert alert-success mt-3 text-center">
-    {{ message }}
+            <button class="btn btn-neon w-100 btn-lg shadow-lg"><i class="fas fa-lock"></i> Secure Slot</button>
+        </form>
+
+        {% if message %}
+        <div class="alert mt-4 animate__animated animate__zoomIn" style="background: rgba(0, 240, 255, 0.15); border: 1px solid #00f0ff; color: white; box-shadow: 0 0 15px rgba(0,240,255,0.3);">
+            <i class="fas fa-check-circle text-info"></i> {{ message }}
+        </div>
+        {% endif %}
+
+    </div>
+
 </div>
-{% endif %}
+
+<!-- 🎨 CUSTOM STYLES (If missing globally) -->
+<style>
+.cyber-input .input-group-text {
+    background: rgba(0, 240, 255, 0.1);
+    color: #00f0ff;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-right: none;
+}
+.cyber-input .form-control {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: white !important;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-left: none;
+}
+.cyber-input .form-control:focus {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    border-color: #00f0ff;
+}
+</style>
 
 {% endblock %}

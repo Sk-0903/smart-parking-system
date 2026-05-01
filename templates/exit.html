@@ -2,46 +2,50 @@
 
 {% block content %}
 
-<h2>Exit Vehicle</h2>
+<div class="col-md-5 mx-auto animate__animated animate__fadeInUp">
+    <div class="glass-panel p-5 text-center" style="border-radius: 20px; border-color: rgba(255, 0, 60, 0.3);">
+        
+        <h2 class="title-glow text-danger mb-4"><i class="fas fa-sign-out-alt"></i> Exit Vehicle</h2>
 
-<form method="POST" class="card p-4">
+        <form method="POST">
+            <div class="input-group mb-4">
+                <span class="input-group-text" style="background: rgba(255,0,60,0.1); color: #ff003c; border: 1px solid rgba(255,0,60,0.3); border-right: none;"><i class="fas fa-id-card"></i></span>
+                <input type="text" name="plate" placeholder="Enter Plate Number" class="form-control text-uppercase" style="background: rgba(0,0,0,0.4); color: white; border: 1px solid rgba(255,0,60,0.3); border-left: none;" required>
+            </div>
+            <button class="btn btn-neon-pink w-100 btn-lg"><i class="fas fa-calculator"></i> Calculate Fee</button>
+        </form>
 
-    <input type="text" name="plate" placeholder="Plate Number" class="form-control mb-2" required>
+        {% if fee %}
+        <hr style="border-color: rgba(255,255,255,0.2);" class="my-4">
+        
+        <div class="animate__animated animate__zoomIn">
+            <h3 class="fw-bold" style="color: #ff9900; text-shadow: 0 0 15px #ff9900;">💰 Total Fee: ₹{{ fee }}</h3>
+            
+            {% if duration %}
+            <h6 class="text-info mt-2">⏱️ Time Parked: {{ duration }}</h6>
+            {% endif %}
 
-    <button class="btn btn-danger">Calculate Fee</button>
+            <div class="mt-4 mb-4 p-3 d-inline-block" style="background: white; border-radius: 15px; border: 3px solid #ff003c; box-shadow: 0 0 25px rgba(255,0,60,0.5);">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PAY{{ fee }}" />
+            </div>
+            
+            <p class="text-muted small text-uppercase" style="letter-spacing: 2px;">Scan QR to Pay</p>
 
-</form>
+            <button class="btn btn-neon w-100 mt-2"><i class="fas fa-check-double"></i> Confirm Payment</button>
+        </div>
 
-{% if fee %}
-<div class="text-center mt-3">
+        <div class="alert mt-4" style="background: rgba(0,240,255,0.1); border: 1px solid #00f0ff; color: white;">
+            <i class="fas fa-check-circle text-info"></i> Transaction Successful! Raising Gate...
+        </div>
 
-    <h4>💰 Fee: ₹{{ fee }}</h4>
+        <p class="text-center text-muted small mt-4"><i class="fas fa-spinner fa-spin"></i> Returning to home screen...</p>
 
-    {% if duration %}
-    <h5>⏱️ Time Parked: {{ duration }}</h5>
-    {% endif %}
+        <script>
+            setTimeout(() => { window.location.href = "/"; }, 8000); 
+        </script>
+        {% endif %}
 
-    <p>Scan QR to Pay</p>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PAY{{ fee }}" />
-
-    <br><br>
-    <button class="btn btn-success">Payment Done</button>
+    </div>
 </div>
-
-<div class="alert alert-success text-center mt-3">
-    ✅ Payment Successful!  
-    💰 Fee: ₹{{ fee }}  
-    {% if duration %}<br>⏱️ Time Parked: {{ duration }}{% endif %}
-</div>
-
-<p class="text-center text-muted">Redirecting to home...</p>
-
-<script>
-    setTimeout(() => {
-        window.location.href = "/";
-    }, 15000); 
-</script>
-
-{% endif %}
 
 {% endblock %}

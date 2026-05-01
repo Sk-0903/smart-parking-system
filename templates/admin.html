@@ -2,131 +2,92 @@
 
 {% block content %}
 
-<div class="text-center mt-5 animate__animated animate__fadeInDown">
+<div class="container-fluid animate__animated animate__fadeIn">
 
-    <h2 class="text-center mb-4 title-glow">
-        <i class="fas fa-user-shield"></i> Admin Dashboard
-    </h2>
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <h2 class="title-glow text-light m-0"><i class="fas fa-terminal text-info"></i> System Override</h2>
+        <div class="mt-2 mt-md-0">
+            {% if users|length > 0 %}
+            <a href="/analytics" class="btn btn-neon me-2"><i class="fas fa-chart-network"></i> Analytics</a>
+            {% endif %}
+            <a href="/logout" class="btn btn-neon-pink"><i class="fas fa-power-off"></i> Disconnect</a>
+        </div>
+    </div>
 
     <!-- 🔥 STATS CARDS -->
-    <div class="row text-center mb-4">
-
-        <div class="col-md-3 mb-3">
-            <div class="card p-3 bg-success text-white shadow">
-                <h6>Total Vehicles</h6>
-                <h2>{{ users|length }}</h2>
+    <div class="row text-center mb-4 g-4">
+        <div class="col-md-3">
+            <div class="glass-panel p-4" style="border-top: 3px solid #00f0ff;">
+                <h6 class="text-muted text-uppercase">Total Processed</h6>
+                <h2 class="text-light m-0 fw-bold">{{ users|length }}</h2>
             </div>
         </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="card p-3 bg-warning text-dark shadow">
-                <h6>Currently Parked</h6>
-                <h2>{{ users | selectattr(8, 'equalto', 'parked') | list | length }}</h2>
+        <div class="col-md-3">
+            <div class="glass-panel p-4" style="border-top: 3px solid #ff9900;">
+                <h6 class="text-muted text-uppercase">Active Vehicles</h6>
+                <h2 class="text-warning m-0 fw-bold">{{ users | selectattr(8, 'equalto', 'parked') | list | length }}</h2>
             </div>
         </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="card p-3 bg-danger text-white shadow">
-                <h6>Exited Vehicles</h6>
-                <h2>{{ users | selectattr(8, 'equalto', 'exited') | list | length }}</h2>
+        <div class="col-md-3">
+            <div class="glass-panel p-4" style="border-top: 3px solid #ff003c;">
+                <h6 class="text-muted text-uppercase">Exited Vehicles</h6>
+                <h2 class="text-danger m-0 fw-bold">{{ users | selectattr(8, 'equalto', 'exited') | list | length }}</h2>
             </div>
         </div>
-
-        <!-- 💰 NEW REVENUE CARD -->
-        <div class="col-md-3 mb-3">
-            <div class="card p-3 bg-dark text-white shadow">
-                <h6>Total Revenue</h6>
-                <h2>₹{{ users | map(attribute=7) | select | sum }}</h2>
+        <div class="col-md-3">
+            <div class="glass-panel p-4" style="border-top: 3px solid #8a2be2;">
+                <h6 class="text-muted text-uppercase">Gross Revenue</h6>
+                <h2 class="text-light m-0 fw-bold" style="text-shadow: 0 0 15px #8a2be2;">₹{{ users | map(attribute=7) | select | sum }}</h2>
             </div>
         </div>
-
     </div>
 
     <!-- 🔍 SEARCH BAR -->
-    <input type="text" id="searchInput" class="form-control mb-3 shadow-sm"
-           placeholder="🔍 Search by name or plate...">
+    <div class="input-group mb-4">
+        <span class="input-group-text bg-dark text-info border-info"><i class="fas fa-search"></i></span>
+        <input type="text" id="searchInput" class="form-control bg-dark text-light border-info py-2" placeholder="Query database by name or plate...">
+    </div>
 
     <!-- 🔥 TABLE -->
-    <div class="card p-4 shadow">
-
+    <div class="glass-panel p-0 overflow-hidden">
         <div class="table-responsive">
-
-            <table class="table table-hover table-bordered align-middle text-center">
-
-                <thead class="table-dark">
+            <table class="table table-dark table-hover align-middle text-center m-0" style="background: transparent;">
+                <thead style="background: rgba(0,240,255,0.1);">
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Vehicle</th>
-                        <th>Plate</th>
-                        <th>Slot</th>
-                        <th>Entry</th>
-                        <th>Exit</th>
-                        <th>Fee</th>
-                        <th>Status</th>
+                        <th class="text-info">ID</th>
+                        <th class="text-info">Pilot</th>
+                        <th class="text-info">Class</th>
+                        <th class="text-info">Designation</th>
+                        <th class="text-info">Bay</th>
+                        <th class="text-info">Entry Log</th>
+                        <th class="text-info">Exit Log</th>
+                        <th class="text-info">Tariff</th>
+                        <th class="text-info">Status</th>
                     </tr>
                 </thead>
-
                 <tbody id="tableBody">
-
                     {% for u in users %}
-                    <tr>
-
-                        <td>{{ u[0] }}</td>
-
-                        <td>
-                            <i class="fas fa-user"></i> {{ u[1] }}
-                        </td>
-
-                        <td>
-                            {% if u[2] == "car" %}
-                                🚗 Car
-                            {% else %}
-                                🏍️ Bike
-                            {% endif %}
-                        </td>
-
-                        <td><strong>{{ u[3] }}</strong></td>
-
-                        <td>
-                            <span class="badge bg-primary">Slot {{ u[4] }}</span>
-                        </td>
-
-                        <td>{{ u[5] }}</td>
-
-                        <td>
-                            {% if u[6] %}
-                                {{ u[6] }}
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            {% if u[7] %}
-                                ₹{{ u[7] }}
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td class="text-muted">#{{ u[0] }}</td>
+                        <td><i class="fas fa-user-astronaut text-muted me-2"></i>{{ u[1] }}</td>
+                        <td>{% if u[2] == "car" %}🚗{% else %}🏍️{% endif %} <span class="text-capitalize">{{ u[2] }}</span></td>
+                        <td class="fw-bold" style="letter-spacing: 1px;">{{ u[3] }}</td>
+                        <td><span class="badge" style="background: rgba(0,240,255,0.2); color:#00f0ff; border: 1px solid #00f0ff;">{{ u[4] }}</span></td>
+                        <td class="small text-muted">{{ u[5] }}</td>
+                        <td class="small text-muted">{{ u[6] if u[6] else '-' }}</td>
+                        <td class="fw-bold text-warning">{% if u[7] %}₹{{ u[7] }}{% else %}-{% endif %}</td>
                         <td>
                             {% if u[8] == "parked" %}
-                                <span class="badge bg-success">Parked</span>
+                                <span class="badge" style="background: rgba(0,255,0,0.1); color:#0f0; border: 1px solid #0f0; box-shadow: 0 0 10px rgba(0,255,0,0.4);">ACTIVE</span>
                             {% else %}
-                                <span class="badge bg-danger">Exited</span>
+                                <span class="badge" style="background: rgba(255,0,60,0.1); color:#ff003c; border: 1px solid #ff003c;">CLEARED</span>
                             {% endif %}
                         </td>
-
                     </tr>
                     {% endfor %}
-
                 </tbody>
-
             </table>
-
         </div>
-
     </div>
 
 </div>
@@ -136,29 +97,10 @@
 document.getElementById("searchInput").addEventListener("keyup", function() {
     let value = this.value.toLowerCase();
     let rows = document.querySelectorAll("#tableBody tr");
-
     rows.forEach(row => {
         row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
     });
 });
 </script>
-
-<!-- ✨ HOVER EFFECT -->
-<style>
-.table tbody tr:hover {
-    transform: scale(1.01);
-    transition: 0.2s;
-}
-</style>
-
-<a href="/logout" class="btn btn-danger">
-    <i class="fas fa-sign-out-alt"></i> Logout
-</a>
-
-{% if users|length > 0 %}
-    <a href="/analytics" class="btn btn-dark">
-        <i class="fas fa-chart-bar"></i> Analytics
-    </a>
-{% endif %}
 
 {% endblock %}

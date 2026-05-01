@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <p id="status-text" class="text-muted small text-uppercase" style="letter-spacing: 2px;">
+                    <p id="status-text" class="scanner-status small text-uppercase" style="letter-spacing: 2px;">
                         <i class="fas fa-circle text-danger blink"></i> Camera Active. Align plate inside frame.
                     </p>
 
@@ -84,6 +84,14 @@ video, canvas {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+/* ✅ STATUS TEXT VISIBILITY FIX */
+.scanner-status {
+    color: #e2e8f0 !important;
+    opacity: 1 !important;
+    font-weight: 600;
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.45);
 }
 
 /* AI Overlay Styling */
@@ -186,7 +194,7 @@ video, canvas {
     function takePhoto() {
         // Flash Effect
         flash.classList.remove('flash-anim');
-        void flash.offsetWidth; // trigger reflow
+        void flash.offsetWidth;
         flash.classList.add('flash-anim');
 
         // Draw video to canvas
@@ -202,7 +210,7 @@ video, canvas {
         // UI Changes
         video.style.display = 'none';
         canvas.style.display = 'block';
-        overlay.style.display = 'none'; // hide scanner line
+        overlay.style.display = 'none';
         
         actionButtons.style.display = 'none';
         submitForm.style.display = 'block';

@@ -2,43 +2,52 @@
 
 {% block content %}
 
-<div class="card p-4 text-center shadow">
+<div class="col-md-6 mx-auto animate__animated animate__zoomIn">
+    
+    <div class="glass-panel p-5 text-center" style="border-radius: 20px; position: relative; overflow: hidden;">
+        
+        <!-- Glowing Accent -->
+        <div style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 100px; height: 100px; background: #00f0ff; filter: blur(50px); opacity: 0.5;"></div>
 
-    <h2 class="text-success">✅ Parking Confirmed</h2>
+        <div class="mb-3">
+            <i class="fas fa-shield-check fa-4x text-info" style="text-shadow: 0 0 25px #00f0ff;"></i>
+        </div>
+        
+        <h2 class="text-info title-glow mb-4">Access Granted</h2>
+        <hr style="border-color: rgba(0, 240, 255, 0.2);">
 
-    <hr>
+        <!-- Ticket Details -->
+        <div class="row text-start p-4 mx-1 mt-4 mb-4" style="background: rgba(0,0,0,0.4); border-radius: 15px; border: 1px solid rgba(0,240,255,0.2);">
+            <div class="col-6 mb-3"><span class="text-muted small text-uppercase">Driver</span><br><strong class="text-light fs-5">{{ user[1] }}</strong></div>
+            <div class="col-6 mb-3"><span class="text-muted small text-uppercase">Class</span><br><strong class="text-light fs-5 text-capitalize">{{ user[2] }}</strong></div>
+            <div class="col-6"><span class="text-muted small text-uppercase">License</span><br><strong class="text-info fs-5">{{ user[3] }}</strong></div>
+            <div class="col-6"><span class="text-muted small text-uppercase">Bay</span><br><strong class="text-warning fs-5">#{{ user[4] }}</strong></div>
+        </div>
 
-    <h5>Name: {{ user[1] }}</h5>
-    <h5>Vehicle: {{ user[2] }}</h5>
-    <h5>Plate: {{ user[3] }}</h5>
-    <h5>Slot: {{ user[4] }}</h5>
+        <!-- 🔥 DIGITAL TIMER -->
+        <div class="mt-4">
+            <h6 class="text-muted text-uppercase mb-2" style="letter-spacing: 2px;">Session Duration</h6>
+            <h1 id="timer" class="display-3 fw-bold text-light" style="font-family: monospace; text-shadow: 0 0 20px rgba(255,255,255,0.5);">00:00:00</h1>
 
-    <!-- 🔥 TIMER -->
-    <div class="mt-4">
-        <h4>⏱️ Parking Time</h4>
-        <h2 id="timer">00:00:00</h2>
+            <h4 class="mt-4 text-light">Live Tariff: <span class="fw-bold" style="color: #ff9900; text-shadow: 0 0 15px #ff9900;">₹<span id="fee">0</span></span></h4>
+        </div>
 
-        <h5>💰 Live Fee: ₹<span id="fee">0</span></h5>
+        <p class="mt-5 text-muted small"><i class="fas fa-circle-notch fa-spin"></i> System returning to standby...</p>
     </div>
-
-    <p class="mt-3 text-muted">Redirecting to home...</p>
 
 </div>
 
 <!-- 🔥 SCRIPT -->
 <script>
-
-    // ✅ FIX: proper parsing
     const entryTimeStr = "{{ entry_time or '' }}";
     const entryTime = new Date(entryTimeStr.replace(" ", "T"));
 
     function updateTimer() {
         const now = new Date();
-
         const diff = now - entryTime;
 
         if (isNaN(diff)) {
-            document.getElementById("timer").innerText = "Loading...";
+            document.getElementById("timer").innerText = "SYNC...";
             return;
         }
 
@@ -55,22 +64,15 @@
         // 💰 Fee logic
         let rate = 50;
         if ("{{ user[2] }}" === "bike") rate = 20;
-
         const fee = Math.max(1, Math.ceil((hours + minutes / 60))) * rate;
 
         document.getElementById("fee").innerText = fee;
     }
 
-    updateTimer(); // 🔥 run immediately
+    updateTimer(); 
     setInterval(updateTimer, 1000);
 
-</script>
-
-<!-- 🔁 Redirect -->
-<script>
-    setTimeout(() => {
-        window.location.href = "/";
-    }, 15000);
+    setTimeout(() => { window.location.href = "/"; }, 15000);
 </script>
 
 {% endblock %}
