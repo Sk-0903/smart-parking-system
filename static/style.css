@@ -106,3 +106,41 @@ body {
     background: var(--bg-card);
     color: var(--text-main);
 }
+
+/* 🖱️ CUSTOM CURSOR STYLES */
+@media (min-width: 769px) {
+    body { cursor: none; }
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--neon-cyan);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    pointer-events: none;
+    box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(0, 240, 255, 0.5);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    pointer-events: none;
+    transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+@media (max-width: 768px) {
+    .cursor-dot, .cursor-outline { display: none; }
+}
+

@@ -149,6 +149,10 @@
 
 <body class="dark-mode">
 
+<!-- ✅ FIXED CURSOR -->
+<div class="cursor-dot" data-cursor-dot></div>
+<div class="cursor-outline" data-cursor-outline></div>
+
 <!-- 🎥 LOADER -->
 <div id="loader">
     <div class="loader-ring"></div>
@@ -157,7 +161,6 @@
 
 <!-- ✨ PARTICLES -->
 <div class="particles">
-    <span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span>
@@ -178,15 +181,10 @@
     {% endif %}
 
     <span class="navbar-brand fs-4">
-        <i class="fas fa-car text-warning" style="text-shadow: 0 0 10px #ff9900;"></i> SMART PARKING
+        <i class="fas fa-car text-warning"></i> SMART PARKING
     </span>
 
-    <div>
-        <button onclick="toggleDark()" class="btn btn-outline-light btn-sm" style="display:none;">🌙</button>
-    </div>
-
 </nav>
-
 
 <!-- 📦 CONTENT -->
 <div class="container mt-4 animate__animated animate__fadeIn">
@@ -194,23 +192,54 @@
 </div>
 
 <script>
-
-/* 🎥 LOADER */
 window.addEventListener("load", function(){
     document.getElementById("loader").style.display = "none";
 });
 
-/* 🌙 DARK MODE */
-function toggleDark() {
-    document.body.classList.toggle("dark-mode");
-}
-
-/* 🎲 RANDOM PARTICLES */
 document.querySelectorAll('.particles span').forEach((el) => {
     el.style.left = Math.random() * 100 + "%";
     el.style.animationDelay = Math.random() * 10 + "s";
 });
 
+/* ✅ SINGLE CURSOR SCRIPT */
+const cursorDot = document.querySelector("[data-cursor-dot]");
+const cursorOutline = document.querySelector("[data-cursor-outline]");
+
+if (window.innerWidth > 768) {
+    window.addEventListener("mousemove", function (e) {
+        cursorDot.style.left = e.clientX + "px";
+        cursorDot.style.top = e.clientY + "px";
+
+        cursorOutline.animate({
+            left: e.clientX + "px",
+            top: e.clientY + "px"
+        }, { duration: 300, fill: "forwards" });
+    });
+}
+
+/* 🧲 MAGNETIC BUTTONS */
+document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+        const pos = el.getBoundingClientRect();
+        const x = e.clientX - pos.left - pos.width / 2;
+        const y = e.clientY - pos.top - pos.height / 2;
+        el.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+    });
+    el.addEventListener('mouseout', () => {
+        el.style.transform = `translate(0px, 0px)`;
+    });
+});
+</script>
+
+<!-- ✅ SINGLE VANILLA TILT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+<script>
+VanillaTilt.init(document.querySelectorAll(".glass-panel, .card"), {
+    max: 10,
+    speed: 400,
+    glare: true,
+    "max-glare": 0.2,
+});
 </script>
 
 </body>

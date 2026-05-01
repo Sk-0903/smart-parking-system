@@ -1,141 +1,261 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h2 class="text-center mb-3 animate__animated animate__fadeInDown">
-    🗺️ Smart Parking Map
+<h2 class="text-center mb-3 animate__animated animate__fadeInDown" style="position:relative; z-index:10;">
+    🗺️ 3D Smart Parking
 </h2>
 
 <!-- 🔥 PREDICTION -->
-<div class="text-center mb-3 animate__animated animate__fadeIn">
-    <div class="alert alert-info shadow">
+<div class="text-center mb-3 animate__animated animate__fadeIn" style="position:relative; z-index:10;">
+    <div class="alert alert-info shadow d-inline-block px-4 py-2" style="background: rgba(20,20,30,0.8); backdrop-filter:blur(10px); color: #00f0ff; border:1px solid #00f0ff;">
         {{ prediction }}
     </div>
 </div>
 
-<div class="container">
-    <div class="row justify-content-center">
-
-        {% for i in range(1,21) %}
-
-        {% set use = usage.get(i, 0) %}
-
-        {% if use < 3 %}
-            {% set color = 'bg-success' %}
-        {% elif use < 6 %}
-            {% set color = 'bg-warning' %}
-        {% else %}
-            {% set color = 'bg-danger' %}
-        {% endif %}
-
-        {% set found = namespace(s=None) %}
-        {% for s in slots %}
-            {% if s.slot == i %}
-                {% set found.s = s %}
-            {% endif %}
-        {% endfor %}
-
-        <div class="col-3 col-md-2 m-2 animate__animated animate__fadeIn">
-
-            <div id="slot-{{ i }}"
-                 class="card text-center shadow border-0 slot-card
-                 {% if found.s %} {{ color }} text-white {% else %} bg-light {% endif %}"
-                 data-plate="{{ found.s.plate if found.s else '' }}"
-                 data-time="{{ found.s.time if found.s else '' }}"
-                 data-fee="{{ found.s.fee if found.s else '' }}"
-                 onclick="handleClick(this)">
-
-                <div class="card-body d-flex flex-column justify-content-center align-items-center">
-
-                    <div style="font-size:22px;">
-                        {% if found.s %} 🚗 {% else %} 🅿️ {% endif %}
-                    </div>
-
-                    <div class="fw-bold mt-1">Slot {{ i }}</div>
-
-                    {% if found.s %}
-                        <div id="plate-{{ i }}" class="small">{{ found.s.plate }}</div>
-                        <div id="time-{{ i }}" class="mt-2 small">⏱️ {{ found.s.time }}</div>
-                        <div id="fee-{{ i }}" class="fw-bold mt-1">💰 ₹{{ found.s.fee }}</div>
-                    {% else %}
-                        <div id="plate-{{ i }}" class="text-success small mt-1">Available</div>
-                        <div id="time-{{ i }}" style="display:none;"></div>
-                        <div id="fee-{{ i }}" style="display:none;"></div>
-                    {% endif %}
-
-                </div>
-            </div>
-
-        </div>
-
-        {% endfor %}
-
-    </div>
-</div>
+<!-- 🔥 3D CANVAS CONTAINER -->
+<div id="canvas-container" class="animate__animated animate__zoomIn"></div>
 
 <!-- 🔥 POPUP -->
 <div id="popup" class="popup">
     <div class="popup-content animate__animated animate__zoomIn">
-        <h4>🚗 Slot Details</h4>
-
-        <p><strong>Plate:</strong> <span id="p_plate">--</span></p>
+        <h4 class="title-glow">🚗 Slot Details</h4>
+        <p><strong>Plate:</strong> <span id="p_plate" class="text-info">--</span></p>
         <p><strong>Time:</strong> <span id="p_time">--</span></p>
-        <p><strong>Fee:</strong> ₹<span id="p_fee">0</span></p>
+        <p><strong>Fee:</strong> ₹<span id="p_fee" class="text-warning">0</span></p>
 
         <form method="POST" action="/exit">
             <input type="hidden" name="plate" id="p_input">
-            <button class="btn btn-danger w-100 mt-2">🚪 Exit Vehicle</button>
+            <button class="btn btn-neon-pink w-100 mt-2">🚪 Exit Vehicle</button>
         </form>
 
-        <button onclick="closePopup()" class="btn btn-secondary mt-2 w-100">Close</button>
+        <button onclick="closePopup()" type="button" class="btn btn-outline-secondary mt-2 w-100">Close</button>
     </div>
 </div>
 
 <style>
-.slot-card {
-    border-radius: 15px;
-    transition: 0.3s;
+#canvas-container {
+    width: 100%;
+    height: 65vh;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 240, 255, 0.2);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
 }
-.slot-card:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-.card-body {
-    min-height: 120px;
-}
-
-/* 🔥 Popup */
 .popup {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+    justify-content: center; align-items: center;
+    z-index: 9999;
 }
-
 .popup-content {
-    padding: 20px;
-    border-radius: 15px;
-    width: 300px;
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
     text-align: center;
+    border: 1px solid var(--neon-cyan);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
 }
 </style>
 
+<!-- 🔥 THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
 <script>
-// 🔥 CLICK HANDLER (stable even after updates)
-function handleClick(card) {
-    const plate = card.getAttribute("data-plate");
-    const time = card.getAttribute("data-time");
-    const fee = card.getAttribute("data-fee");
+// INITIAL DATA FROM JINJA
+const initialSlotsData = [
+    {% for s in slots %}
+    { slot: {{ s.slot }}, plate: "{{ s.plate }}", time: "{{ s.time }}", fee: {{ s.fee }} },
+    {% endfor %}
+];
 
-    if (!plate) return;
+let scene, camera, renderer, controls, raycaster, mouse;
+let parkingSlots = {}; 
+let cars = {}; 
 
+function init3D() {
+    const container = document.getElementById('canvas-container');
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x050508);
+    scene.fog = new THREE.FogExp2(0x050508, 0.015);
+
+    camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.set(0, 35, 45);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(width, height);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    container.appendChild(renderer.domElement);
+
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.maxPolarAngle = Math.PI / 2 - 0.05; 
+    controls.minDistance = 20;
+    controls.maxDistance = 80;
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0x00f0ff, 1.2, 100);
+    pointLight.position.set(0, 25, 0);
+    scene.add(pointLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    dirLight.position.set(20, 40, 20);
+    dirLight.castShadow = true;
+    scene.add(dirLight);
+
+    // Ground
+    const groundGeo = new THREE.PlaneGeometry(120, 120);
+    const groundMat = new THREE.MeshStandardMaterial({ 
+        color: 0x0a0a0f, 
+        roughness: 0.7,
+        metalness: 0.3
+    });
+    const ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    drawSlots();
+    initialSlotsData.forEach(data => addCar(data.slot, data));
+
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
+    renderer.domElement.addEventListener('click', onDocumentMouseClick, false);
+    window.addEventListener('resize', onWindowResize, false);
+
+    animate();
+}
+
+function drawSlots() {
+    const cols = 10;
+    const rows = 2;
+    const slotWidth = 4;
+    const slotLength = 8;
+    const gapX = 1;
+    const gapZ = 8;
+
+    let slotId = 1;
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            
+            const x = (col - cols/2 + 0.5) * (slotWidth + gapX);
+            const z = (row - rows/2 + 0.5) * (slotLength + gapZ);
+
+            // Neon Border Line
+            const edges = new THREE.EdgesGeometry(new THREE.PlaneGeometry(slotWidth, slotLength));
+            const lineMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.4 });
+            const line = new THREE.LineSegments(edges, lineMat);
+            line.rotation.x = -Math.PI / 2;
+            line.position.set(x, 0.05, z);
+            scene.add(line);
+
+            // Invisible hit box
+            const clickGeo = new THREE.BoxGeometry(slotWidth, 0.5, slotLength);
+            const clickMat = new THREE.MeshBasicMaterial({ visible: false });
+            const slotMesh = new THREE.Mesh(clickGeo, clickMat);
+            slotMesh.position.set(x, 0.25, z);
+            slotMesh.userData = { id: slotId, occupied: false };
+            scene.add(slotMesh);
+            
+            parkingSlots[slotId] = { mesh: slotMesh, x: x, z: z };
+
+            // Text Sprite
+            const canvas = document.createElement('canvas');
+            canvas.width = 128; canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#00f0ff';
+            ctx.font = 'bold 36px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(slotId, 64, 45);
+            
+            const tex = new THREE.CanvasTexture(canvas);
+            const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.7 });
+            const sprite = new THREE.Sprite(spriteMat);
+            sprite.scale.set(4, 2, 1);
+            sprite.position.set(x, 0.1, z - slotLength/2 - 1.5);
+            scene.add(sprite);
+
+            slotId++;
+        }
+    }
+}
+
+function addCar(slotId, data) {
+    if (cars[slotId]) return;
+    const slot = parkingSlots[slotId];
+    if (!slot) return;
+
+    const carGeo = new THREE.BoxGeometry(3, 1.8, 6.5);
+    const colorHex = slotId % 2 === 0 ? 0x8a2be2 : 0xff003c;
+    const carMat = new THREE.MeshStandardMaterial({ 
+        color: colorHex, 
+        roughness: 0.2, 
+        metalness: 0.8,
+        emissive: colorHex,
+        emissiveIntensity: 0.3
+    });
+    
+    const car = new THREE.Mesh(carGeo, carMat);
+    car.castShadow = true;
+    car.receiveShadow = true;
+    car.position.set(slot.x, 10, slot.z); 
+    car.userData = { isCar: true, slotId: slotId, data: data };
+    
+    scene.add(car);
+    cars[slotId] = car;
+    slot.mesh.userData.occupied = true;
+    slot.mesh.userData.data = data;
+}
+
+function removeCar(slotId) {
+    if (cars[slotId]) {
+        scene.remove(cars[slotId]);
+        cars[slotId].geometry.dispose();
+        cars[slotId].material.dispose();
+        delete cars[slotId];
+    }
+    if (parkingSlots[slotId]) {
+        parkingSlots[slotId].mesh.userData.occupied = false;
+        parkingSlots[slotId].mesh.userData.data = null;
+    }
+}
+
+function onDocumentMouseClick(event) {
+    event.preventDefault();
+    const rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(scene.children);
+
+    for (let i = 0; i < intersects.length; i++) {
+        const obj = intersects[i].object;
+        if (obj.userData.isCar || (obj.userData.id && obj.userData.occupied)) {
+            const data = obj.userData.data;
+            if (data && data.plate) {
+                showPopup(data.plate, data.time, data.fee, obj.userData.slotId || obj.userData.id);
+            }
+            break;
+        }
+    }
+}
+
+function showPopup(plate, time, fee, slot) {
     document.getElementById("popup").style.display = "flex";
     document.getElementById("p_plate").textContent = plate;
     document.getElementById("p_time").textContent = time || "N/A";
@@ -147,52 +267,60 @@ function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
 
-// 🔥 LIVE UPDATE (NO RELOAD, NO UI BREAK)
-function updateSlots() {
+function onWindowResize() {
+    const container = document.getElementById('canvas-container');
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    for (let id in cars) {
+        if (cars[id].position.y > 1) {
+            cars[id].position.y -= 0.6; 
+        } else {
+            cars[id].position.y = 1; 
+        }
+    }
+    controls.update();
+    renderer.render(scene, camera);
+}
+
+function updateSlotsAjax() {
     fetch('/slots')
         .then(res => res.json())
         .then(data => {
+            // Find which slots are occupied
+            const occupiedIds = new Set(data.map(d => d.slot).filter((_, i) => data[i].occupied));
 
-            data.forEach(slot => {
-
-                const card = document.getElementById(`slot-${slot.slot}`);
-                const plateEl = document.getElementById(`plate-${slot.slot}`);
-
-                if (!card || !plateEl) return;
-
-                if (slot.occupied) {
-                    card.classList.remove("bg-light");
-                    card.classList.add("bg-danger", "text-white");
-
-                    plateEl.innerText = slot.plate;
-
-                    // store data for popup
-                    card.setAttribute("data-plate", slot.plate);
-                    card.setAttribute("data-time", slot.time || "-");
-                    card.setAttribute("data-fee", slot.fee || 0);
-
-                } else {
-                    card.classList.remove("bg-danger");
-                    card.classList.add("bg-light");
-
-                    plateEl.innerText = "Available";
-
-                    card.setAttribute("data-plate", "");
-                    card.setAttribute("data-time", "");
-                    card.setAttribute("data-fee", "");
+            // Add or update cars
+            data.forEach(slotData => {
+                if (slotData.occupied && !cars[slotData.slot]) {
+                    addCar(slotData.slot, slotData);
+                } else if (slotData.occupied && cars[slotData.slot]) {
+                    cars[slotData.slot].userData.data = slotData;
+                    parkingSlots[slotData.slot].mesh.userData.data = slotData;
                 }
-
             });
 
+            // Remove cars that are gone
+            for (let id in cars) {
+                if (!occupiedIds.has(parseInt(id))) {
+                    removeCar(id);
+                }
+            }
         });
 }
 
-// 🔥 refresh every 3 sec (pause when popup open)
-setInterval(() => {
-    if (document.getElementById("popup").style.display !== "flex") {
-        updateSlots();
-    }
-}, 3000);
-</script>
+window.addEventListener('load', () => {
+    init3D();
+    setInterval(() => {
+        if (document.getElementById("popup").style.display !== "flex") {
+            updateSlotsAjax();
+        }
+    }, 3000);
+});
 
+</script>
 {% endblock %}

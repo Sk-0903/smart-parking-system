@@ -9,7 +9,7 @@
         <span class="logo-icon text-shadow-cyan"><i class="fas fa-car-side"></i></span> SMART PARKING
     </h1>
 
-    <p class="lead text-muted">
+    <p class="lead text-muted home-subtitle">
         AI-powered parking system with real-time tracking, analytics & automation
     </p>
 
@@ -29,7 +29,7 @@
                 <div class="feature-card glass-panel text-center p-4">
                     <i class="fas fa-camera fa-2x mb-3 text-info" style="text-shadow: 0 0 15px #00f0ff;"></i>
                     <h5 class="text-light fw-bold">Use Camera</h5>
-                    <small class="text-muted">Scan number plate instantly</small>
+                    <small class="text-muted card-subtext">Scan number plate instantly</small>
                 </div>
             </a>
         </div>
@@ -39,7 +39,7 @@
                 <div class="feature-card glass-panel text-center p-4">
                     <i class="fas fa-parking fa-2x mb-3 text-primary" style="text-shadow: 0 0 15px #8a2be2;"></i>
                     <h5 class="text-light fw-bold">Park Vehicle</h5>
-                    <small class="text-muted">Manual or AI entry</small>
+                    <small class="text-muted card-subtext">Manual or AI entry</small>
                 </div>
             </a>
         </div>
@@ -49,7 +49,7 @@
                 <div class="feature-card glass-panel text-center p-4 border-danger-glass">
                     <i class="fas fa-sign-out-alt fa-2x mb-3 text-danger" style="text-shadow: 0 0 15px #ff003c;"></i>
                     <h5 class="text-light fw-bold">Exit</h5>
-                    <small class="text-muted">Calculate parking fee</small>
+                    <small class="text-muted card-subtext">Calculate parking fee</small>
                 </div>
             </a>
         </div>
@@ -140,6 +140,19 @@
     text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
 }
 
+/* ✅ MAKE FADED TEXT VISIBLE */
+.home-subtitle {
+    color: #cbd5e1 !important;
+    opacity: 1 !important;
+    font-weight: 400;
+}
+
+.card-subtext {
+    color: #cbd5e1 !important;
+    opacity: 1 !important;
+    font-weight: 400;
+}
+
 /* FEATURE CARDS */
 .feature-card {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -169,5 +182,17 @@
 }
 
 </style>
+
+<!-- 🎬 STAGGERED ANIMATIONS -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const cards = document.querySelectorAll('.feature-card');
+    cards.forEach((card, index) => {
+        card.classList.add('animate__animated', 'animate__fadeInUp');
+        card.style.animationDelay = `${index * 0.15}s`;
+        card.style.animationFillMode = 'both';
+    });
+});
+</script>
 
 {% endblock %}

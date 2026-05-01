@@ -533,22 +533,30 @@ from math import ceil
 # ---------------- DASHBOARD ----------------
 @app.route('/dashboard/<string:plate>')
 def dashboard(plate):
-    conn = ssqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    cur.execute("SELECT * FROM users WHERE plate=?", (plate,))
-    user = cur.fetchone()
+    cur.execute("""
+        SELECT * FROM users 
+        WHERE plate=? 
+        ORDER BY id DESC 
+        LIMIT 1
+    """, (plate,))
 
+    user = cur.fetchone()
     conn.close()
 
     if not user:
         return "Invalid plate or user not found"
 
-    # 🔥 Entry time
-    entry_time = datetime.fromisoformat(user[5])
+    # 🔥 SAFE entry_time handling
+    try:
+        entry_time = datetime.fromisoformat(user[5])
+    except:
+        entry_time = datetime.now()   # fallback (prevents crash)
+
     now = datetime.now()
 
-    # 🔥 Duration
     duration = now - entry_time
     total_minutes = int(duration.total_seconds() / 60)
 
@@ -557,11 +565,9 @@ def dashboard(plate):
 
     time_display = f"{hours}h {minutes}m"
 
-    # 💰 Fee calculation
     rate = 20 if user[2] == "bike" else 50
     fee = max(1, ceil(total_minutes / 60)) * rate
 
-    # 🔥 Convert for JS (IMPORTANT)
     entry_time_str = entry_time.isoformat()
 
     return render_template(
@@ -571,7 +577,6 @@ def dashboard(plate):
         fee=fee,
         entry_time=entry_time_str
     )
-
 
 # ---------------- EXIT ----------------
 @app.route('/exit', methods=['GET', 'POST'])

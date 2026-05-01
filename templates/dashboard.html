@@ -29,7 +29,7 @@
 <script>
 
     // ✅ FIX: proper parsing
-    const entryTimeStr = "{{ entry_time }}";
+    const entryTimeStr = "{{ entry_time or '' }}";
     const entryTime = new Date(entryTimeStr.replace(" ", "T"));
 
     function updateTimer() {
