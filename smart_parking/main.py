@@ -57,8 +57,6 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 BLACKLIST = ["KA01AB1234", "KA05XY9999"]
 
 # ---------------- AI ----------------
-
-
 import cv2
 import requests
 import re
@@ -78,13 +76,13 @@ def detect_plate(image_path):
         img = cv2.resize(img, (600, 300))
 
         # 🔥 SIMPLE PROCESSING
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
 
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         processed_path = "processed.jpg"
-        cv2.imwrite(processed_path, thresh)
+        cv2.imwrite(processed_path, gray)
 
         # 🔥 OCR CALL
+
         api_key = os.getenv("OCR_API_KEY")
 
         if not api_key:
@@ -124,31 +122,31 @@ def detect_plate(image_path):
         text = text.upper()
         text = re.sub(r'[^A-Z0-9]', '', text)
 
-        # 🔥 SMART CORRECTIONS (IMPORTANT)
+        print("RAW CLEANED:", text)
+
+        # 🔥 QUICK FIXES
         text = text.replace("O", "0")
         text = text.replace("I", "1")
+        text = text.replace("Z", "2")
+        text = text.replace("S", "5")
 
-        print("CLEANED TEXT:", text)
-
-        # 🔥 FILTER GARBAGE
-        if any(word in text for word in ["WATERMARK", "PAGE", "OFFICIAL", "COPY"]):
-            return "NOT DETECTED"
+        print("AFTER CORRECTION:", text)
 
         # 🔥 STRICT MATCH
-        match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}', text)
+        match = re.findall(r'[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{3,4}', text)
 
         if match:
-            print("✅ STRICT:", match[0])
+            print("✅ MATCH:", match[0])
             return match[0]
 
-        # 🔥 FALLBACK MATCH
-        fallback = re.findall(r'[A-Z]{2,3}[0-9]{1,4}[A-Z]{0,2}[0-9]{1,4}', text)
+        # 🔥 FALLBACK
+        fallback = re.findall(r'[A-Z0-9]{6,12}', text)
 
         if fallback:
             print("⚠️ FALLBACK:", fallback[0])
             return fallback[0]
 
-        print("❌ Not detected")
+        print("❌ NOT DETECTED")
         return "NOT DETECTED"
 
     except Exception as e:
@@ -763,40 +761,39 @@ def map_data():
     return jsonify(occupied)
 
 
-@app.route('/status')
-def status():
+@app.route('/slots')
+def get_slots():
     conn = sqlite3.connect('parking.db')
     cur = conn.cursor()
-    cur.execute("SELECT COUNT(*) FROM users WHERE status='parked'")
-    count = cur.fetchone()[0]
-    conn.close()
-    return jsonify({"occupied": count})
-
-@app.route("/slots", methods=["GET"])
-def get_slots():
-    conn = sqlite3.connect("parking.db")
-    cur = conn.cursor()
-
-    cur.execute("""
-        SELECT slot
-        FROM users
-        WHERE status='parked'
-    """)
-
-    rows = cur.fetchall()
-
-    occupied_slots = [row[0] for row in rows]
 
     slots = []
 
-    for i in range(1, 7):
-        slots.append({
-            "slot": i,
-            "occupied": i in occupied_slots
-        })
+    for i in range(1, 21):
+
+        cur.execute("""
+            SELECT plate FROM users
+            WHERE slot=? AND status='parked'
+            ORDER BY entry_time DESC LIMIT 1
+        """, (i,))
+
+        row = cur.fetchone()
+
+        if row:
+            slots.append({
+                "slot": i,
+                "occupied": True,
+                "plate": row[0]   # ✅ FIX HERE
+            })
+        else:
+            slots.append({
+                "slot": i,
+                "occupied": False,
+                "plate": ""
+            })
 
     conn.close()
     return jsonify(slots)
+
 
 @app.route('/api/exit', methods=['POST'])
 def exit_vehicle_api():
@@ -867,6 +864,21 @@ def stats():
         "active": active,
         "exited": exited,
         "revenue": revenue
+    })
+
+@app.route('/status')
+def status():
+    conn = sqlite3.connect('parking.db')
+    cur = conn.cursor()
+
+    # Count only parked vehicles
+    cur.execute("SELECT COUNT(*) FROM users WHERE status='parked'")
+    count = cur.fetchone()[0]
+
+    conn.close()
+
+    return jsonify({
+        "occupied": count
     })
 
 if __name__ == '__main__':

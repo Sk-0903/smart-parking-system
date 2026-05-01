@@ -625,3 +625,13 @@ Traceback (most recent call last):
                          ^^^^^^
 NameError: name 'result' is not defined. Did you mean: 'reset'?
 INFO:werkzeug:127.0.0.1 - - [18/Apr/2026 22:27:40] "[35m[1mPOST /upload HTTP/1.1[0m" 500 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.9:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:192.168.1.9 - - [01/May/2026 19:44:54] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:192.168.1.9 - - [01/May/2026 19:44:55] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:192.168.1.9 - - [01/May/2026 19:44:56] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:192.168.1.9 - - [01/May/2026 19:44:58] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:192.168.1.9 - - [01/May/2026 19:45:00] "GET / HTTP/1.1" 200 -
