@@ -2,6 +2,9 @@
 
 {% block content %}
 
+<!-- 🔥 3D CYBERPUNK BACKGROUND -->
+<div id="terrain-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;"></div>
+
 <!-- 🔥 HERO -->
 <div class="text-center mt-5 animate__animated animate__fadeInDown">
 
@@ -181,6 +184,11 @@
     100% { transform: scale(1); text-shadow: 0 0 10px #8a2be2; }
 }
 
+/* Make sure the text pops against the 3D background */
+.glass-panel {
+    background: rgba(20, 20, 30, 0.75) !important;
+    backdrop-filter: blur(10px) !important;
+}
 </style>
 
 <!-- 🎬 STAGGERED ANIMATIONS -->
@@ -191,6 +199,87 @@ document.addEventListener("DOMContentLoaded", function() {
         card.classList.add('animate__animated', 'animate__fadeInUp');
         card.style.animationDelay = `${index * 0.15}s`;
         card.style.animationFillMode = 'both';
+    });
+});
+</script>
+
+<!-- 🔥 THREE.JS CYBERPUNK GRID -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // Hide the basic particle dots from base.html on this specific page
+    const oldParticles = document.querySelector('.particles');
+    if(oldParticles) oldParticles.style.display = 'none';
+
+    const container = document.getElementById('terrain-container');
+    const scene = new THREE.Scene();
+    
+    // Add subtle fog to fade out the grid in the distance
+    scene.fog = new THREE.FogExp2(0x0a0a0f, 0.015);
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    // Position camera low to the ground for a flying effect
+    camera.position.set(0, 5, 40);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    // Create a massive plane for the terrain
+    const geometry = new THREE.PlaneGeometry(200, 200, 50, 50);
+    
+    // Glowing Wireframe Material
+    const material = new THREE.MeshBasicMaterial({ 
+        color: 0x8a2be2,  // Purple/Cyan mix
+        wireframe: true, 
+        transparent: true, 
+        opacity: 0.25 
+    });
+    
+    const terrain = new THREE.Mesh(geometry, material);
+    terrain.rotation.x = -Math.PI / 2;
+    // Lower the terrain slightly so it stays mostly behind the UI
+    terrain.position.y = -10;
+    scene.add(terrain);
+
+    const clock = new THREE.Clock();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        const time = clock.getElapsedTime();
+        const position = geometry.attributes.position;
+        
+        // Loop through all vertices to create moving waves
+        for (let i = 0; i < position.count; i++) {
+            const x = position.getX(i);
+            const y = position.getY(i);
+            
+            // Complex math for rolling cyber-hills moving towards the camera!
+            const wave1 = Math.sin(x * 0.05 + time) * 3;
+            const wave2 = Math.cos((y - time * 20) * 0.05) * 4; 
+            
+            position.setZ(i, wave1 + wave2);
+        }
+        
+        position.needsUpdate = true;
+        
+        // Very slow rotation for a dizzying, cinematic feel
+        terrain.rotation.z = Math.sin(time * 0.1) * 0.05;
+
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Handle Resize
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
     });
 });
 </script>
