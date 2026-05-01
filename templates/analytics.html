@@ -42,18 +42,35 @@
     </div>
 
     <!-- 🔥 STATUS CHART -->
-    <div class="card p-4 shadow mb-4">
-        <h5 class="text-center mb-3">Vehicle Status</h5>
-        <canvas id="statusChart"></canvas>
+    <div class="card p-3 shadow mb-4">
+        <h6 class="text-center mb-2">Vehicle Status</h6>
+        <div class="chart-container">
+            <canvas id="statusChart"></canvas>
+        </div>
     </div>
 
     <!-- 🔥 REVENUE CHART -->
-    <div class="card p-4 shadow">
-        <h5 class="text-center mb-3">Revenue Overview</h5>
-        <canvas id="revenueChart"></canvas>
+    <div class="card p-3 shadow">
+        <h6 class="text-center mb-2">Revenue Overview</h6>
+        <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+        </div>
     </div>
 
 </div>
+
+<!-- 🔥 STYLE FIX -->
+<style>
+.chart-container {
+    position: relative;
+    height: 220px;   /* 🔥 control size here */
+    width: 100%;
+}
+
+canvas {
+    max-height: 220px !important;
+}
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -79,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,   // 🔥 IMPORTANT
             cutout: '70%',
             plugins: {
                 legend: {
@@ -100,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,   // 🔥 IMPORTANT
             plugins: {
                 legend: {
                     display: false
@@ -108,23 +127,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // start auto update AFTER charts created
     setInterval(updateAnalytics, 5000);
 });
 
-// 🔥 AUTO REFRESH (smooth)
+// 🔥 AUTO REFRESH
 function updateAnalytics() {
     fetch('/stats')
         .then(res => res.json())
         .then(data => {
 
-            // Update numbers
             document.getElementById("total").innerText = data.total;
             document.getElementById("parked").innerText = data.active;
             document.getElementById("exited").innerText = data.exited;
             document.getElementById("revenue").innerText = "₹" + data.revenue;
 
-            // Update chart safely
             if (statusChart && revenueChart) {
                 statusChart.data.datasets[0].data = [data.active, data.exited];
                 statusChart.update();
