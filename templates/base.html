@@ -67,43 +67,6 @@
             100% { transform: translateY(-10vh); opacity: 0; }
         }
 
-        .home-back-btn {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            color: #00f0ff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            margin-right: 15px;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-
-        .home-back-btn:hover {
-            background: rgba(0, 240, 255, 0.2);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
-            transform: scale(1.1);
-        }
-
-        /* 🚗 NAVBAR */
-        .navbar {
-            background: rgba(10, 10, 15, 0.8) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-        }
-
-        .navbar-brand {
-            color: #fff !important;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
-        }
-
         /* 🎥 LOADER */
         #loader {
             position: fixed;
@@ -143,6 +106,26 @@
             backdrop-filter: blur(10px);
         }
 
+        /* Smooth Hover Effects for Navbar */
+        .nav-hover {
+            transition: 0.3s ease-in-out;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        .nav-hover:hover {
+            color: #00f0ff !important;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+            transform: translateY(-2px);
+        }
+        .nav-hover i {
+            transition: 0.3s;
+        }
+        .nav-hover:hover i {
+            color: #00f0ff !important;
+        }
+
     </style>
 
 </head>
@@ -171,19 +154,53 @@
 <!-- 🔔 SOUND -->
 <audio id="alertSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
 
-<!-- 🚗 NAVBAR -->
-<nav class="navbar navbar-dark px-3">
+<!-- 🚀 GLOBAL STICKY NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark px-4 py-3 shadow-lg sticky-top" style="background: rgba(10, 10, 15, 0.85) !important; backdrop-filter: blur(16px); border-bottom: 1px solid rgba(0, 240, 255, 0.2); z-index: 9999;">
+    <div class="container-fluid">
+        
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <i class="fas fa-car-side text-info me-3 fs-3" style="text-shadow: 0 0 15px #00f0ff;"></i>
+            <span class="fw-bold text-light" style="letter-spacing: 1.5px;">SMART PARKING</span>
+        </a>
 
-    {% if request.endpoint != 'index' %}
-    <a href="{{ url_for('index') }}" class="home-back-btn">
-        <i class="fas fa-arrow-left"></i>
-    </a>
-    {% endif %}
+        <!-- Mobile Hamburger Menu Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#globalNav" style="border-color: rgba(0, 240, 255, 0.5);">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <span class="navbar-brand fs-4">
-        <i class="fas fa-car text-warning"></i> SMART PARKING
-    </span>
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse justify-content-end" id="globalNav">
+            <ul class="navbar-nav align-items-center gap-4">
+                <li class="nav-item">
+                    <a class="nav-link nav-hover text-light" href="/"><i class="fas fa-home text-muted"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-hover text-light" href="/camera"><i class="fas fa-camera text-muted"></i> Scanner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-hover text-light" href="/register"><i class="fas fa-parking text-muted"></i> Park</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-hover text-light" href="/exit"><i class="fas fa-sign-out-alt text-muted"></i> Exit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-hover text-light" href="/map"><i class="fas fa-map text-muted"></i> 3D Map</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-hover text-light" href="/analytics"><i class="fas fa-chart-pie text-muted"></i> Analytics</a>
+                </li>
+                
+                <!-- Admin Button -->
+                <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                    <a class="btn btn-neon-purple px-4 py-2" href="/admin">
+                        <i class="fas fa-user-shield"></i> Admin Core
+                    </a>
+                </li>
+            </ul>
+        </div>
 
+    </div>
 </nav>
 
 <!-- 📦 CONTENT -->
@@ -241,6 +258,9 @@ VanillaTilt.init(document.querySelectorAll(".glass-panel, .card"), {
     "max-glare": 0.2,
 });
 </script>
+
+<!-- ✅ BOOTSTRAP JS FOR MOBILE NAVBAR -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
