@@ -5,203 +5,173 @@
 <!-- 🔥 3D CYBERPUNK BACKGROUND -->
 <div id="terrain-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;"></div>
 
-<!-- 🔥 HERO -->
-<div class="text-center mt-5 animate__animated animate__fadeInDown">
+<!-- 🚀 HERO SECTION (Full screen feeling) -->
+<div class="d-flex flex-column justify-content-center align-items-center text-center animate__animated animate__fadeInDown" style="min-height: 80vh; margin-top: -30px;">
+    
+    <div class="glass-panel p-5" style="border-radius: 30px; border-color: rgba(0, 240, 255, 0.4); box-shadow: 0 0 50px rgba(0, 240, 255, 0.1);">
+        <h1 class="display-2 mb-3 logo-gradient fw-bold">
+            <span class="logo-icon text-shadow-cyan"><i class="fas fa-car-side"></i></span> SMART PARKING
+        </h1>
 
-    <h1 class="display-3 mb-2 logo-gradient">
-        <span class="logo-icon text-shadow-cyan"><i class="fas fa-car-side"></i></span> SMART PARKING
-    </h1>
+        <p class="lead text-light mb-5 fs-4" style="font-weight: 300;">
+            Next-Generation AI Parking System with Real-Time Analytics & 3D Mapping.
+        </p>
 
-    <p class="lead text-muted home-subtitle">
-        AI-powered parking system with real-time tracking, analytics & automation
-    </p>
-
-</div>
-
-<!-- 🚀 PRIMARY ACTIONS -->
-<div class="container mt-5">
-
-    <h5 class="mb-3 text-light opacity-75 fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.9rem;">
-        <i class="fas fa-bolt text-warning"></i> Quick Actions
-    </h5>
-
-    <div class="row g-4">
-
-        <div class="col-md-4">
-            <a href="/camera" class="text-decoration-none">
-                <div class="feature-card glass-panel text-center p-4">
-                    <i class="fas fa-camera fa-2x mb-3 text-info" style="text-shadow: 0 0 15px #00f0ff;"></i>
-                    <h5 class="text-light fw-bold">Use Camera</h5>
-                    <small class="text-muted card-subtext">Scan number plate instantly</small>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-4">
-            <a href="/register" class="text-decoration-none">
-                <div class="feature-card glass-panel text-center p-4">
-                    <i class="fas fa-parking fa-2x mb-3 text-primary" style="text-shadow: 0 0 15px #8a2be2;"></i>
-                    <h5 class="text-light fw-bold">Park Vehicle</h5>
-                    <small class="text-muted card-subtext">Manual or AI entry</small>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-4">
-            <a href="/exit" class="text-decoration-none">
-                <div class="feature-card glass-panel text-center p-4 border-danger-glass">
-                    <i class="fas fa-sign-out-alt fa-2x mb-3 text-danger" style="text-shadow: 0 0 15px #ff003c;"></i>
-                    <h5 class="text-light fw-bold">Exit</h5>
-                    <small class="text-muted card-subtext">Calculate parking fee</small>
-                </div>
-            </a>
-        </div>
-
+        <a href="#features" class="btn btn-neon-purple btn-lg px-5 py-3 rounded-pill shadow-lg">
+            Explore Features <i class="fas fa-arrow-down ms-2"></i>
+        </a>
     </div>
 
 </div>
 
-<!-- 🧠 SECONDARY FEATURES -->
-<div class="container mt-5">
-
-    <h5 class="mb-3 text-light opacity-75 fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.9rem;">
-        <i class="fas fa-network-wired text-info"></i> Insights & Management
-    </h5>
-
-    <div class="row g-4">
-
-        <div class="col-md-4">
-            <a href="/map" class="text-decoration-none">
-                <div class="feature-card glass-panel text-center p-3">
-                    <i class="fas fa-map fa-lg mb-2" style="color: #00f0ff;"></i>
-                    <h6 class="text-light m-0">Parking Map</h6>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-4">
-            <a href="/analytics" class="text-decoration-none">
-                <div class="feature-card glass-panel text-center p-3">
-                    <i class="fas fa-chart-pie fa-lg mb-2" style="color: #ff9900;"></i>
-                    <h6 class="text-light m-0">Analytics</h6>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-4">
-            <a href="/admin" class="text-decoration-none">
-                <div class="feature-card glass-panel text-center p-3">
-                    <i class="fas fa-user-shield fa-lg mb-2" style="color: #8a2be2;"></i>
-                    <h6 class="text-light m-0">Admin Panel</h6>
-                </div>
-            </a>
-        </div>
-
+<!-- 🧠 FEATURES SECTION -->
+<div id="features" class="container mt-5 pt-5 pb-5 animate__animated animate__fadeInUp">
+    <div class="text-center mb-5">
+        <h2 class="title-glow text-light text-uppercase fw-bold" style="letter-spacing: 3px;">System Capabilities</h2>
+        <div style="width: 100px; height: 3px; background: #00f0ff; margin: 0 auto; box-shadow: 0 0 10px #00f0ff;"></div>
     </div>
 
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="glass-panel p-4 h-100 text-center feature-card">
+                <i class="fas fa-robot fa-3x text-info mb-3" style="text-shadow: 0 0 15px #00f0ff;"></i>
+                <h4 class="text-light fw-bold">AI Plate Recognition</h4>
+                <p class="text-muted">Automated entry and exit using state-of-the-art computer vision to scan license plates instantly.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-panel p-4 h-100 text-center feature-card">
+                <i class="fas fa-cubes fa-3x text-warning mb-3" style="text-shadow: 0 0 15px #ffc107;"></i>
+                <h4 class="text-light fw-bold">Live 3D Mapping</h4>
+                <p class="text-muted">Visualize the entire parking lot in a fully interactive 3D environment synced with real-time data.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-panel p-4 h-100 text-center feature-card border-danger-glass">
+                <i class="fas fa-shield-alt fa-3x text-danger mb-3" style="text-shadow: 0 0 15px #ff003c;"></i>
+                <h4 class="text-light fw-bold">Secure Admin Core</h4>
+                <p class="text-muted">High-level administrative oversight with advanced analytics, live tracking, and revenue management.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- ⚙️ FOOTER ACTIONS -->
-<div class="text-center mt-5 mb-5">
+<!-- ❓ FAQ SECTION -->
+<div class="container mt-5 pt-5 pb-5">
+    <div class="text-center mb-5">
+        <h2 class="title-glow text-light text-uppercase fw-bold" style="letter-spacing: 3px;">Frequently Asked Questions</h2>
+        <div style="width: 100px; height: 3px; background: #8a2be2; margin: 0 auto; box-shadow: 0 0 10px #8a2be2;"></div>
+    </div>
 
-    <a href="/reserve" class="btn btn-neon me-2">
-        <i class="fas fa-clock"></i> Reserve Slot
-    </a>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="accordion" id="faqAccordion">
+                
+                <!-- FAQ 1 -->
+                <div class="accordion-item bg-transparent border-0 mb-3 glass-panel" style="overflow: hidden;">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button bg-transparent text-light fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" style="box-shadow: none;">
+                            <i class="fas fa-question-circle text-info me-3"></i> How does the AI camera work?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted" style="background: rgba(0,0,0,0.3);">
+                            Our system uses advanced Optical Character Recognition (OCR) running in the background to detect your license plate upon entry. The gate opens automatically without any human intervention!
+                        </div>
+                    </div>
+                </div>
 
-    <a href="/attack123" class="btn btn-neon-purple shadow">
-        <i class="fas fa-shield-alt shield-icon"></i> Security Demo
-    </a>
+                <!-- FAQ 2 -->
+                <div class="accordion-item bg-transparent border-0 mb-3 glass-panel" style="overflow: hidden;">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button bg-transparent text-light fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" style="box-shadow: none;">
+                            <i class="fas fa-money-bill-wave text-warning me-3"></i> How are parking fees calculated?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted" style="background: rgba(0,0,0,0.3);">
+                            Fees are calculated strictly based on time spent parked. Cars are charged ₹50/hour and Bikes are charged ₹20/hour. A live digital receipt is provided upon exit.
+                        </div>
+                    </div>
+                </div>
 
-    <a href="/reset" class="btn btn-neon-pink ms-2 shadow">
-        <i class="fas fa-sync-alt"></i> Reset
-    </a>
+                <!-- FAQ 3 -->
+                <div class="accordion-item bg-transparent border-0 mb-3 glass-panel border-danger-glass" style="overflow: hidden;">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button bg-transparent text-light fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" style="box-shadow: none;">
+                            <i class="fas fa-user-shield text-danger me-3"></i> Is my vehicle data secure?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted" style="background: rgba(0,0,0,0.3);">
+                            Yes. All plate data is encrypted and logged in our secure database core. Historical data is retained only for analytics and revenue tracking purposes.
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- 📞 CONTACT & FOOTER -->
+<footer class="mt-5 pt-5 pb-4 text-center" style="background: rgba(0,0,0,0.6); border-top: 1px solid rgba(0, 240, 255, 0.2); backdrop-filter: blur(10px); margin-left: -12px; margin-right: -12px;">
+    <div class="container">
+        <div class="row text-start mb-4">
+            <div class="col-md-6 mb-3">
+                <h4 class="text-light fw-bold mb-3"><i class="fas fa-car-side text-info"></i> Smart Parking</h4>
+                <p class="text-muted small">Revolutionizing parking management through Artificial Intelligence and dynamic web technologies.</p>
+            </div>
+            <div class="col-md-6 mb-3 text-md-end text-start">
+                <h4 class="text-light fw-bold mb-3">Contact</h4>
+                <p class="text-muted small mb-1"><i class="fas fa-envelope text-info me-2"></i> support@smartparking.ai</p>
+                <p class="text-muted small mb-1"><i class="fas fa-phone text-info me-2"></i> +1 (800) 555-PARK</p>
+                <p class="text-muted small"><i class="fas fa-map-marker-alt text-info me-2"></i> Cyber City, Sector 404</p>
+            </div>
+        </div>
+        <hr style="border-color: rgba(255,255,255,0.1);">
+        <p class="text-muted small m-0 pt-2">
+            &copy; 2026 Smart Parking System. All rights reserved. | <a href="/login" class="text-info text-decoration-none">Admin Login</a>
+        </p>
+    </div>
+</footer>
 
 <!-- 🎨 STYLES -->
 <style>
-
-/* 🌈 LOGO GRADIENT */
 .logo-gradient {
     background: linear-gradient(90deg, #00f0ff, #8a2be2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 800;
     text-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
     letter-spacing: 2px;
 }
-
-/* 🚗 ICON */
 .logo-icon {
     font-size: 50px;
     margin-right: 15px;
     -webkit-text-fill-color: #00f0ff;
     display: inline-block;
 }
+.text-shadow-cyan { text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); }
 
-.text-shadow-cyan {
-    text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
-}
+.feature-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.feature-card:hover { transform: translateY(-10px); }
 
-/* ✅ MAKE FADED TEXT VISIBLE */
-.home-subtitle {
-    color: #cbd5e1 !important;
-    opacity: 1 !important;
-    font-weight: 400;
-}
-
-.card-subtext {
-    color: #cbd5e1 !important;
-    opacity: 1 !important;
-    font-weight: 400;
-}
-
-/* FEATURE CARDS */
-.feature-card {
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* EXIT */
-.border-danger-glass {
-    border-color: rgba(255, 0, 60, 0.3) !important;
-}
-
+.border-danger-glass { border-color: rgba(255, 0, 60, 0.3) !important; }
 .border-danger-glass:hover {
     box-shadow: 0 15px 35px rgba(255, 0, 60, 0.2) !important;
     border-color: rgba(255, 0, 60, 0.6) !important;
 }
 
-/* ICON ANIMATION */
-.shield-icon {
-    display: inline-block;
-    margin-right: 6px;
-    animation: pulseShield 2s infinite;
-}
-
-@keyframes pulseShield {
-    0% { transform: scale(1); text-shadow: 0 0 10px #8a2be2; }
-    50% { transform: scale(1.3); text-shadow: 0 0 20px #8a2be2; }
-    100% { transform: scale(1); text-shadow: 0 0 10px #8a2be2; }
-}
-
-/* Make sure the text pops against the 3D background */
 .glass-panel {
     background: rgba(20, 20, 30, 0.75) !important;
     backdrop-filter: blur(10px) !important;
 }
-</style>
 
-<!-- 🎬 STAGGERED ANIMATIONS -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const cards = document.querySelectorAll('.feature-card');
-    cards.forEach((card, index) => {
-        card.classList.add('animate__animated', 'animate__fadeInUp');
-        card.style.animationDelay = `${index * 0.15}s`;
-        card.style.animationFillMode = 'both';
-    });
-});
-</script>
+/* Accordion Fixes for Dark Mode */
+.accordion-button::after {
+    filter: invert(1);
+}
+</style>
 
 <!-- 🔥 THREE.JS CYBERPUNK GRID -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -216,11 +186,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('terrain-container');
     const scene = new THREE.Scene();
     
-    // Add subtle fog to fade out the grid in the distance
     scene.fog = new THREE.FogExp2(0x0a0a0f, 0.015);
 
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    // Position camera low to the ground for a flying effect
     camera.position.set(0, 5, 40);
     camera.lookAt(0, 0, 0);
 
@@ -229,12 +197,10 @@ document.addEventListener("DOMContentLoaded", function() {
     renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
 
-    // Create a massive plane for the terrain
     const geometry = new THREE.PlaneGeometry(200, 200, 50, 50);
     
-    // Glowing Wireframe Material
     const material = new THREE.MeshBasicMaterial({ 
-        color: 0x8a2be2,  // Purple/Cyan mix
+        color: 0x8a2be2, 
         wireframe: true, 
         transparent: true, 
         opacity: 0.25 
@@ -242,7 +208,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const terrain = new THREE.Mesh(geometry, material);
     terrain.rotation.x = -Math.PI / 2;
-    // Lower the terrain slightly so it stays mostly behind the UI
     terrain.position.y = -10;
     scene.add(terrain);
 
@@ -254,12 +219,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const time = clock.getElapsedTime();
         const position = geometry.attributes.position;
         
-        // Loop through all vertices to create moving waves
         for (let i = 0; i < position.count; i++) {
             const x = position.getX(i);
             const y = position.getY(i);
             
-            // Complex math for rolling cyber-hills moving towards the camera!
             const wave1 = Math.sin(x * 0.05 + time) * 3;
             const wave2 = Math.cos((y - time * 20) * 0.05) * 4; 
             
@@ -267,15 +230,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
         position.needsUpdate = true;
-        
-        // Very slow rotation for a dizzying, cinematic feel
         terrain.rotation.z = Math.sin(time * 0.1) * 0.05;
 
         renderer.render(scene, camera);
     }
     animate();
 
-    // Handle Resize
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
