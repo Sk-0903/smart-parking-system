@@ -2,40 +2,225 @@
 
 {% block content %}
 
-<h2>📷 Capture Vehicle</h2>
+<div class="container mt-5 animate__animated animate__fadeIn">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            
+            <div class="glass-panel p-4 text-center" style="border-radius: 20px;">
+                <h3 class="title-glow mb-4 text-light">
+                    <i class="fas fa-camera text-info"></i> AI Plate Scanner
+                </h3>
 
-<video id="video" width="400" autoplay></video>
-<br><br>
+                <!-- 🔥 SCANNER CONTAINER -->
+                <div class="scanner-container mx-auto">
+                    
+                    <!-- The actual video feed -->
+                    <video id="video" autoplay playsinline></video>
+                    
+                    <!-- The preview of the captured photo -->
+                    <canvas id="canvas" style="display:none;"></canvas>
 
-<button onclick="capture()" class="btn btn-primary">Capture</button>
+                    <!-- The futuristic overlay -->
+                    <div id="scanner-overlay" class="overlay">
+                        <div class="corner top-left"></div>
+                        <div class="corner top-right"></div>
+                        <div class="corner bottom-left"></div>
+                        <div class="corner bottom-right"></div>
+                        <div class="scan-line"></div>
+                    </div>
 
-<form method="POST" action="/capture" enctype="multipart/form-data">
-    <input type="hidden" name="image_data" id="image_data">
-    <button type="submit" class="btn btn-success mt-2">Submit</button>
-</form>
+                    <!-- Flash Effect -->
+                    <div id="flash" class="camera-flash"></div>
+                </div>
 
-<canvas id="canvas" style="display:none;"></canvas>
+                <div class="mt-4">
+                    <p id="status-text" class="text-muted small text-uppercase" style="letter-spacing: 2px;">
+                        <i class="fas fa-circle text-danger blink"></i> Camera Active. Align plate inside frame.
+                    </p>
 
+                    <!-- Primary Actions -->
+                    <div id="action-buttons">
+                        <button onclick="takePhoto()" class="btn btn-neon btn-lg px-5">
+                            <i class="fas fa-camera"></i> Scan Plate
+                        </button>
+                    </div>
+
+                    <!-- Submit / Retake Actions (Hidden initially) -->
+                    <form method="POST" action="/capture" enctype="multipart/form-data" id="submit-form" style="display:none;">
+                        <input type="hidden" name="image_data" id="image_data">
+                        <button type="button" onclick="retakePhoto()" class="btn btn-outline-secondary me-2">
+                            <i class="fas fa-redo"></i> Retake
+                        </button>
+                        <button type="submit" class="btn btn-neon-purple shadow">
+                            <i class="fas fa-upload"></i> Process Image
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 🎨 FUTURISTIC SCANNER STYLES -->
+<style>
+.scanner-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 350px;
+    background: #000;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+    border: 2px solid rgba(0, 240, 255, 0.3);
+}
+
+video, canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* AI Overlay Styling */
+.overlay {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Corner Brackets */
+.corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-color: #00f0ff;
+    border-style: solid;
+    transition: 0.3s;
+}
+
+.top-left { top: 0; left: 0; border-width: 4px 0 0 4px; }
+.top-right { top: 0; right: 0; border-width: 4px 4px 0 0; }
+.bottom-left { bottom: 0; left: 0; border-width: 0 0 4px 4px; }
+.bottom-right { bottom: 0; right: 0; border-width: 0 4px 4px 0; }
+
+/* Moving Scan Line */
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #8a2be2;
+    box-shadow: 0 0 15px #8a2be2, 0 0 30px #8a2be2;
+    animation: scan 2s infinite linear;
+}
+
+@keyframes scan {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+/* Camera Flash */
+.camera-flash {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: white;
+    opacity: 0;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.flash-anim {
+    animation: flashEffect 0.4s ease-out;
+}
+
+@keyframes flashEffect {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+</style>
+
+<!-- 📷 CAMERA LOGIC -->
 <script>
     const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const actionButtons = document.getElementById('action-buttons');
+    const submitForm = document.getElementById('submit-form');
+    const overlay = document.getElementById('scanner-overlay');
+    const statusText = document.getElementById('status-text');
+    const flash = document.getElementById('flash');
 
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            video.srcObject = stream;
-        });
+    // Start Camera
+    function startCamera() {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Camera error:", err);
+                statusText.innerHTML = `<i class="fas fa-exclamation-triangle text-warning"></i> Camera access denied or unavailable.`;
+            });
+    }
 
-    function capture() {
-        const canvas = document.getElementById('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+    startCamera();
 
+    function takePhoto() {
+        // Flash Effect
+        flash.classList.remove('flash-anim');
+        void flash.offsetWidth; // trigger reflow
+        flash.classList.add('flash-anim');
+
+        // Draw video to canvas
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0);
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        const data = canvas.toDataURL('image/jpeg', 0.5);
+        // Extract Data
+        const data = canvas.toDataURL('image/jpeg', 0.8);
         document.getElementById('image_data').value = data;
 
-        alert("Image captured! Click submit.");
+        // UI Changes
+        video.style.display = 'none';
+        canvas.style.display = 'block';
+        overlay.style.display = 'none'; // hide scanner line
+        
+        actionButtons.style.display = 'none';
+        submitForm.style.display = 'block';
+        
+        statusText.innerHTML = `<i class="fas fa-check-circle text-success"></i> Image Captured Successfully.`;
+    }
+
+    function retakePhoto() {
+        // Reset UI
+        video.style.display = 'block';
+        canvas.style.display = 'none';
+        overlay.style.display = 'block';
+
+        actionButtons.style.display = 'block';
+        submitForm.style.display = 'none';
+
+        statusText.innerHTML = `<i class="fas fa-circle text-danger blink"></i> Camera Active. Align plate inside frame.`;
+        document.getElementById('image_data').value = '';
     }
 </script>
 
