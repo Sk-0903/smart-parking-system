@@ -42,7 +42,7 @@ recent_attempts = {}
 def detect_suspicious(plate):
     now = datetime.now()
     if plate in recent_attempts:
-        if (now - recent_attempts[plate]).seconds < 10:
+        if (now - recent_attempts[plate]).total_seconds() < 10:
             return True
     recent_attempts[plate] = now
     return False
@@ -509,9 +509,6 @@ def capture():
         try:
             if not valid_plate(plate):
                 return redirect(url_for('register', error="Invalid plate"))
-
-            if detect_suspicious(plate):
-                return redirect(url_for('register', error="Suspicious activity"))
 
             if plate in BLACKLIST:
                 return redirect(url_for('register', error="Blacklisted vehicle"))
