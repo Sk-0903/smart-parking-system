@@ -839,8 +839,9 @@ def exit_vehicle_api():
     conn = sqlite3.connect("parking.db")
     cur = conn.cursor()
 
+    # ✅ FETCH OWNER NAME ALSO
     cur.execute("""
-        SELECT slot, entry_time, vehicle
+        SELECT name, slot, entry_time, vehicle
         FROM users
         WHERE plate=? AND status='parked'
     """, (plate,))
@@ -848,18 +849,23 @@ def exit_vehicle_api():
     row = cur.fetchone()
 
     if not row:
+        conn.close()
         return jsonify({"error": "Vehicle not found ❌"})
 
-    slot, entry_time, vehicle = row
+    # ✅ UNPACK VALUES
+    name, slot, entry_time, vehicle = row
 
     entry_time = datetime.fromisoformat(entry_time)
     exit_time = datetime.now()
 
+    # ⏱️ Calculate duration
     duration = (exit_time - entry_time).total_seconds() / 60
 
+    # 💰 Calculate fee
     rate = 20 if vehicle == "bike" else 50
     fee = max(1, ceil(duration / 60)) * rate
 
+    # ✅ UPDATE DB
     cur.execute("""
         UPDATE users
         SET exit_time=?, fee=?, status='exited'
@@ -869,10 +875,12 @@ def exit_vehicle_api():
     conn.commit()
     conn.close()
 
+    # ✅ FINAL RESPONSE (IMPORTANT)
     return jsonify({
         "message": "Exited Successfully ✅",
+        "owner": name,
+        "plate": plate,
         "slot": slot,
-        "minutes": int(duration),
         "fee": fee
     })
 
