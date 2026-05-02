@@ -416,7 +416,8 @@ def parking_map():
             "slot": slot,
             "plate": plate,
             "time": time_display,
-            "fee": fee
+            "fee": fee,
+            "vehicle": vehicle
         })
 
     # 🔥 SMART PREDICTION SYSTEM
@@ -650,17 +651,19 @@ def admin():
 
 # ---------------- RESET ----------------
     
-@app.route('/reset')
+@app.route('/reset', methods=['GET', 'POST'])
 def reset():
-    conn = sqlite3.connect(DB_PATH)
-    cur = conn.cursor()
+    if request.method == 'POST':
+        conn = sqlite3.connect(DB_PATH)
+        cur = conn.cursor()
 
-    cur.execute("DELETE FROM users")
+        cur.execute("DELETE FROM users")
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
 
-    return redirect(url_for('index'))
+        return redirect(url_for('index'))
+    return render_template('reset.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -810,7 +813,8 @@ def get_slots():
                 "occupied": True,
                 "plate": plate,
                 "time": time_display,
-                "fee": fee
+                "fee": fee,
+                "vehicle": vehicle
             })
 
         else:
@@ -819,7 +823,8 @@ def get_slots():
                 "occupied": False,
                 "plate": "",
                 "time": "",
-                "fee": ""
+                "fee": "",
+                "vehicle": ""
             })
 
     conn.close()

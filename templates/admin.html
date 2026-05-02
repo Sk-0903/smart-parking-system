@@ -18,25 +18,25 @@
     <div class="row text-center mb-4 g-4">
         <div class="col-md-3">
             <div class="glass-panel p-4" style="border-top: 3px solid #00f0ff;">
-                <h6 class="text-muted text-uppercase">Total Processed</h6>
+                <h6 class="text-uppercase" style="color: #cbd5e1;">Total Processed</h6>
                 <h2 class="text-light m-0 fw-bold">{{ users|length }}</h2>
             </div>
         </div>
         <div class="col-md-3">
             <div class="glass-panel p-4" style="border-top: 3px solid #ff9900;">
-                <h6 class="text-muted text-uppercase">Active Vehicles</h6>
+                <h6 class="text-uppercase" style="color: #cbd5e1;">Active Vehicles</h6>
                 <h2 class="text-warning m-0 fw-bold">{{ users | selectattr(8, 'equalto', 'parked') | list | length }}</h2>
             </div>
         </div>
         <div class="col-md-3">
             <div class="glass-panel p-4" style="border-top: 3px solid #ff003c;">
-                <h6 class="text-muted text-uppercase">Exited Vehicles</h6>
+                <h6 class="text-uppercase" style="color: #cbd5e1;">Exited Vehicles</h6>
                 <h2 class="text-danger m-0 fw-bold">{{ users | selectattr(8, 'equalto', 'exited') | list | length }}</h2>
             </div>
         </div>
         <div class="col-md-3">
             <div class="glass-panel p-4" style="border-top: 3px solid #8a2be2;">
-                <h6 class="text-muted text-uppercase">Gross Revenue</h6>
+                <h6 class="text-uppercase" style="color: #cbd5e1;">Gross Revenue</h6>
                 <h2 class="text-light m-0 fw-bold" style="text-shadow: 0 0 15px #8a2be2;">₹{{ users | map(attribute=7) | select | sum }}</h2>
             </div>
         </div>
@@ -68,13 +68,13 @@
                 <tbody id="tableBody">
                     {% for u in users %}
                     <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                        <td class="text-muted">#{{ u[0] }}</td>
-                        <td><i class="fas fa-user-astronaut text-muted me-2"></i>{{ u[1] }}</td>
+                        <td style="color: #cbd5e1;">#{{ u[0] }}</td>
+                        <td><i class="fas fa-user-astronaut me-2" style="color: #cbd5e1;"></i>{{ u[1] }}</td>
                         <td>{% if u[2] == "car" %}🚗{% else %}🏍️{% endif %} <span class="text-capitalize">{{ u[2] }}</span></td>
                         <td class="fw-bold" style="letter-spacing: 1px;">{{ u[3] }}</td>
                         <td><span class="badge" style="background: rgba(0,240,255,0.2); color:#00f0ff; border: 1px solid #00f0ff;">{{ u[4] }}</span></td>
-                        <td class="small text-muted">{{ u[5] }}</td>
-                        <td class="small text-muted">{{ u[6] if u[6] else '-' }}</td>
+                        <td class="small" style="color: #cbd5e1;">{{ u[5] }}</td>
+                        <td class="small" style="color: #cbd5e1;">{{ u[6] if u[6] else '-' }}</td>
                         <td class="fw-bold text-warning">{% if u[7] %}₹{{ u[7] }}{% else %}-{% endif %}</td>
                         <td>
                             {% if u[8] == "parked" %}

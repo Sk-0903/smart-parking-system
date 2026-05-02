@@ -2,41 +2,51 @@
 
 {% block content %}
 
-<div class="container text-center mt-5">
+<div class="col-md-8 mx-auto animate__animated animate__zoomIn">
 
-    <h1 class="mb-4">🛡️ Cyber Security Attack Demo</h1>
+    <div class="glass-panel p-5 text-center" style="border-radius: 20px; border-color: rgba(255, 0, 60, 0.3);">
+        <h2 class="title-glow text-danger mb-4"><i class="fas fa-shield-alt"></i> Cyber Threat Simulation</h2>
+        <p class="text-light-gray mb-5">Test the robust security infrastructure of the Smart Parking system.</p>
 
-    <!-- 🔘 BUTTONS -->
-    <div class="mb-4">
-        <button class="btn btn-danger m-2" onclick="runAttack('sql')">⚠️ SQL Injection</button>
-        <button class="btn btn-warning m-2" onclick="runAttack('invalid')">❌ Invalid Input</button>
-        <button class="btn btn-dark m-2" onclick="runAttack('spam')">🚨 Spam Attack</button>
-    </div>
+        <!-- 🔘 BUTTONS -->
+        <div class="mb-5 d-flex justify-content-center flex-wrap gap-3">
+            <button class="btn btn-neon-pink" onclick="runAttack('sql')">
+                <i class="fas fa-database"></i> SQL Injection
+            </button>
+            <button class="btn btn-neon" onclick="runAttack('invalid')">
+                <i class="fas fa-times-circle"></i> Invalid Input
+            </button>
+            <button class="btn btn-neon-purple" onclick="runAttack('spam')">
+                <i class="fas fa-biohazard"></i> Spam Attack
+            </button>
+        </div>
 
-    <!-- 💻 TERMINAL -->
-    <div id="terminal" class="terminal p-4 text-start mx-auto">
-        <p>> Click a button to simulate attack...</p>
-        <span class="cursor">|</span>
+        <!-- 💻 TERMINAL -->
+        <div id="terminal" class="terminal p-4 text-start mx-auto shadow-lg" style="border: 1px solid rgba(0, 240, 255, 0.3);">
+            <p class="text-info m-0">> System standing by. Select an attack vector...</p>
+            <span class="cursor text-info fw-bold">|</span>
+        </div>
+
     </div>
 
 </div>
 
 <style>
-
 /* TERMINAL */
 .terminal {
-    background: black;
-    color: #00ff00;
+    background: rgba(5, 5, 10, 0.9);
     border-radius: 10px;
-    font-family: monospace;
+    font-family: 'Courier New', Courier, monospace;
     max-width: 600px;
-    box-shadow: 0 0 20px rgba(0,255,0,0.5);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
     min-height: 250px;
+    overflow-y: auto;
 }
 
 /* COLORS */
-.error { color: red; }
-.success { color: #00ff00; }
+.error { color: #ff003c; text-shadow: 0 0 10px #ff003c; margin: 5px 0; }
+.success { color: #00f0ff; text-shadow: 0 0 10px #00f0ff; margin: 5px 0; }
+.text-info { color: #00f0ff !important; margin: 5px 0; }
 
 /* CURSOR */
 .cursor {
@@ -48,7 +58,6 @@
     50% {opacity:0;}
     100% {opacity:1;}
 }
-
 </style>
 
 <script>
@@ -60,13 +69,13 @@ async function runAttack(type) {
     const lines = [
         "> Initializing system...",
         "> Scanning vulnerabilities...",
-        `> Launching ${type} attack...`
+        `> Launching ${type.toUpperCase()} attack vector...`
     ];
 
     // type each line slowly
     for (let line of lines) {
-        await typeLine(terminal, line);
-        await delay(500);
+        await typeLine(terminal, line, "text-info");
+        await delay(400);
     }
 
     // call backend
@@ -78,10 +87,16 @@ async function runAttack(type) {
         colorClass = "error";
     }
 
-    await typeLine(terminal, result, colorClass);
+    await typeLine(terminal, "> " + result, colorClass);
     await delay(300);
 
     await typeLine(terminal, "> SYSTEM CHECK COMPLETE", "success");
+    
+    // Add blinking cursor back
+    const cursor = document.createElement("span");
+    cursor.className = "cursor text-info fw-bold";
+    cursor.textContent = "|";
+    terminal.appendChild(cursor);
 }
 
 function delay(ms) {
@@ -90,13 +105,15 @@ function delay(ms) {
 
 async function typeLine(container, text, className="") {
     const p = document.createElement("p");
-    if (className) p.classList.add(className);
+    if (className) p.className = className;
 
     container.appendChild(p);
 
     for (let i = 0; i < text.length; i++) {
         p.textContent += text[i];
-        await delay(30);  // typing speed
+        // Autoscroll
+        container.scrollTop = container.scrollHeight;
+        await delay(20);  // typing speed
     }
 }
 

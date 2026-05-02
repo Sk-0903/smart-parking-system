@@ -62,7 +62,7 @@
         </div>
 
         <!-- 📤 Upload -->
-        <label class="mb-2 ms-1 text-muted small text-uppercase fw-bold"><i class="fas fa-upload"></i> Upload Image (Optional)</label>
+        <label class="mb-2 ms-1 text-light-gray small text-uppercase fw-bold"><i class="fas fa-upload"></i> Upload Image (Optional)</label>
         <input type="file" name="image" class="form-control cyber-input-file mb-4">
 
         <!-- 🚀 Submit -->
@@ -88,6 +88,9 @@
     color: white !important;
     border: 1px solid rgba(0, 240, 255, 0.3);
     border-left: none;
+}
+.cyber-input .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
 }
 .cyber-input .form-control:focus {
     box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);

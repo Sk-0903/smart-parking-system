@@ -29,7 +29,7 @@
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PAY{{ fee }}" />
             </div>
             
-            <p class="text-muted small text-uppercase" style="letter-spacing: 2px;">Scan QR to Pay</p>
+            <p class="small text-uppercase" style="letter-spacing: 2px; color: #cbd5e1;">Scan QR to Pay</p>
 
             <button class="btn btn-neon w-100 mt-2"><i class="fas fa-check-double"></i> Confirm Payment</button>
         </div>
@@ -38,14 +38,19 @@
             <i class="fas fa-check-circle text-info"></i> Transaction Successful! Raising Gate...
         </div>
 
-        <p class="text-center text-muted small mt-4"><i class="fas fa-spinner fa-spin"></i> Returning to home screen...</p>
+        <p class="text-center small mt-4" style="color: #cbd5e1;"><i class="fas fa-spinner fa-spin"></i> Returning to home screen...</p>
 
         <script>
             setTimeout(() => { window.location.href = "/"; }, 8000); 
         </script>
         {% endif %}
 
-    </div>
 </div>
+
+<style>
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+</style>
 
 {% endblock %}

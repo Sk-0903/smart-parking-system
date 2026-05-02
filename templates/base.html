@@ -175,21 +175,30 @@
                 <li class="nav-item">
                     <a class="nav-link nav-hover text-light" href="/"><i class="fas fa-home text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> Home</a>
                 </li>
-            <li class="nav-item">
-                <a class="nav-link nav-hover text-light" href="/camera"><i class="fas fa-camera text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> Scanner</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav-hover text-light" href="/register"><i class="fas fa-parking text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> Park</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav-hover text-light" href="/exit"><i class="fas fa-sign-out-alt text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> Exit</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav-hover text-light" href="/map"><i class="fas fa-map text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> 3D Map</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav-hover text-light" href="/analytics"><i class="fas fa-chart-pie text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> Analytics</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-hover text-light" href="/register"><i class="fas fa-parking text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> Park</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-hover text-light" href="/exit"><i class="fas fa-sign-out-alt text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> Exit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-hover text-light" href="/map"><i class="fas fa-map text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> 3D Map</a>
+                </li>
+                
+                <!-- Dropdown for Modules -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle nav-hover text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-cogs text-info me-1" style="text-shadow: 0 0 10px #00f0ff;"></i> Modules
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown" style="background: rgba(20, 20, 30, 0.95); border: 1px solid rgba(0, 240, 255, 0.3); backdrop-filter: blur(10px);">
+                        <li><a class="dropdown-item nav-hover" href="/camera"><i class="fas fa-camera text-info me-2"></i> Scanner</a></li>
+                        <li><a class="dropdown-item nav-hover" href="/analytics"><i class="fas fa-chart-pie text-info me-2"></i> Analytics</a></li>
+                        <li><a class="dropdown-item nav-hover" href="/reserve"><i class="fas fa-clock text-info me-2"></i> Pre-Reserve</a></li>
+                        <li><hr class="dropdown-divider" style="border-color: rgba(255, 255, 255, 0.1);"></li>
+                        <li><a class="dropdown-item nav-hover text-danger" href="/attack123"><i class="fas fa-shield-alt me-2"></i> Attack Demo</a></li>
+                        <li><a class="dropdown-item nav-hover text-danger" href="/reset"><i class="fas fa-exclamation-triangle me-2"></i> System Purge</a></li>
+                    </ul>
+                </li>
         
             <!-- Admin Button -->
             <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
