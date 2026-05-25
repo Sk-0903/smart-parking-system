@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-md-5 mx-auto animate__animated animate__zoomIn">
+
+    <div class="glass-panel p-5 text-center" style="border-radius: 20px; border-color: rgba(255, 0, 60, 0.4);">
+        <h2 class="title-glow text-danger mb-4"><i class="fas fa-exclamation-triangle"></i> System Purge</h2>
+        
+        <p class="text-light-gray mb-4">
+            Are you sure you want to reset the Smart Parking database? This will permanently delete all parked vehicle data and history.
+        </p>
+
+        <form method="POST" action="/reset">
+            <button class="btn btn-neon-pink w-100 btn-lg shadow-lg mb-3">
+                <i class="fas fa-trash-alt"></i> Confirm Purge
+            </button>
+        </form>
+
+        <a href="/" class="btn btn-outline-info w-100 btn-lg">
+            <i class="fas fa-times"></i> Cancel
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

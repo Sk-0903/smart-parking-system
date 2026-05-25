@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-center mb-4 animate__animated animate__fadeInDown">
+    📊 Advanced Analytics
+</h2>
+
+<div class="container">
+
+    <!-- 🔥 TOP CARDS -->
+    <div class="row text-center mb-4">
+
+        <div class="col-md-3">
+            <div class="glass-panel text-white p-3 mb-3 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <h5 class="text-info">📊 Total Usage</h5>
+                <h2 id="total" class="fw-bold">{{ total }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="glass-panel text-white p-3 mb-3 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <h5 class="text-success">🚗 Currently Parked</h5>
+                <h2 id="parked" class="fw-bold">{{ parked }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="glass-panel text-white p-3 mb-3 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <h5 class="text-danger">🚪 Vehicles Exited</h5>
+                <h2 id="exited" class="fw-bold">{{ exited }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="glass-panel text-white p-3 mb-3 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                <h5 class="text-warning">💰 Gross Revenue</h5>
+                <h2 id="revenue" class="fw-bold">₹{{ revenue }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🔥 CHARTS SECTION -->
+    <div class="row">
+        <!-- 🔥 STATUS DOUGHNUT -->
+        <div class="col-md-5 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.5s;">
+            <div class="glass-panel p-4 h-100">
+                <h6 class="text-center text-light mb-3">Vehicle Distribution</h6>
+                <div class="chart-container">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔥 REVENUE LINE CHART -->
+        <div class="col-md-7 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.6s;">
+            <div class="glass-panel p-4 h-100">
+                <h6 class="text-center text-light mb-3">Revenue Projection</h6>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 🔥 STYLE FIX -->
+<style>
+.chart-container {
+    position: relative;
+    height: 300px; 
+    width: 100%;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+let statusChart, revenueChart;
+
+// Setup Dark Mode Chart Defaults
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.font.family = 'Outfit';
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const parked = {{ parked | default(0) }};
+    const exited = {{ exited | default(0) }};
+    const revenue = {{ revenue | default(0) }};
+
+    // 🔥 STATUS DOUGHNUT
+    statusChart = new Chart(document.getElementById("statusChart"), {
+        type: 'doughnut',
+        data: {
+            labels: ['Parked', 'Exited'],
+            datasets: [{
+                data: [parked, exited],
+                backgroundColor: ['#00f0ff', '#ff003c'],
+                borderColor: '#14141e',
+                borderWidth: 5,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,   
+            cutout: '75%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: '#fff', padding: 20 }
+                }
+            },
+            animation: { animateScale: true }
+        }
+    });
+
+    // 🔥 REVENUE AREA CHART
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    
+    // Create glowing gradient
+    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, 'rgba(138, 43, 226, 0.8)');
+    gradient.addColorStop(1, 'rgba(138, 43, 226, 0.0)');
+
+    revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Previous', 'Current Earnings'],
+            datasets: [{
+                label: 'Revenue (₹)',
+                data: [0, revenue],
+                borderColor: '#8a2be2',
+                borderWidth: 3,
+                backgroundColor: gradient,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#00f0ff',
+                pointBorderColor: '#fff',
+                pointRadius: 6,
+                pointHoverRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(20, 20, 30, 0.9)',
+                    titleColor: '#00f0ff',
+                    bodyColor: '#fff',
+                    borderColor: 'rgba(0, 240, 255, 0.5)',
+                    borderWidth: 1,
+                    padding: 12
+                }
+            }
+        }
+    });
+
+    setInterval(updateAnalytics, 5000);
+});
+
+// 🔥 AUTO REFRESH
+function updateAnalytics() {
+    fetch('/stats')
+        .then(res => res.json())
+        .then(data => {
+
+            document.getElementById("total").innerText = data.total;
+            document.getElementById("parked").innerText = data.active;
+            document.getElementById("exited").innerText = data.exited;
+            document.getElementById("revenue").innerText = "₹" + data.revenue;
+
+            if (statusChart && revenueChart) {
+                statusChart.data.datasets[0].data = [data.active, data.exited];
+                statusChart.update();
+
+                // Simple update for demonstration
+                revenueChart.data.datasets[0].data = [0, data.revenue];
+                revenueChart.update();
+            }
+        })
+        .catch(err => console.log("Stats fetch error:", err));
+}
+</script>
+
+{% endblock %}
