@@ -233,15 +233,17 @@
             const resData = initialReservations[slotId];
             const slot = parkingSlots[slotId];
             if (slot) {
-                slot.mesh.userData.data = {
+                const resObj = {
                     slot: parseInt(slotId),
                     reserved: true,
                     name: resData.name,
                     plate: resData.plate,
                     vehicle: resData.vehicle
                 };
+                slot.mesh.userData.data = resObj;
                 slot.lineMat.color.setHex(0xffaa00);
                 slot.lineMat.opacity = 0.8;
+                addCar(parseInt(slotId), resObj, true, true);
             }
         }
 
@@ -348,11 +350,11 @@
         }
     }
 
-    function addCar(slotId, data, instant = false) {
-        if (cars[slotId] && cars[slotId].userData.animationState !== 'exiting') return;
-        
-        // Remove exiting car immediately if there was one
+    function addCar(slotId, data, instant = false, isHologram = false) {
         if (cars[slotId]) {
+            if (cars[slotId].userData.isHologram === isHologram && cars[slotId].userData.animationState !== 'exiting') {
+                return;
+            }
             scene.remove(cars[slotId]);
             delete cars[slotId];
         }
@@ -360,17 +362,42 @@
         const slot = parkingSlots[slotId];
         if (!slot) return;
 
-        const colorHex = slotId % 2 === 0 ? 0x8a2be2 : 0xff003c;
-        const carMat = new THREE.MeshStandardMaterial({
-            color: colorHex,
-            roughness: 0.2,
-            metalness: 0.8,
-            emissive: colorHex,
-            emissiveIntensity: 0.2
-        });
-        const wheelMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.9 });
-        const headlightMat = new THREE.MeshBasicMaterial({ color: 0xfff0ad });
-        const taillightMat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        if (isHologram) {
+            instant = true;
+        }
+
+        const colorHex = isHologram ? 0xffaa00 : (slotId % 2 === 0 ? 0x8a2be2 : 0xff003c);
+        let carMat, wheelMat;
+        if (isHologram) {
+            carMat = new THREE.MeshStandardMaterial({
+                color: colorHex,
+                roughness: 0.1,
+                metalness: 0.9,
+                transparent: true,
+                opacity: 0.35,
+                emissive: colorHex,
+                emissiveIntensity: 0.8
+            });
+            wheelMat = new THREE.MeshStandardMaterial({
+                color: colorHex,
+                transparent: true,
+                opacity: 0.15,
+                emissive: colorHex,
+                emissiveIntensity: 0.4
+            });
+        } else {
+            carMat = new THREE.MeshStandardMaterial({
+                color: colorHex,
+                roughness: 0.2,
+                metalness: 0.8,
+                emissive: colorHex,
+                emissiveIntensity: 0.2
+            });
+            wheelMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.9 });
+        }
+
+        const headlightMat = isHologram ? carMat : new THREE.MeshBasicMaterial({ color: 0xfff0ad });
+        const taillightMat = isHologram ? carMat : new THREE.MeshBasicMaterial({ color: 0xff0000 });
         const lightGeo = new THREE.SphereGeometry(0.12, 8, 8);
 
         const vehicleGroup = new THREE.Group();
@@ -484,9 +511,10 @@
                 animationState: 'parked',
                 animationProgress: 1.0,
                 targetX: slot.x,
-                targetZ: slot.z
+                targetZ: slot.z,
+                isHologram: isHologram
             };
-            slot.lineMat.color.setHex(0xff003c);
+            slot.lineMat.color.setHex(isHologram ? 0xffaa00 : 0xff003c);
             slot.lineMat.opacity = 0.8;
         } else {
             vehicleGroup.position.set(-35, 0, 0);
@@ -498,7 +526,8 @@
                 animationState: 'entering',
                 animationProgress: 0.0,
                 targetX: slot.x,
-                targetZ: slot.z
+                targetZ: slot.z,
+                isHologram: isHologram
             };
             slot.lineMat.color.setHex(0xff003c);
             slot.lineMat.opacity = 0.8;
@@ -516,15 +545,26 @@
 
     function removeCar(slotId) {
         const car = cars[slotId];
-        if (car && car.userData.animationState !== 'exiting') {
-            car.userData.animationState = 'exiting';
-            car.userData.animationProgress = 0.0;
-            
-            if (parkingSlots[slotId]) {
-                parkingSlots[slotId].mesh.userData.occupied = false;
-                parkingSlots[slotId].mesh.userData.data = null;
-                parkingSlots[slotId].lineMat.color.setHex(0x00f0ff);
-                parkingSlots[slotId].lineMat.opacity = 0.4;
+        if (car) {
+            if (car.userData.isHologram) {
+                scene.remove(car);
+                delete cars[slotId];
+                if (parkingSlots[slotId]) {
+                    parkingSlots[slotId].mesh.userData.occupied = false;
+                    parkingSlots[slotId].mesh.userData.data = null;
+                    parkingSlots[slotId].lineMat.color.setHex(0x00f0ff);
+                    parkingSlots[slotId].lineMat.opacity = 0.4;
+                }
+            } else if (car.userData.animationState !== 'exiting') {
+                car.userData.animationState = 'exiting';
+                car.userData.animationProgress = 0.0;
+                
+                if (parkingSlots[slotId]) {
+                    parkingSlots[slotId].mesh.userData.occupied = false;
+                    parkingSlots[slotId].mesh.userData.data = null;
+                    parkingSlots[slotId].lineMat.color.setHex(0x00f0ff);
+                    parkingSlots[slotId].lineMat.opacity = 0.4;
+                }
             }
         }
     }
@@ -768,8 +808,8 @@
                         slot.lineMat.color.setHex(0xff003c);
                         slot.lineMat.opacity = 0.8;
 
-                        if (!cars[slotData.slot] || cars[slotData.slot].userData.animationState === 'exiting') {
-                            addCar(slotData.slot, slotData, false);
+                        if (!cars[slotData.slot] || cars[slotData.slot].userData.isHologram || cars[slotData.slot].userData.animationState === 'exiting') {
+                            addCar(slotData.slot, slotData, false, false);
                         } else {
                             cars[slotData.slot].userData.data = slotData;
                         }
@@ -777,8 +817,8 @@
                         slot.lineMat.color.setHex(0xffaa00);
                         slot.lineMat.opacity = 0.8;
 
-                        if (cars[slotData.slot]) {
-                            removeCar(slotData.slot);
+                        if (!cars[slotData.slot] || !cars[slotData.slot].userData.isHologram || cars[slotData.slot].userData.animationState === 'exiting') {
+                            addCar(slotData.slot, slotData, true, true);
                         }
                     } else {
                         slot.lineMat.color.setHex(0x00f0ff);
