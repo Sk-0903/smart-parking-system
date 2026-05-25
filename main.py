@@ -183,25 +183,72 @@ def init_db():
         )
     ''')
 
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS reservations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            plate TEXT UNIQUE,
+            vehicle TEXT,
+            slot INTEGER,
+            reserve_time TEXT
+        )
+    ''')
+
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS blacklist (
+            plate TEXT PRIMARY KEY,
+            reason TEXT,
+            added_time TEXT
+        )
+    ''')
+
     conn.commit()
     conn.close()
 
 init_db()
 
+def is_blacklisted(plate):
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cur = conn.cursor()
+        cur.execute("SELECT 1 FROM blacklist WHERE plate=?", (plate.upper(),))
+        row = cur.fetchone()
+        conn.close()
+        return row is not None
+    except Exception as e:
+        print("DB Blacklist check error:", e)
+        return False
 
-# 🧠 SMART SLOT LOGIC
-def get_available_slot():
-    conn = sqlite3.connect(DB_PATH)
-    cur = conn.cursor()
 
-    cur.execute("SELECT slot FROM users WHERE status='parked'")
-    occupied = [row[0] for row in cur.fetchall()]
+def get_available_slot(vehicle_type):
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cur = conn.cursor()
 
-    conn.close()
+        # Get occupied slots
+        cur.execute("SELECT slot FROM users WHERE status='parked'")
+        occupied = [row[0] for row in cur.fetchall()]
 
-    for i in range(1, 21):
-        if i not in occupied:
-            return i
+        # Get reserved slots
+        cur.execute("SELECT slot FROM reservations")
+        reserved = [row[0] for row in cur.fetchall()]
+
+        conn.close()
+
+        unavailable = set(occupied + reserved)
+
+        if vehicle_type == 'bike':
+            # Slots 1-5 for bikes
+            for i in range(1, 6):
+                if i not in unavailable:
+                    return i
+        else:
+            # Slots 6-20 for cars/trucks/buses
+            for i in range(6, 21):
+                if i not in unavailable:
+                    return i
+    except Exception as e:
+        print("Error getting available slot:", e)
     return None
 
 
@@ -276,7 +323,7 @@ def register():
             return render_template('register.html', error="Plate required!")
 
         # 🔐 BLACKLIST
-        if plate in BLACKLIST:
+        if is_blacklisted(plate):
             if is_api:
                 return jsonify({"error": "Blacklisted 🚫"})
             return render_template('register.html', error="🚫 Blacklisted Vehicle!")
@@ -285,7 +332,7 @@ def register():
         cur = conn.cursor()
 
         # 🔐 DUPLICATE
-        cur.execute("SELECT * FROM users WHERE plate=? AND status='parked'", (plate,))
+        cur.execute("SELECT * FROM users WHERE plate=? AND status='parked'", (plate.upper(),))
         existing = cur.fetchone()
 
         if existing:
@@ -294,7 +341,21 @@ def register():
                 return jsonify({"error": "Already Parked ⚠️"})
             return render_template('register.html', error="⚠️ Vehicle already parked!")
 
-        slot = get_available_slot()
+        # Check for active reservation
+        cur.execute("SELECT slot, name, vehicle FROM reservations WHERE plate=?", (plate.upper(),))
+        res_row = cur.fetchone()
+
+        if res_row:
+            slot = res_row[0]
+            if not name:
+                name = res_row[1]
+            if not vehicle:
+                vehicle = res_row[2]
+            # Delete reservation as the vehicle is now arriving
+            cur.execute("DELETE FROM reservations WHERE plate=?", (plate.upper(),))
+        else:
+            slot = get_available_slot(vehicle)
+
         if slot is None:
             conn.close()
             if is_api:
@@ -344,12 +405,50 @@ def register():
 def reserve():
     if request.method == 'POST':
         name = request.form['name']
-        plate = request.form['plate']
+        plate = request.form['plate'].strip().upper()
+        vehicle = request.form.get('vehicle', 'car')
 
-        slot = get_available_slot()
+        # Validation checks
+        if not valid_plate(plate):
+            return render_template('reserve.html', error="Invalid plate format! Need 5-10 alphanumeric characters.")
 
-        return render_template('reserve.html',
-                               message=f"Slot {slot} reserved for {plate}")
+        if is_blacklisted(plate):
+            return render_template('reserve.html', error="🚫 Blacklisted vehicle! Reservation denied.")
+
+        conn = sqlite3.connect(DB_PATH)
+        cur = conn.cursor()
+
+        # Check if already parked
+        cur.execute("SELECT 1 FROM users WHERE plate=? AND status='parked'", (plate,))
+        if cur.fetchone():
+            conn.close()
+            return render_template('reserve.html', error="⚠️ Vehicle is already parked in the lot!")
+
+        # Check if already reserved
+        cur.execute("SELECT 1 FROM reservations WHERE plate=?", (plate,))
+        if cur.fetchone():
+            conn.close()
+            return render_template('reserve.html', error="⚠️ Vehicle already has an active reservation!")
+
+        slot = get_available_slot(vehicle)
+        if slot is None:
+            conn.close()
+            return render_template('reserve.html', error=f"Parking Full for vehicle class: {vehicle}!")
+
+        try:
+            cur.execute("""
+                INSERT INTO reservations (name, plate, vehicle, slot, reserve_time)
+                VALUES (?, ?, ?, ?, ?)
+            """, (name, plate, vehicle, slot, datetime.now(timezone.utc).isoformat()))
+            conn.commit()
+            message = f"Slot {slot} successfully reserved for pilot {name} (Plate: {plate})!"
+        except Exception as e:
+            conn.rollback()
+            conn.close()
+            return render_template('reserve.html', error=f"Database Error: {e}")
+
+        conn.close()
+        return render_template('reserve.html', message=message)
 
     return render_template('reserve.html')
 
@@ -393,7 +492,19 @@ def parking_map():
     """)
     usage_data = cur.fetchall()
 
+    # Fetch active reservations
+    cur.execute("SELECT slot, name, plate, vehicle FROM reservations")
+    reservations_data = cur.fetchall()
+
     conn.close()
+
+    reserved_slots = {
+        row[0]: {
+            "name": row[1],
+            "plate": row[2],
+            "vehicle": row[3]
+        } for row in reservations_data
+    }
 
     # 🔥 Convert usage into dictionary for easy access in frontend
     usage_dict = {slot: count for slot, count in usage_data}
@@ -444,12 +555,13 @@ def parking_map():
     # 🔥 Send data to frontend
     occupied_slots = {s["slot"] for s in slots}
     return render_template(
-    'map.html',
-    slots=slots,
-    usage=usage_dict,
-    prediction=prediction,
-    occupied_slots=occupied_slots   # 🔥 ADD THIS
-)
+        'map.html',
+        slots=slots,
+        usage=usage_dict,
+        prediction=prediction,
+        occupied_slots=occupied_slots,
+        reserved_slots=reserved_slots
+    )
 
 # ---------------- ANALYTICS ----------------
 @app.route('/analytics')
@@ -518,7 +630,7 @@ def capture():
             if not valid_plate(plate):
                 return redirect(url_for('register', error="Invalid plate"))
 
-            if plate in BLACKLIST:
+            if is_blacklisted(plate):
                 return redirect(url_for('register', error="Blacklisted vehicle"))
 
         except Exception as e:
@@ -587,17 +699,16 @@ def dashboard(plate):
 # ---------------- EXIT ----------------
 @app.route('/exit', methods=['GET', 'POST'])
 def exit_vehicle():
-    fee = None
-    duration_display = None
+    receipt = None
 
     if request.method == 'POST':
-        plate = request.form['plate']
+        plate = request.form['plate'].strip().upper()
 
         conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
 
         cur.execute(
-            "SELECT entry_time, vehicle FROM users WHERE plate=? AND status='parked'",
+            "SELECT name, entry_time, vehicle, slot FROM users WHERE plate=? AND status='parked'",
             (plate,)
         )
         data = cur.fetchone()
@@ -606,8 +717,10 @@ def exit_vehicle():
             conn.close()
             return render_template('exit.html', error="Vehicle not found or already exited")
 
-        entry_time = parse_db_time(data[0])
-        vehicle = data[1]
+        pilot_name = data[0]
+        entry_time = parse_db_time(data[1])
+        vehicle = data[2]
+        slot = data[3]
 
         exit_time = datetime.now(timezone.utc)
 
@@ -628,14 +741,26 @@ def exit_vehicle():
             UPDATE users
             SET exit_time=?, fee=?, status='exited'
             WHERE plate=?
-        """, (exit_time, fee, plate))
+        """, (exit_time.isoformat(), fee, plate))
 
         conn.commit()
         conn.close()
 
         log_action(f"{plate} exited system")
 
-    return render_template('exit.html', fee=fee, duration=duration_display)
+        receipt = {
+            "pilot": pilot_name,
+            "plate": plate,
+            "vehicle": vehicle,
+            "slot": slot,
+            "entry_time": entry_time.strftime("%Y-%m-%d %H:%M UTC"),
+            "exit_time": exit_time.strftime("%Y-%m-%d %H:%M UTC"),
+            "duration": duration_display,
+            "rate": rate,
+            "fee": fee
+        }
+
+    return render_template('exit.html', receipt=receipt)
 
 # ---------------- ADMIN ----------------
 @app.route('/admin')
@@ -646,12 +771,58 @@ def admin():
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    cur.execute("SELECT * FROM users")
+    cur.execute("SELECT * FROM users ORDER BY id DESC")
     users = cur.fetchall()
+
+    cur.execute("SELECT plate, reason, added_time FROM blacklist ORDER BY added_time DESC")
+    blacklist = cur.fetchall()
 
     conn.close()
 
-    return render_template('admin.html', users=users)
+    return render_template('admin.html', users=users, blacklist=blacklist)
+
+
+@app.route('/admin/blacklist/add', methods=['POST'])
+def blacklist_add():
+    if not session.get('admin'):
+        return redirect('/login')
+
+    plate = request.form['plate'].strip().upper()
+    reason = request.form.get('reason', 'Security Violation').strip()
+
+    if plate:
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            cur = conn.cursor()
+            cur.execute("""
+                INSERT OR REPLACE INTO blacklist (plate, reason, added_time)
+                VALUES (?, ?, ?)
+            """, (plate, reason, datetime.now(timezone.utc).isoformat()))
+            conn.commit()
+            conn.close()
+            log_action(f"Admin blacklisted plate: {plate}")
+        except Exception as e:
+            print("Blacklist add error:", e)
+
+    return redirect('/admin')
+
+
+@app.route('/admin/blacklist/remove/<string:plate>', methods=['POST'])
+def blacklist_remove(plate):
+    if not session.get('admin'):
+        return redirect('/login')
+
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cur = conn.cursor()
+        cur.execute("DELETE FROM blacklist WHERE plate=?", (plate.upper(),))
+        conn.commit()
+        conn.close()
+        log_action(f"Admin removed plate from blacklist: {plate}")
+    except Exception as e:
+        print("Blacklist remove error:", e)
+
+    return redirect('/admin')
 
 
 # ---------------- RESET ----------------
@@ -774,8 +945,14 @@ def map_data():
     cur = conn.cursor()
     cur.execute("SELECT slot FROM users WHERE status='parked'")
     occupied = [row[0] for row in cur.fetchall()]
+
+    cur.execute("SELECT slot FROM reservations")
+    reserved = [row[0] for row in cur.fetchall()]
     conn.close()
-    return jsonify(occupied)
+    return jsonify({
+        "occupied": occupied,
+        "reserved": reserved
+    })
 
 
 @app.route("/slots", methods=["GET"])
@@ -816,6 +993,7 @@ def get_slots():
             slots.append({
                 "slot": i,
                 "occupied": True,
+                "reserved": False,
                 "plate": plate,
                 "time": time_display,
                 "fee": fee,
@@ -823,14 +1001,35 @@ def get_slots():
             })
 
         else:
-            slots.append({
-                "slot": i,
-                "occupied": False,
-                "plate": "",
-                "time": "",
-                "fee": "",
-                "vehicle": ""
-            })
+            # Check if there is an active reservation
+            cur.execute("""
+                SELECT plate, name, vehicle
+                FROM reservations
+                WHERE slot=?
+            """, (i,))
+            res_row = cur.fetchone()
+
+            if res_row:
+                slots.append({
+                    "slot": i,
+                    "occupied": False,
+                    "reserved": True,
+                    "plate": res_row[0],
+                    "name": res_row[1],
+                    "time": "Reserved",
+                    "fee": "",
+                    "vehicle": res_row[2]
+                })
+            else:
+                slots.append({
+                    "slot": i,
+                    "occupied": False,
+                    "reserved": False,
+                    "plate": "",
+                    "time": "",
+                    "fee": "",
+                    "vehicle": ""
+                })
 
     conn.close()
     return jsonify(slots)

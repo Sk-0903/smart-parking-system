@@ -90,6 +90,68 @@
         </div>
     </div>
 
+    <!-- 🔥 DATABASE BLACKLIST SECURITY -->
+    <div class="row mt-5 g-4">
+        <!-- Add to Blacklist Form -->
+        <div class="col-lg-4">
+            <div class="glass-panel p-4 h-100" style="border-color: rgba(255,0,60,0.3) !important;">
+                <h4 class="title-glow text-danger mb-4"><i class="fas fa-ban me-2"></i> Blacklist Vehicle</h4>
+                <form method="POST" action="/admin/blacklist/add">
+                    <div class="mb-3 cyber-input input-group">
+                        <span class="input-group-text bg-transparent text-danger border-danger-subtle"><i class="fas fa-id-card"></i></span>
+                        <input type="text" name="plate" placeholder="LICENSE PLATE" class="form-control bg-transparent text-light border-danger-subtle text-uppercase" required>
+                    </div>
+                    <div class="mb-4 cyber-input input-group">
+                        <span class="input-group-text bg-transparent text-danger border-danger-subtle"><i class="fas fa-exclamation-triangle"></i></span>
+                        <input type="text" name="reason" placeholder="Reason (e.g. Theft risk)" class="form-control bg-transparent text-light border-danger-subtle" required>
+                    </div>
+                    <button class="btn btn-neon-pink w-100 btn-lg shadow-lg">
+                        <i class="fas fa-user-slash me-1"></i> Block Vehicle
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Blacklisted Table List -->
+        <div class="col-lg-8">
+            <div class="glass-panel p-4 h-100" style="border-color: rgba(255,0,60,0.3) !important;">
+                <h4 class="title-glow text-light mb-4"><i class="fas fa-shield-alt me-2"></i> Currently Blocked ({{ blacklist|length }})</h4>
+                <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+                    <table class="table table-dark table-hover align-middle text-center m-0" style="background: transparent;">
+                        <thead>
+                            <tr>
+                                <th class="text-danger">Designation</th>
+                                <th class="text-danger">Infraction Reason</th>
+                                <th class="text-danger">Timestamp</th>
+                                <th class="text-danger">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for b in blacklist %}
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td class="fw-bold text-uppercase" style="letter-spacing: 1px;">{{ b[0] }}</td>
+                                <td style="color: #cbd5e1;">{{ b[1] }}</td>
+                                <td class="small text-muted">{{ b[2] }}</td>
+                                <td>
+                                    <form method="POST" action="/admin/blacklist/remove/{{ b[0] }}" style="display:inline;">
+                                        <button class="btn btn-sm btn-neon-pink px-3" style="font-size: 0.75rem;">
+                                            <i class="fas fa-trash-alt me-1"></i> Revoke
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="4" class="text-muted py-4">No blacklisted vehicles found in database.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <!-- 🔍 SEARCH SCRIPT -->

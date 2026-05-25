@@ -2,54 +2,146 @@
 
 {% block content %}
 
-<div class="col-md-5 mx-auto animate__animated animate__fadeInUp">
+<div class="col-md-6 mx-auto animate__animated animate__fadeInUp">
     <div class="glass-panel p-5 text-center" style="border-radius: 20px; border-color: rgba(255, 0, 60, 0.3);">
         
         <h2 class="title-glow text-danger mb-4"><i class="fas fa-sign-out-alt"></i> Exit Vehicle</h2>
 
+        <!-- 🔴 Error Message -->
+        {% if error %}
+        <div class="alert mt-3 mb-4 animate__animated animate__shakeX" style="background: rgba(255, 0, 60, 0.15); border: 1px solid #ff003c; color: white; box-shadow: 0 0 15px rgba(255,0,60,0.3);">
+            <i class="fas fa-exclamation-triangle text-danger me-2"></i> {{ error }}
+        </div>
+        {% endif %}
+
         <form method="POST">
-            <div class="input-group mb-4">
+            <div class="input-group mb-4 cyber-input">
                 <span class="input-group-text" style="background: rgba(255,0,60,0.1); color: #ff003c; border: 1px solid rgba(255,0,60,0.3); border-right: none;"><i class="fas fa-id-card"></i></span>
                 <input type="text" name="plate" placeholder="Enter Plate Number" class="form-control text-uppercase" style="background: rgba(0,0,0,0.4); color: white; border: 1px solid rgba(255,0,60,0.3); border-left: none;" required>
             </div>
             <button class="btn btn-neon-pink w-100 btn-lg"><i class="fas fa-calculator"></i> Calculate Fee</button>
         </form>
 
-        {% if fee %}
+        {% if receipt %}
         <hr style="border-color: rgba(255,255,255,0.2);" class="my-4">
         
-        <div class="animate__animated animate__zoomIn">
-            <h3 class="fw-bold" style="color: #ff9900; text-shadow: 0 0 15px #ff9900;">💰 Total Fee: ₹{{ fee }}</h3>
-            
-            {% if duration %}
-            <h6 class="text-info mt-2">⏱️ Time Parked: {{ duration }}</h6>
-            {% endif %}
-
-            <div class="mt-4 mb-4 p-3 d-inline-block" style="background: white; border-radius: 15px; border: 3px solid #ff003c; box-shadow: 0 0 25px rgba(255,0,60,0.5);">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PAY{{ fee }}" />
+        <div class="animate__animated animate__zoomIn text-start" id="invoiceSection">
+            <!-- 🧾 GLASSMORPHIC RECEIPT CARD -->
+            <div class="glass-panel p-4 mb-4 text-light" style="background: rgba(10, 10, 15, 0.95) !important; border: 1px dashed rgba(255, 255, 255, 0.2) !important; border-radius: 15px; font-family: 'Courier New', Courier, monospace;">
+                <div class="text-center mb-3">
+                    <h5 class="fw-bold m-0" style="letter-spacing: 2px; color: #00f0ff;">SMART PARKING CO.</h5>
+                    <small class="text-muted">SESSION INVOICE RECEIPT</small>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Pilot Name:</span>
+                    <span class="fw-bold text-info">{{ receipt.pilot }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>License Plate:</span>
+                    <span class="fw-bold text-info text-uppercase" style="letter-spacing: 1px;">{{ receipt.plate }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Vehicle Class:</span>
+                    <span class="fw-bold text-capitalize">{{ receipt.vehicle }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Allocated Bay:</span>
+                    <span class="fw-bold text-info">#{{ receipt.slot }}</span>
+                </div>
+                <hr style="border-color: rgba(255,255,255,0.1);" class="my-2">
+                <div class="d-flex justify-content-between mb-2 small text-muted">
+                    <span>Check-In:</span>
+                    <span>{{ receipt.entry_time }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2 small text-muted">
+                    <span>Check-Out:</span>
+                    <span>{{ receipt.exit_time }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Duration:</span>
+                    <span class="fw-bold text-warning">{{ receipt.duration }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Hourly Rate:</span>
+                    <span>₹{{ receipt.rate }}/hr</span>
+                </div>
+                <hr style="border-color: rgba(255,255,255,0.2);" class="my-2">
+                <div class="d-flex justify-content-between mb-1 fs-5 fw-bold">
+                    <span style="color: #ff9900;">Total Paid:</span>
+                    <span style="color: #ff9900; text-shadow: 0 0 10px rgba(255, 153, 0, 0.4);">₹{{ receipt.fee }}</span>
+                </div>
             </div>
-            
-            <p class="small text-uppercase" style="letter-spacing: 2px; color: #cbd5e1;">Scan QR to Pay</p>
 
-            <button class="btn btn-neon w-100 mt-2"><i class="fas fa-check-double"></i> Confirm Payment</button>
+            <!-- Payment Column -->
+            <div class="text-center">
+                <div class="mt-2 mb-3 p-3 d-inline-block" style="background: white; border-radius: 15px; border: 3px solid #ff003c; box-shadow: 0 0 25px rgba(255,0,60,0.4);">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=smartparking@okaxis%26pn=SmartParking%26am={{ receipt.fee }}%26cu=INR" />
+                </div>
+                
+                <p class="small text-uppercase mb-4" style="letter-spacing: 2px; color: #cbd5e1;"><i class="fas fa-qrcode text-danger me-1"></i> Scan to Settle Bill</p>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary flex-grow-1" onclick="window.print()"><i class="fas fa-print"></i> Print Invoice</button>
+                    <button class="btn btn-neon-pink flex-grow-1" onclick="confirmPayment()"><i class="fas fa-check-double"></i> Confirm Payment</button>
+                </div>
+            </div>
         </div>
 
-        <div class="alert mt-4" style="background: rgba(0,240,255,0.1); border: 1px solid #00f0ff; color: white;">
-            <i class="fas fa-check-circle text-info"></i> Transaction Successful! Raising Gate...
+        <div id="paymentSuccessSection" class="mt-4" style="display: none;">
+            <div class="alert" style="background: rgba(0,240,255,0.1); border: 1px solid #00f0ff; color: white;">
+                <i class="fas fa-check-circle text-info me-2"></i> Payment Confirmed! Raising Gate...
+            </div>
+            <p class="text-center small mt-3" style="color: #cbd5e1;"><i class="fas fa-spinner fa-spin"></i> Returning to home screen...</p>
         </div>
-
-        <p class="text-center small mt-4" style="color: #cbd5e1;"><i class="fas fa-spinner fa-spin"></i> Returning to home screen...</p>
 
         <script>
-            setTimeout(() => { window.location.href = "/"; }, 8000); 
+            function confirmPayment() {
+                document.getElementById("invoiceSection").style.display = "none";
+                document.getElementById("paymentSuccessSection").style.display = "block";
+                setTimeout(() => { window.location.href = "/"; }, 5000); 
+            }
         </script>
         {% endif %}
 
+    </div>
 </div>
 
 <style>
-.form-control::placeholder {
+.cyber-input .input-group-text {
+    background: rgba(255, 0, 60, 0.1);
+    color: #ff003c;
+    border: 1px solid rgba(255, 0, 60, 0.3);
+    border-right: none;
+}
+.cyber-input .form-control {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 0, 60, 0.3);
+    border-left: none;
+}
+.cyber-input .form-control::placeholder {
     color: rgba(255, 255, 255, 0.6) !important;
+}
+.cyber-input .form-control:focus {
+    box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+    border-color: #ff003c;
+}
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #invoiceSection, #invoiceSection * {
+        visibility: visible;
+    }
+    #invoiceSection {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    button, p, img {
+        display: none !important;
+    }
 }
 </style>
 

@@ -20,16 +20,31 @@
 <div id="popup" class="popup">
     <div class="popup-content animate__animated animate__zoomIn">
         <h4 class="title-glow">🚗 Slot Details</h4>
-        <p><strong>Plate:</strong> <span id="p_plate" class="text-info">--</span></p>
-        <p><strong>Time:</strong> <span id="p_time">--</span></p>
-        <p><strong>Fee:</strong> ₹<span id="p_fee" class="text-warning">0</span></p>
+        <p><strong>Slot Bay:</strong> <span id="p_slot" class="text-info">--</span></p>
+        
+        <div id="p_occupied_section">
+            <p><strong>Plate:</strong> <span id="p_plate" class="text-info">--</span></p>
+            <p><strong>Time:</strong> <span id="p_time">--</span></p>
+            <p><strong>Fee:</strong> ₹<span id="p_fee" class="text-warning">0</span></p>
+            <form method="POST" action="/exit">
+                <input type="hidden" name="plate" id="p_input">
+                <button class="btn btn-neon-pink w-100 mt-2">🚪 Exit Vehicle</button>
+            </form>
+        </div>
+        
+        <div id="p_reserved_section" style="display:none;">
+            <p class="text-warning fw-bold"><i class="fas fa-clock"></i> Pre-Reserved</p>
+            <p><strong>Pilot:</strong> <span id="p_res_name" class="text-info">--</span></p>
+            <p><strong>Plate:</strong> <span id="p_res_plate" class="text-info text-uppercase">--</span></p>
+            <p><strong>Class:</strong> <span id="p_res_vehicle" class="text-info text-capitalize">--</span></p>
+        </div>
+        
+        <div id="p_empty_section" style="display:none;">
+            <p class="text-success fw-bold">✅ Slot Available</p>
+            <p class="text-light-gray small">This bay is vacant and ready for parking or reservation.</p>
+        </div>
 
-        <form method="POST" action="/exit">
-            <input type="hidden" name="plate" id="p_input">
-            <button class="btn btn-neon-pink w-100 mt-2">🚪 Exit Vehicle</button>
-        </form>
-
-        <button onclick="closePopup()" type="button" class="btn btn-outline-secondary mt-2 w-100">Close</button>
+        <button onclick="closePopup()" type="button" class="btn btn-outline-secondary mt-3 w-100">Close</button>
     </div>
 </div>
 
@@ -82,6 +97,12 @@
         { slot: {{ s.slot }}, plate: "{{ s.plate }}", time: "{{ s.time }}", fee: {{ s.fee }}, vehicle: "{{ s.vehicle }}" },
         {% endfor %}
     ];
+
+    const initialReservations = {
+        {% for slot, res in reserved_slots.items() %}
+        "{{ slot }}": { slot: {{ slot }}, reserved: true, name: "{{ res.name }}", plate: "{{ res.plate }}", vehicle: "{{ res.vehicle }}" },
+        {% endfor %}
+    };
 
     let scene, camera, renderer, controls, raycaster, mouse;
     let parkingSlots = {};
@@ -191,7 +212,38 @@
         createBarrierGates();
 
         drawSlots();
-        initialSlotsData.forEach(data => addCar(data.slot, data, true));
+        
+        // Populate initial active parkers
+        initialSlotsData.forEach(data => {
+            if (data.plate) {
+                addCar(data.slot, data, true);
+                parkingSlots[data.slot].mesh.userData.data = {
+                    slot: data.slot,
+                    occupied: true,
+                    plate: data.plate,
+                    time: data.time,
+                    fee: data.fee,
+                    vehicle: data.vehicle
+                };
+            }
+        });
+
+        // Populate initial reservations
+        for (let slotId in initialReservations) {
+            const resData = initialReservations[slotId];
+            const slot = parkingSlots[slotId];
+            if (slot) {
+                slot.mesh.userData.data = {
+                    slot: parseInt(slotId),
+                    reserved: true,
+                    name: resData.name,
+                    plate: resData.plate,
+                    vehicle: resData.vehicle
+                };
+                slot.lineMat.color.setHex(0xffaa00);
+                slot.lineMat.opacity = 0.8;
+            }
+        }
 
         raycaster = new THREE.Raycaster();
         mouse = new THREE.Vector2();
@@ -256,26 +308,30 @@
                 const x = (col - cols / 2 + 0.5) * (slotWidth + gapX);
                 const z = (row - rows / 2 + 0.5) * (slotLength + gapZ);
 
-                const edges = new THREE.EdgesGeometry(new THREE.PlaneGeometry(slotWidth, slotLength));
+                const isBike = (slotId <= 5);
+                const curWidth = isBike ? 2.5 : slotWidth;
+                const curLength = isBike ? 5.5 : slotLength;
+
+                const edges = new THREE.EdgesGeometry(new THREE.PlaneGeometry(curWidth, curLength));
                 const lineMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.4 });
                 const line = new THREE.LineSegments(edges, lineMat);
                 line.rotation.x = -Math.PI / 2;
                 line.position.set(x, 0.05, z);
                 scene.add(line);
 
-                const clickGeo = new THREE.BoxGeometry(slotWidth, 0.5, slotLength);
+                const clickGeo = new THREE.BoxGeometry(curWidth, 0.5, curLength);
                 const clickMat = new THREE.MeshBasicMaterial({ visible: false });
                 const slotMesh = new THREE.Mesh(clickGeo, clickMat);
                 slotMesh.position.set(x, 0.25, z);
                 slotMesh.userData = { id: slotId, occupied: false };
                 scene.add(slotMesh);
 
-                parkingSlots[slotId] = { mesh: slotMesh, line: line, lineMat: lineMat, x: x, z: z };
+                parkingSlots[slotId] = { mesh: slotMesh, line: line, lineMat: lineMat, x: x, z: z, isBike: isBike };
 
                 const canvas = document.createElement('canvas');
                 canvas.width = 128; canvas.height = 64;
                 const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#00f0ff';
+                ctx.fillStyle = isBike ? '#ffaa00' : '#00f0ff';
                 ctx.font = 'bold 36px Arial';
                 ctx.textAlign = 'center';
                 ctx.fillText(slotId, 64, 45);
@@ -284,7 +340,7 @@
                 const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.7 });
                 const sprite = new THREE.Sprite(spriteMat);
                 sprite.scale.set(4, 2, 1);
-                sprite.position.set(x, 0.1, z - slotLength / 2 - 1.5);
+                sprite.position.set(x, 0.1, z - curLength / 2 - 1.5);
                 scene.add(sprite);
 
                 slotId++;
@@ -571,22 +627,49 @@
 
         for (let i = 0; i < intersects.length; i++) {
             const obj = intersects[i].object;
-            if (obj.userData.isCar || (obj.userData.id && obj.userData.occupied)) {
-                const data = obj.userData.data;
-                if (data && data.plate) {
-                    showPopup(data.plate, data.time, data.fee, obj.userData.slotId || obj.userData.id);
-                }
+            let slotId = null;
+
+            if (obj.userData.isCar) {
+                slotId = obj.userData.slotId;
+            } else if (obj.userData.id) {
+                slotId = obj.userData.id;
+            }
+
+            if (slotId !== null) {
+                const slot = parkingSlots[slotId];
+                const data = slot.mesh.userData.data;
+                showPopup(slotId, data);
                 break;
             }
         }
     }
 
-    function showPopup(plate, time, fee, slot) {
+    function showPopup(slotId, data) {
         document.getElementById("popup").style.display = "flex";
-        document.getElementById("p_plate").textContent = plate;
-        document.getElementById("p_time").textContent = time || "N/A";
-        document.getElementById("p_fee").textContent = fee || "0";
-        document.getElementById("p_input").value = plate;
+        document.getElementById("p_slot").textContent = `#${slotId}`;
+
+        const occSection = document.getElementById("p_occupied_section");
+        const resSection = document.getElementById("p_reserved_section");
+        const empSection = document.getElementById("p_empty_section");
+
+        occSection.style.display = "none";
+        resSection.style.display = "none";
+        empSection.style.display = "none";
+
+        if (data && data.occupied) {
+            occSection.style.display = "block";
+            document.getElementById("p_plate").textContent = data.plate;
+            document.getElementById("p_time").textContent = data.time || "N/A";
+            document.getElementById("p_fee").textContent = data.fee || "0";
+            document.getElementById("p_input").value = data.plate;
+        } else if (data && data.reserved) {
+            resSection.style.display = "block";
+            document.getElementById("p_res_name").textContent = data.name || "N/A";
+            document.getElementById("p_res_plate").textContent = data.plate || "N/A";
+            document.getElementById("p_res_vehicle").textContent = data.vehicle || "N/A";
+        } else {
+            empSection.style.display = "block";
+        }
     }
 
     function closePopup() {
@@ -676,20 +759,38 @@
                 const occupiedIds = new Set(data.map(d => d.slot).filter((_, i) => data[i].occupied));
 
                 data.forEach(slotData => {
-                    if (slotData.occupied && (!cars[slotData.slot] || cars[slotData.slot].userData.animationState === 'exiting')) {
-                        addCar(slotData.slot, slotData, false);
-                    } else if (slotData.occupied && cars[slotData.slot]) {
-                        cars[slotData.slot].userData.data = slotData;
-                        parkingSlots[slotData.slot].mesh.userData.data = slotData;
+                    const slot = parkingSlots[slotData.slot];
+                    if (!slot) return;
+
+                    slot.mesh.userData.data = slotData;
+
+                    if (slotData.occupied) {
+                        slot.lineMat.color.setHex(0xff003c);
+                        slot.lineMat.opacity = 0.8;
+
+                        if (!cars[slotData.slot] || cars[slotData.slot].userData.animationState === 'exiting') {
+                            addCar(slotData.slot, slotData, false);
+                        } else {
+                            cars[slotData.slot].userData.data = slotData;
+                        }
+                    } else if (slotData.reserved) {
+                        slot.lineMat.color.setHex(0xffaa00);
+                        slot.lineMat.opacity = 0.8;
+
+                        if (cars[slotData.slot]) {
+                            removeCar(slotData.slot);
+                        }
+                    } else {
+                        slot.lineMat.color.setHex(slot.isBike ? 0xffaa00 : 0x00f0ff);
+                        slot.lineMat.opacity = 0.4;
+
+                        if (cars[slotData.slot]) {
+                            removeCar(slotData.slot);
+                        }
                     }
                 });
-
-                for (let id in cars) {
-                    if (!occupiedIds.has(parseInt(id))) {
-                        removeCar(id);
-                    }
-                }
-            });
+            })
+            .catch(err => console.log("Ajax update error:", err));
     }
 
     window.addEventListener('load', () => {

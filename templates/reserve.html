@@ -14,17 +14,31 @@
                 <input name="name" placeholder="Pilot Name" class="form-control" required>
             </div>
             
-            <div class="input-group mb-4 cyber-input">
+            <div class="input-group mb-3 cyber-input">
                 <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                 <input name="plate" placeholder="License Plate" class="form-control text-uppercase" required>
+            </div>
+
+            <div class="input-group mb-4 cyber-input">
+                <span class="input-group-text"><i class="fas fa-car"></i></span>
+                <select name="vehicle" class="form-control" required style="background: rgba(0, 0, 0, 0.4) !important; color: white !important; border-left: none;">
+                    <option value="car" class="bg-dark text-light">Car (Slots 6-20)</option>
+                    <option value="bike" class="bg-dark text-light">Motorcycle (Slots 1-5)</option>
+                </select>
             </div>
 
             <button class="btn btn-neon w-100 btn-lg shadow-lg"><i class="fas fa-lock"></i> Secure Slot</button>
         </form>
 
+        {% if error %}
+        <div class="alert mt-4 animate__animated animate__shakeX" style="background: rgba(255, 0, 60, 0.15); border: 1px solid #ff003c; color: white; box-shadow: 0 0 15px rgba(255,0,60,0.3);">
+            <i class="fas fa-exclamation-triangle text-danger me-2"></i> {{ error }}
+        </div>
+        {% endif %}
+
         {% if message %}
         <div class="alert mt-4 animate__animated animate__zoomIn" style="background: rgba(0, 240, 255, 0.15); border: 1px solid #00f0ff; color: white; box-shadow: 0 0 15px rgba(0,240,255,0.3);">
-            <i class="fas fa-check-circle text-info"></i> {{ message }}
+            <i class="fas fa-check-circle text-info me-2"></i> {{ message }}
         </div>
         {% endif %}
 
