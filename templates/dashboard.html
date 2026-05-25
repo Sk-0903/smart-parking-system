@@ -40,7 +40,11 @@
 <!-- 🔥 SCRIPT -->
 <script>
     const entryTimeStr = "{{ entry_time or '' }}";
-    const entryTime = new Date(entryTimeStr.replace(" ", "T"));
+    let formattedStr = entryTimeStr.replace(" ", "T");
+    if (formattedStr && !formattedStr.endsWith("Z") && !formattedStr.match(/[+-]\d{2}:?\d{2}$/)) {
+        formattedStr += "Z";
+    }
+    const entryTime = new Date(formattedStr);
 
     function updateTimer() {
         const now = new Date();

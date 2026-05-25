@@ -1,5 +1,0 @@
-flask
-requests
-opencv-python-headless
-numpy
-gunicorn

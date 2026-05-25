@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 from math import ceil
 import cv2
 import re
@@ -13,6 +13,14 @@ from datetime import timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 
 import os
+
+def parse_db_time(time_str):
+    if not time_str:
+        return datetime.now(timezone.utc)
+    dt = datetime.fromisoformat(time_str)
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'parking.db')
@@ -293,7 +301,7 @@ def register():
                 return jsonify({"error": "Parking Full ❌"})
             return render_template('register.html', error="Parking Full!")
 
-        entry_time = datetime.now()
+        entry_time = datetime.now(timezone.utc)
 
         try:
             cur.execute("""
@@ -396,8 +404,8 @@ def parking_map():
     for row in data:
         slot, plate, entry_time, vehicle = row
 
-        entry_time = datetime.fromisoformat(entry_time)
-        now = datetime.now()
+        entry_time = parse_db_time(entry_time)
+        now = datetime.now(timezone.utc)
 
         # 🔥 Calculate parking duration
         duration = now - entry_time
@@ -549,11 +557,11 @@ def dashboard(plate):
 
     # 🔥 SAFE entry_time handling
     try:
-        entry_time = datetime.fromisoformat(user[5])
+        entry_time = parse_db_time(user[5])
     except:
-        entry_time = datetime.now()   # fallback (prevents crash)
+        entry_time = datetime.now(timezone.utc)   # fallback (prevents crash)
 
-    now = datetime.now()
+    now = datetime.now(timezone.utc)
 
     duration = now - entry_time
     total_minutes = int(duration.total_seconds() / 60)
@@ -598,10 +606,10 @@ def exit_vehicle():
             conn.close()
             return render_template('exit.html', error="Vehicle not found or already exited")
 
-        entry_time = datetime.fromisoformat(data[0])
+        entry_time = parse_db_time(data[0])
         vehicle = data[1]
 
-        exit_time = datetime.now()
+        exit_time = datetime.now(timezone.utc)
 
         # 🔥 Duration
         duration = exit_time - entry_time
@@ -791,8 +799,8 @@ def get_slots():
         if row:
             plate, entry_time, vehicle = row
 
-            entry_time = datetime.fromisoformat(entry_time)
-            now = datetime.now()
+            entry_time = parse_db_time(entry_time)
+            now = datetime.now(timezone.utc)
 
             duration = now - entry_time
             total_minutes = int(duration.total_seconds() / 60)
@@ -852,8 +860,8 @@ def exit_vehicle_api():
     # ✅ UNPACK VALUES
     name, slot, entry_time, vehicle = row
 
-    entry_time = datetime.fromisoformat(entry_time)
-    exit_time = datetime.now()
+    entry_time = parse_db_time(entry_time)
+    exit_time = datetime.now(timezone.utc)
 
     # ⏱️ Calculate duration
     duration = (exit_time - entry_time).total_seconds() / 60
