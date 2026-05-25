@@ -86,6 +86,8 @@
     let scene, camera, renderer, controls, raycaster, mouse;
     let parkingSlots = {};
     let cars = {};
+    let particles = [];
+    let entranceBarrier, exitBarrier;
 
     function init3D() {
         const container = document.getElementById('canvas-container');
@@ -134,8 +136,62 @@
         ground.receiveShadow = true;
         scene.add(ground);
 
+        // 🛣️ ROAD DIVIDER MARKINGS
+        const roadLineGeo = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let x = -40; x <= 40; x += 4) {
+            vertices.push(x, 0.06, 0);
+            vertices.push(x + 2, 0.06, 0);
+        }
+        roadLineGeo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const roadLineMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, linewidth: 2, transparent: true, opacity: 0.4 });
+        const roadLines = new THREE.LineSegments(roadLineGeo, roadLineMat);
+        scene.add(roadLines);
+
+        // 💡 CYBERPUNK LIGHT POSTS
+        function createLightPost(x, z) {
+            const postGroup = new THREE.Group();
+            
+            const poleGeo = new THREE.CylinderGeometry(0.15, 0.15, 8, 8);
+            const poleMat = new THREE.MeshStandardMaterial({ color: 0x111122, metalness: 0.8 });
+            const pole = new THREE.Mesh(poleGeo, poleMat);
+            pole.position.y = 4;
+            pole.castShadow = true;
+            postGroup.add(pole);
+            
+            const armGeo = new THREE.CylinderGeometry(0.1, 0.1, 2, 8);
+            const arm = new THREE.Mesh(armGeo, poleMat);
+            arm.rotation.z = Math.PI / 2;
+            arm.position.set(0.9, 8, 0);
+            postGroup.add(arm);
+            
+            const headGeo = new THREE.BoxGeometry(0.5, 0.2, 0.5);
+            const headMat = new THREE.MeshStandardMaterial({ color: 0x00f0ff, emissive: 0x00f0ff, emissiveIntensity: 2 });
+            const head = new THREE.Mesh(headGeo, headMat);
+            head.position.set(1.8, 8, 0);
+            postGroup.add(head);
+
+            const light = new THREE.SpotLight(0x00f0ff, 5, 25, Math.PI / 6, 0.5, 1);
+            light.position.set(1.8, 7.9, 0);
+            light.target.position.set(1.8, 0, 0);
+            light.castShadow = true;
+            postGroup.add(light);
+            postGroup.add(light.target);
+            
+            postGroup.position.set(x, 0, z);
+            scene.add(postGroup);
+        }
+
+        createLightPost(-25, -14);
+        createLightPost(25, -14);
+        createLightPost(-25, 14);
+        createLightPost(25, 14);
+
+        // 🚪 BARRIER GATES
+        createBarrierGates();
+
         drawSlots();
-        initialSlotsData.forEach(data => addCar(data.slot, data));
+        initialSlotsData.forEach(data => addCar(data.slot, data, true));
 
         raycaster = new THREE.Raycaster();
         mouse = new THREE.Vector2();
@@ -143,6 +199,46 @@
         window.addEventListener('resize', onWindowResize, false);
 
         animate();
+    }
+
+    function createBarrierGates() {
+        const baseMat = new THREE.MeshStandardMaterial({ color: 0x222233 });
+        const armMat = new THREE.MeshBasicMaterial({ color: 0xff0055 }); // Glowing Pink Neon barrier
+        
+        // Entrance Gate (Left side at x = -30, z = -3)
+        const entranceGroup = new THREE.Group();
+        const base = new THREE.Mesh(new THREE.BoxGeometry(1, 2, 1), baseMat);
+        base.position.y = 1;
+        entranceGroup.add(base);
+        
+        const armGeo = new THREE.BoxGeometry(5, 0.15, 0.15);
+        const arm = new THREE.Mesh(armGeo, armMat);
+        arm.position.set(2.5, 0, 0);
+        
+        const pivot = new THREE.Group();
+        pivot.position.set(-0.5, 1.8, 0.5);
+        pivot.add(arm);
+        entranceGroup.add(pivot);
+        entranceGroup.position.set(-30, 0, -3);
+        scene.add(entranceGroup);
+        entranceBarrier = { pivot: pivot, arm: arm };
+
+        // Exit Gate (Right side at x = 30, z = 3)
+        const exitGroup = new THREE.Group();
+        const baseExit = new THREE.Mesh(new THREE.BoxGeometry(1, 2, 1), baseMat);
+        baseExit.position.y = 1;
+        exitGroup.add(baseExit);
+        
+        const armExit = new THREE.Mesh(armGeo, armMat);
+        armExit.position.set(-2.5, 0, 0);
+        
+        const pivotExit = new THREE.Group();
+        pivotExit.position.set(0.5, 1.8, -0.5);
+        pivotExit.add(armExit);
+        exitGroup.add(pivotExit);
+        exitGroup.position.set(30, 0, 3);
+        scene.add(exitGroup);
+        exitBarrier = { pivot: pivotExit, arm: armExit };
     }
 
     function drawSlots() {
@@ -174,7 +270,7 @@
                 slotMesh.userData = { id: slotId, occupied: false };
                 scene.add(slotMesh);
 
-                parkingSlots[slotId] = { mesh: slotMesh, x: x, z: z };
+                parkingSlots[slotId] = { mesh: slotMesh, line: line, lineMat: lineMat, x: x, z: z };
 
                 const canvas = document.createElement('canvas');
                 canvas.width = 128; canvas.height = 64;
@@ -196,8 +292,15 @@
         }
     }
 
-    function addCar(slotId, data) {
-        if (cars[slotId]) return;
+    function addCar(slotId, data, instant = false) {
+        if (cars[slotId] && cars[slotId].userData.animationState !== 'exiting') return;
+        
+        // Remove exiting car immediately if there was one
+        if (cars[slotId]) {
+            scene.remove(cars[slotId]);
+            delete cars[slotId];
+        }
+
         const slot = parkingSlots[slotId];
         if (!slot) return;
 
@@ -207,15 +310,18 @@
             roughness: 0.2,
             metalness: 0.8,
             emissive: colorHex,
-            emissiveIntensity: 0.3
+            emissiveIntensity: 0.2
         });
         const wheelMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.9 });
+        const headlightMat = new THREE.MeshBasicMaterial({ color: 0xfff0ad });
+        const taillightMat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        const lightGeo = new THREE.SphereGeometry(0.12, 8, 8);
 
         const vehicleGroup = new THREE.Group();
 
         if (data.vehicle === 'bike') {
             const body = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 3), carMat);
-            body.position.y = 1;
+            body.position.y = 0.6;
             body.castShadow = true; body.receiveShadow = true;
             vehicleGroup.add(body);
             
@@ -226,13 +332,20 @@
                 w.castShadow = true; w.receiveShadow = true;
                 vehicleGroup.add(w);
             }
+            
+            const hl = new THREE.Mesh(lightGeo, headlightMat);
+            hl.position.set(0, 0.8, 1.5);
+            const tl = new THREE.Mesh(lightGeo, taillightMat);
+            tl.position.set(0, 0.8, -1.5);
+            vehicleGroup.add(hl, tl);
+
         } else if (data.vehicle === 'truck') {
             const cab = new THREE.Mesh(new THREE.BoxGeometry(3, 2.5, 2.5), carMat);
-            cab.position.set(0, 1.75, 2);
+            cab.position.set(0, 1.25, 2);
             cab.castShadow = true; cab.receiveShadow = true;
             
             const trailer = new THREE.Mesh(new THREE.BoxGeometry(3.2, 3.5, 5.5), new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.8 }));
-            trailer.position.set(0, 2.25, -2);
+            trailer.position.set(0, 1.75, -2);
             trailer.castShadow = true; trailer.receiveShadow = true;
             vehicleGroup.add(cab, trailer);
 
@@ -246,9 +359,16 @@
                     vehicleGroup.add(w);
                 });
             });
+
+            const hlL = new THREE.Mesh(lightGeo, headlightMat); hlL.position.set(-1.1, 0.8, 3.25);
+            const hlR = new THREE.Mesh(lightGeo, headlightMat); hlR.position.set(1.1, 0.8, 3.25);
+            const tlL = new THREE.Mesh(lightGeo, taillightMat); tlL.position.set(-1.3, 0.8, -4.75);
+            const tlR = new THREE.Mesh(lightGeo, taillightMat); tlR.position.set(1.3, 0.8, -4.75);
+            vehicleGroup.add(hlL, hlR, tlL, tlR);
+
         } else if (data.vehicle === 'bus') {
             const body = new THREE.Mesh(new THREE.BoxGeometry(3.2, 3, 8), carMat);
-            body.position.y = 2;
+            body.position.y = 1.5;
             body.castShadow = true; body.receiveShadow = true;
             vehicleGroup.add(body);
 
@@ -262,13 +382,20 @@
                     vehicleGroup.add(w);
                 });
             });
+
+            const hlL = new THREE.Mesh(lightGeo, headlightMat); hlL.position.set(-1.2, 0.8, 4.0);
+            const hlR = new THREE.Mesh(lightGeo, headlightMat); hlR.position.set(1.2, 0.8, 4.0);
+            const tlL = new THREE.Mesh(lightGeo, taillightMat); tlL.position.set(-1.2, 0.8, -4.0);
+            const tlR = new THREE.Mesh(lightGeo, taillightMat); tlR.position.set(1.2, 0.8, -4.0);
+            vehicleGroup.add(hlL, hlR, tlL, tlR);
+
         } else {
             const bottom = new THREE.Mesh(new THREE.BoxGeometry(3, 1, 6), carMat);
-            bottom.position.y = 0.9;
+            bottom.position.y = 0.5;
             bottom.castShadow = true; bottom.receiveShadow = true;
             
             const top = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.8, 3), carMat);
-            top.position.set(0, 1.8, -0.5);
+            top.position.set(0, 1.4, -0.5);
             top.castShadow = true; top.receiveShadow = true;
             
             vehicleGroup.add(bottom, top);
@@ -283,10 +410,44 @@
                     vehicleGroup.add(w);
                 });
             });
+
+            const hlL = new THREE.Mesh(lightGeo, headlightMat); hlL.position.set(-1.1, 0.5, 3.0);
+            const hlR = new THREE.Mesh(lightGeo, headlightMat); hlR.position.set(1.1, 0.5, 3.0);
+            const tlL = new THREE.Mesh(lightGeo, taillightMat); tlL.position.set(-1.1, 0.5, -3.0);
+            const tlR = new THREE.Mesh(lightGeo, taillightMat); tlR.position.set(1.1, 0.5, -3.0);
+            vehicleGroup.add(hlL, hlR, tlL, tlR);
         }
 
-        vehicleGroup.position.set(slot.x, 10, slot.z);
-        
+        if (instant) {
+            vehicleGroup.position.set(slot.x, 0, slot.z);
+            vehicleGroup.rotation.y = (slot.z > 0) ? 0 : Math.PI;
+            vehicleGroup.userData = {
+                isCar: true,
+                slotId: slotId,
+                data: data,
+                animationState: 'parked',
+                animationProgress: 1.0,
+                targetX: slot.x,
+                targetZ: slot.z
+            };
+            slot.lineMat.color.setHex(0xff003c);
+            slot.lineMat.opacity = 0.8;
+        } else {
+            vehicleGroup.position.set(-35, 0, 0);
+            vehicleGroup.rotation.y = Math.PI / 2;
+            vehicleGroup.userData = {
+                isCar: true,
+                slotId: slotId,
+                data: data,
+                animationState: 'entering',
+                animationProgress: 0.0,
+                targetX: slot.x,
+                targetZ: slot.z
+            };
+            slot.lineMat.color.setHex(0xff003c);
+            slot.lineMat.opacity = 0.8;
+        }
+
         vehicleGroup.children.forEach(child => {
             child.userData = { isCar: true, slotId: slotId, data: data };
         });
@@ -298,15 +459,104 @@
     }
 
     function removeCar(slotId) {
-        if (cars[slotId]) {
-            scene.remove(cars[slotId]);
-            cars[slotId].geometry.dispose();
-            cars[slotId].material.dispose();
-            delete cars[slotId];
+        const car = cars[slotId];
+        if (car && car.userData.animationState !== 'exiting') {
+            car.userData.animationState = 'exiting';
+            car.userData.animationProgress = 0.0;
+            
+            if (parkingSlots[slotId]) {
+                parkingSlots[slotId].mesh.userData.occupied = false;
+                parkingSlots[slotId].mesh.userData.data = null;
+                parkingSlots[slotId].lineMat.color.setHex(0x00f0ff);
+                parkingSlots[slotId].lineMat.opacity = 0.4;
+            }
         }
-        if (parkingSlots[slotId]) {
-            parkingSlots[slotId].mesh.userData.occupied = false;
-            parkingSlots[slotId].mesh.userData.data = null;
+    }
+
+    function getEntrancePath(p, targetX, targetZ) {
+        const pTurn = 0.7; 
+        let position = new THREE.Vector3();
+        let rotationY = 0;
+
+        if (p < pTurn) {
+            const segmentP = p / pTurn;
+            position.x = -35 + (targetX - (-35)) * segmentP;
+            position.y = 0;
+            position.z = 0;
+            rotationY = Math.PI / 2;
+        } else {
+            const segmentP = (p - pTurn) / (1 - pTurn);
+            position.x = targetX;
+            position.y = 0;
+            position.z = 0 + targetZ * segmentP;
+            const targetAngle = (targetZ > 0) ? 0 : Math.PI;
+            rotationY = Math.PI / 2 + (targetAngle - Math.PI / 2) * segmentP;
+        }
+        return { position, rotationY };
+    }
+
+    function getExitPath(p, targetX, targetZ) {
+        const pTurn = 0.3; 
+        let position = new THREE.Vector3();
+        let rotationY = 0;
+
+        if (p < pTurn) {
+            const segmentP = p / pTurn;
+            position.x = targetX;
+            position.y = 0;
+            position.z = targetZ - targetZ * segmentP;
+            rotationY = (targetZ > 0) ? 0 : Math.PI;
+        } else {
+            const segmentP = (p - pTurn) / (1 - pTurn);
+            position.x = targetX + (35 - targetX) * segmentP;
+            position.y = 0;
+            position.z = 0;
+            const startAngle = (targetZ > 0) ? 0 : Math.PI;
+            rotationY = startAngle + (Math.PI / 2 - startAngle) * segmentP;
+        }
+        return { position, rotationY };
+    }
+
+    function spawnSmoke(position) {
+        const particleGeo = new THREE.SphereGeometry(0.12, 8, 8);
+        const particleMat = new THREE.MeshBasicMaterial({
+            color: 0x555566,
+            transparent: true,
+            opacity: 0.5
+        });
+        const p = new THREE.Mesh(particleGeo, particleMat);
+        p.position.copy(position);
+        p.position.x += (Math.random() - 0.5) * 0.4;
+        p.position.z += (Math.random() - 0.5) * 0.4;
+        p.position.y += 0.2;
+        scene.add(p);
+        
+        particles.push({
+            mesh: p,
+            age: 0,
+            maxAge: 30 + Math.random() * 20,
+            velocity: new THREE.Vector3(
+                (Math.random() - 0.5) * 0.03,
+                0.03 + Math.random() * 0.04,
+                (Math.random() - 0.5) * 0.03
+            )
+        });
+    }
+
+    function updateParticles() {
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.age++;
+            p.mesh.position.add(p.velocity);
+            p.mesh.scale.multiplyScalar(1.03);
+            p.mesh.material.opacity = 0.5 * (1 - p.age / p.maxAge);
+            
+            if (p.age >= p.maxAge) {
+                scene.remove(p.mesh);
+                p.mesh.geometry.dispose();
+                p.mesh.material.dispose();
+                particles.splice(i, 1);
+            }
         }
     }
 
@@ -352,13 +602,69 @@
 
     function animate() {
         requestAnimationFrame(animate);
+        
+        const delta = 0.006; 
+        let hasEntering = false;
+        let hasExiting = false;
+
         for (let id in cars) {
-            if (cars[id].position.y > 1) {
-                cars[id].position.y -= 0.6;
-            } else {
-                cars[id].position.y = 1;
+            const car = cars[id];
+            const state = car.userData.animationState;
+
+            if (state === 'entering') {
+                hasEntering = true;
+                car.userData.animationProgress += delta;
+                if (car.userData.animationProgress >= 1.0) {
+                    car.userData.animationProgress = 1.0;
+                    car.userData.animationState = 'parked';
+                }
+                const pathData = getEntrancePath(car.userData.animationProgress, car.userData.targetX, car.userData.targetZ);
+                car.position.copy(pathData.position);
+                car.rotation.y = pathData.rotationY;
+
+                if (Math.random() < 0.3) {
+                    spawnSmoke(car.position);
+                }
+            } else if (state === 'exiting') {
+                hasExiting = true;
+                car.userData.animationProgress += delta;
+                if (car.userData.animationProgress >= 1.0) {
+                    scene.remove(car);
+                    car.traverse(child => {
+                        if (child.geometry) child.geometry.dispose();
+                        if (child.material) {
+                            if (Array.isArray(child.material)) {
+                                child.material.forEach(m => m.dispose());
+                            } else {
+                                child.material.dispose();
+                            }
+                        }
+                    });
+                    delete cars[id];
+                    continue;
+                }
+                const pathData = getExitPath(car.userData.animationProgress, car.userData.targetX, car.userData.targetZ);
+                car.position.copy(pathData.position);
+                car.rotation.y = pathData.rotationY;
+
+                if (Math.random() < 0.3) {
+                    spawnSmoke(car.position);
+                }
             }
         }
+
+        // Animate Barrier Gates based on proximity
+        const entranceTarget = hasEntering ? Math.PI / 2.2 : 0;
+        const exitTarget = hasExiting ? -Math.PI / 2.2 : 0;
+        
+        if (entranceBarrier && entranceBarrier.pivot) {
+            entranceBarrier.pivot.rotation.z += (entranceTarget - entranceBarrier.pivot.rotation.z) * 0.1;
+        }
+        if (exitBarrier && exitBarrier.pivot) {
+            exitBarrier.pivot.rotation.z += (exitTarget - exitBarrier.pivot.rotation.z) * 0.1;
+        }
+
+        updateParticles();
         controls.update();
         renderer.render(scene, camera);
     }
@@ -370,8 +676,8 @@
                 const occupiedIds = new Set(data.map(d => d.slot).filter((_, i) => data[i].occupied));
 
                 data.forEach(slotData => {
-                    if (slotData.occupied && !cars[slotData.slot]) {
-                        addCar(slotData.slot, slotData);
+                    if (slotData.occupied && (!cars[slotData.slot] || cars[slotData.slot].userData.animationState === 'exiting')) {
+                        addCar(slotData.slot, slotData, false);
                     } else if (slotData.occupied && cars[slotData.slot]) {
                         cars[slotData.slot].userData.data = slotData;
                         parkingSlots[slotData.slot].mesh.userData.data = slotData;
