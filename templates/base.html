@@ -561,6 +561,244 @@
             color: #00f0ff !important;
         }
 
+        /* 🤖 FUTURISTIC VOICE CORE ASSISTANT */
+        #voice-assistant-widget {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-family: 'Outfit', sans-serif;
+            pointer-events: none;
+        }
+
+        #voice-assistant-widget * {
+            pointer-events: auto;
+        }
+
+        .voice-mic-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(10, 10, 15, 0.85);
+            border: 2px solid rgba(0, 240, 255, 0.4);
+            color: #00f0ff;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .voice-mic-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: 50%;
+            border: 2px solid #00f0ff;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .voice-mic-btn:hover {
+            transform: scale(1.1) translateY(-3px);
+            color: #ffffff;
+            border-color: #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+        }
+
+        #voice-assistant-widget.listening .voice-mic-btn {
+            border-color: #ff0055;
+            color: #ff0055;
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.6);
+            animation: pulse-mic 1.2s infinite alternate ease-in-out;
+        }
+
+        #voice-assistant-widget.speaking .voice-mic-btn {
+            border-color: #8a2be2;
+            color: #8a2be2;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+        }
+
+        @keyframes pulse-mic {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+
+        .voice-hud-panel {
+            width: 320px;
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
+            backdrop-filter: blur(16px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0.8) translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        #voice-assistant-widget.active .voice-hud-panel {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hud-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #00f0ff;
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        .hud-header button {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hud-header button:hover {
+            color: #ff0055;
+        }
+
+        .hud-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00f0ff;
+            display: inline-block;
+            box-shadow: 0 0 8px #00f0ff;
+            margin-right: 6px;
+        }
+
+        #voice-assistant-widget.listening .hud-indicator {
+            background: #ff0055;
+            box-shadow: 0 0 8px #ff0055;
+            animation: indicator-flash 0.8s infinite alternate;
+        }
+
+        #voice-assistant-widget.speaking .hud-indicator {
+            background: #8a2be2;
+            box-shadow: 0 0 8px #8a2be2;
+        }
+
+        .waveform-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            height: 40px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            margin: 5px 0;
+        }
+
+        .wave-bar {
+            width: 4px;
+            height: 6px;
+            background: #00f0ff;
+            border-radius: 3px;
+            transition: all 0.15s ease;
+        }
+
+        #voice-assistant-widget.listening .wave-bar {
+            background: #ff0055;
+            animation: wave-bounce 0.8s infinite ease-in-out alternate;
+        }
+
+        #voice-assistant-widget.listening .wave-bar:nth-child(1) { animation-delay: 0.1s; }
+        #voice-assistant-widget.listening .wave-bar:nth-child(2) { animation-delay: 0.3s; }
+        #voice-assistant-widget.listening .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        #voice-assistant-widget.listening .wave-bar:nth-child(4) { animation-delay: 0.4s; }
+        #voice-assistant-widget.listening .wave-bar:nth-child(5) { animation-delay: 0.15s; }
+
+        #voice-assistant-widget.speaking .wave-bar {
+            background: #8a2be2;
+            animation: wave-bounce 0.6s infinite ease-in-out alternate;
+        }
+
+        #voice-assistant-widget.speaking .wave-bar:nth-child(1) { animation-delay: 0.05s; }
+        #voice-assistant-widget.speaking .wave-bar:nth-child(2) { animation-delay: 0.15s; }
+        #voice-assistant-widget.speaking .wave-bar:nth-child(3) { animation-delay: 0.1s; }
+        #voice-assistant-widget.speaking .wave-bar:nth-child(4) { animation-delay: 0.2s; }
+        #voice-assistant-widget.speaking .wave-bar:nth-child(5) { animation-delay: 0.08s; }
+
+        @keyframes wave-bounce {
+            0% { height: 6px; }
+            100% { height: 32px; }
+        }
+
+        .voice-transcript {
+            font-size: 12px;
+            color: #e2e8f0;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 10px 14px;
+            border-left: 3px solid #00f0ff;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            font-style: italic;
+        }
+
+        #voice-assistant-widget.listening .voice-transcript {
+            border-left-color: #ff0055;
+        }
+
+        #voice-assistant-widget.speaking .voice-transcript {
+            border-left-color: #8a2be2;
+        }
+
+        .suggested-commands {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 5px;
+        }
+
+        .cmd-tag {
+            font-size: 9px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .cmd-tag:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: #00f0ff;
+            color: #00f0ff;
+        }
+
     </style>
 
 </head>
@@ -701,6 +939,35 @@
 <!-- 📦 CONTENT -->
 <div class="container mt-4 animate__animated animate__fadeIn">
     {% block content %}{% endblock %}
+</div>
+
+<!-- 🤖 VOICE CORE ASSISTANT -->
+<div id="voice-assistant-widget">
+    <div class="voice-hud-panel" id="voiceHudPanel">
+        <div class="hud-header">
+            <div><span class="hud-indicator"></span> <span id="voiceStatusText">VOICE OFFLINE</span></div>
+            <button id="close-voice-hud"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="hud-body">
+            <div class="waveform-container">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+            <div class="voice-transcript" id="voiceTranscript">Awaiting system activation...</div>
+            <div class="suggested-commands">
+                <span class="cmd-tag" onclick="triggerSuggested('System Status')">System Status</span>
+                <span class="cmd-tag" onclick="triggerSuggested('Show Map')">Show Map</span>
+                <span class="cmd-tag" onclick="triggerSuggested('Scan Vehicle')">Scan Vehicle</span>
+                <span class="cmd-tag" onclick="triggerSuggested('Self Destruct')">Self Destruct</span>
+            </div>
+        </div>
+    </div>
+    <button class="voice-mic-btn" id="voiceMicBtn">
+        <i class="fas fa-microphone"></i>
+    </button>
 </div>
 
 <script>
@@ -1054,8 +1321,214 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
     });
     el.addEventListener('mouseout', () => {
         el.style.transform = `translate(0px, 0px)`;
-    });
 });
+</script>
+
+<script>
+    // 🤖 GLOBAL AI VOICE ASSISTANT ENGINE
+    (function() {
+        const widget = document.getElementById("voice-assistant-widget");
+        const micBtn = document.getElementById("voiceMicBtn");
+        const closeBtn = document.getElementById("close-voice-hud");
+        const transcript = document.getElementById("voiceTranscript");
+        const statusText = document.getElementById("voiceStatusText");
+        
+        if (!widget || !micBtn) return;
+
+        // Browser support verification
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            console.warn("Web Speech Recognition not supported in this browser.");
+            micBtn.style.display = "none";
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        let active = false;
+        let speaking = false;
+
+        // Custom Speech Synthesizer Response
+        function speakResponse(text, callback) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                speaking = true;
+                widget.classList.add("speaking");
+                widget.classList.remove("listening");
+                statusText.innerText = "ASSISTANT SPEAKING";
+                transcript.innerText = text;
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                const voices = window.speechSynthesis.getVoices();
+                const preferredVoice = voices.find(v => v.lang.includes('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Zira')));
+                if (preferredVoice) utterance.voice = preferredVoice;
+                
+                utterance.pitch = 0.95; // Robotic tone
+                utterance.rate = 1.02;
+
+                utterance.onend = function() {
+                    speaking = false;
+                    widget.classList.remove("speaking");
+                    statusText.innerText = "VOICE READY";
+                    if (callback) callback();
+                };
+
+                utterance.onerror = function() {
+                    speaking = false;
+                    widget.classList.remove("speaking");
+                    statusText.innerText = "VOICE READY";
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } else {
+                transcript.innerText = text;
+                if (callback) callback();
+            }
+        }
+
+        // Toggle HUD display
+        function toggleAssistant() {
+            if (active) {
+                deactivateAssistant();
+            } else {
+                activateAssistant();
+            }
+        }
+
+        function activateAssistant() {
+            active = true;
+            widget.classList.add("active");
+            statusText.innerText = "VOICE ACTIVE";
+            speakResponse("Voice interface engaged. State command, operator.", () => {
+                startListening();
+            });
+        }
+
+        function deactivateAssistant() {
+            active = false;
+            widget.classList.remove("active");
+            widget.classList.remove("listening");
+            widget.classList.remove("speaking");
+            statusText.innerText = "VOICE OFFLINE";
+            try { recognition.stop(); } catch(e) {}
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        function startListening() {
+            if (!active || speaking) return;
+            widget.classList.add("listening");
+            statusText.innerText = "LISTENING...";
+            transcript.innerText = "Listening for audio command...";
+            try { recognition.start(); } catch (e) { console.log(e); }
+        }
+
+        // Speech Recognition Events
+        recognition.onresult = function(event) {
+            widget.classList.remove("listening");
+            const resultText = event.results[0][0].transcript;
+            transcript.innerText = `"${resultText}"`;
+            
+            setTimeout(() => {
+                processCommand(resultText);
+            }, 600);
+        };
+
+        recognition.onerror = function(event) {
+            console.error("Speech Recognition Error:", event.error);
+            widget.classList.remove("listening");
+            if (event.error === 'no-speech') {
+                speakResponse("No command detected. Interface standby.");
+            } else {
+                statusText.innerText = "VOICE READY";
+                transcript.innerText = "Error matching audio nodes.";
+            }
+        };
+
+        recognition.onend = function() {
+            widget.classList.remove("listening");
+        };
+
+        // Custom command handler mapping
+        function processCommand(cmd) {
+            const command = cmd.toLowerCase().trim();
+
+            if (command.includes("map") || command.includes("parking lot") || command.includes("telemetry")) {
+                speakResponse("Confirmed. Redirecting to 3D parking lot telemetry.", () => {
+                    window.location.href = "/map";
+                });
+            } else if (command.includes("scan") || command.includes("camera") || command.includes("scanner") || command.includes("cctv")) {
+                speakResponse("Confirmed. Activating AI camera scanner node.", () => {
+                    window.location.href = "/camera";
+                });
+            } else if (command.includes("home") || command.includes("dashboard") || command.includes("main")) {
+                speakResponse("Opening main facility dashboard.", () => {
+                    window.location.href = "/";
+                });
+            } else if (command.includes("park") || command.includes("register")) {
+                speakResponse("Confirmed. Loading vehicle registration portal.", () => {
+                    window.location.href = "/register";
+                });
+            } else if (command.includes("exit") || command.includes("checkout")) {
+                speakResponse("Loading vehicle exit and payment terminal.", () => {
+                    window.location.href = "/exit";
+                });
+            } else if (command.includes("analytic") || command.includes("report") || command.includes("revenue") || command.includes("stat")) {
+                speakResponse("Gathering facility logs and predictive machine learning models.", () => {
+                    window.location.href = "/analytics";
+                });
+            } else if (command.includes("admin") || command.includes("core")) {
+                speakResponse("Authentication required. Redirecting to Admin Security Core.", () => {
+                    window.location.href = "/login";
+                });
+            } else if (command.includes("status") || command.includes("system check") || command.includes("diagnostic")) {
+                const date = new Date().toLocaleTimeString();
+                speakResponse(`Diagnostics complete. Databases online. AI scanner response latency: 1.2 seconds. Sentry security protocols fully active. Time check: ${date}. System state green.`);
+            } else if (command.includes("who are you") || command.includes("identify")) {
+                speakResponse("I am Antigravity AI, the virtual voice assistant core of the Smart Parking system. I execute commands, diagnostics, and telemetry routing.");
+            } else if (command.includes("self destruct") || command.includes("purge")) {
+                speakResponse("Alert! Self-destruct system purge sequence is unauthorized. Sentry defense grid has flagged your IP.");
+            } else if (command.includes("hello") || command.includes("hey") || command.includes("online")) {
+                speakResponse("Hello operator. The system is online. State command: map, scanner, register, exit, analytics, or diagnostics.");
+            } else if (command.includes("help") || command.includes("command")) {
+                speakResponse("Voice commands include: Show Map, Scan Vehicle, Diagnostics, Checkout, Register, Go Home, and Admin Access.");
+            } else {
+                speakResponse(`Command node "${cmd}" unrecognized. Say Help to see compatible voice nodes.`);
+            }
+        }
+
+        // Suggested clicks trigger
+        window.triggerSuggested = function(commandStr) {
+            if (speaking) return;
+            transcript.innerText = `"${commandStr}"`;
+            setTimeout(() => {
+                processCommand(commandStr);
+            }, 300);
+        };
+
+        // Wire Event Listeners
+        micBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            toggleAssistant();
+        });
+
+        closeBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            deactivateAssistant();
+        });
+
+        // Click outside closes HUD
+        document.addEventListener("click", function(e) {
+            if (active && !widget.contains(e.target)) {
+                deactivateAssistant();
+            }
+        });
+    })();
 </script>
 
 <!-- ✅ SINGLE VANILLA TILT -->
