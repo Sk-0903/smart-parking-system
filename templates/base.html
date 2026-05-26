@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (sessionStorage.getItem('system_booted') === 'true') {
+            document.documentElement.classList.add('system-booted');
+        }
+    </script>
     <title>Smart Parking</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,34 +72,344 @@
             100% { transform: translateY(-10vh); opacity: 0; }
         }
 
-        /* 🎥 LOADER */
+        /* Fast intercept style to prevent flash of loader */
+        .system-booted #loader {
+            display: none !important;
+        }
+
+        /* 🎥 PREMIUM ANDROID BOOT LOADER */
         #loader {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: #0a0a0f;
-            z-index: 9999;
+            background: #000000; /* Pitch black for boot screen */
+            z-index: 99999; /* Higher than navbar */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #00f0ff;
-            font-size: 24px;
-            font-weight: 600;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out, filter 0.8s ease-in-out;
+            font-family: 'Outfit', 'Courier New', monospace;
+            overflow: hidden;
         }
         
-        .loader-ring {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(0, 240, 255, 0.1);
-            border-top: 4px solid #00f0ff;
+        /* Scanline Overlay for retro-futuristic CRT screen effect */
+        #loader::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* CRT Screen flicker */
+        @keyframes flicker {
+            0% { opacity: 0.98; }
+            50% { opacity: 1; }
+            100% { opacity: 0.99; }
+        }
+        
+        /* Fade/Zoom transition out */
+        #loader.loader-fade-out {
+            opacity: 0 !important;
+            transform: scale(1.08);
+            filter: blur(15px);
+            pointer-events: none;
+        }
+
+        /* PHASE 1: TAP TO POWER ON SCREEN */
+        .boot-trigger-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transition: opacity 0.5s ease;
+        }
+        
+        .boot-trigger-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .fingerprint-glow {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            background: rgba(0, 240, 255, 0.03);
+            border: 2px dashed rgba(0, 240, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.05);
         }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .fingerprint-glow::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            animation: pulse-ring 2s infinite ease-out;
+        }
+
+        .fingerprint-glow i {
+            font-size: 42px;
+            color: #00f0ff;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.8);
+            animation: pulse-icon 1.5s infinite alternate ease-in-out;
+        }
+
+        .fingerprint-glow:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: #00f0ff;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.85); opacity: 1; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+
+        @keyframes pulse-icon {
+            0% { transform: scale(0.9); opacity: 0.6; text-shadow: 0 0 5px rgba(0, 240, 255, 0.4); }
+            100% { transform: scale(1.1); opacity: 1; text-shadow: 0 0 25px rgba(0, 240, 255, 1); }
+        }
+
+        .boot-prompt {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            margin-bottom: 8px;
+        }
+
+        .boot-subprompt {
+            color: #00f0ff;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            animation: pulse-text 2s infinite alternate;
+        }
+
+        @keyframes pulse-text {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.9; text-shadow: 0 0 8px rgba(0, 240, 255, 0.5); }
+        }
+
+        /* PHASE 2: ACTIVE BOOT ANIMATION */
+        .boot-sequence-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            z-index: 5;
+            padding: 20px;
+        }
+
+        .boot-sequence-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Android style orbiting dots wrapper */
+        .boot-logo-wrapper {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .boot-logo-center {
+            position: absolute;
+            font-size: 38px;
+            color: #00f0ff;
+            text-shadow: 0 0 25px rgba(0, 240, 255, 0.9);
+            animation: logo-drift 3s infinite alternate ease-in-out;
+            z-index: 10;
+        }
+
+        @keyframes logo-drift {
+            0% { transform: translateY(-5px) scale(0.95); filter: drop-shadow(0 0 10px rgba(0,240,255,0.4)); }
+            100% { transform: translateY(5px) scale(1.05); filter: drop-shadow(0 0 25px rgba(0,240,255,0.8)); }
+        }
+
+        /* Orbiting dots */
+        .boot-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: spin-loader 8s linear infinite;
+        }
+
+        .boot-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            margin-top: -6px;
+            margin-left: -6px;
+        }
+
+        .boot-dot:nth-child(1) { background: #00f0ff; box-shadow: 0 0 15px #00f0ff; animation: orbit-cyan 3.2s infinite ease-in-out; }
+        .boot-dot:nth-child(2) { background: #8a2be2; box-shadow: 0 0 15px #8a2be2; animation: orbit-purple 3.2s infinite ease-in-out; animation-delay: -0.8s; }
+        .boot-dot:nth-child(3) { background: #ff003c; box-shadow: 0 0 15px #ff003c; animation: orbit-pink 3.2s infinite ease-in-out; animation-delay: -1.6s; }
+        .boot-dot:nth-child(4) { background: #ffffff; box-shadow: 0 0 15px #ffffff; animation: orbit-white 3.2s infinite ease-in-out; animation-delay: -2.4s; }
+
+        @keyframes spin-loader {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes orbit-cyan {
+            0% { transform: rotate(0deg) translate(65px) rotate(0deg) scale(0.8); }
+            50% { transform: rotate(180deg) translate(65px) rotate(-180deg) scale(1.3); }
+            100% { transform: rotate(360deg) translate(65px) rotate(-360deg) scale(0.8); }
+        }
+
+        @keyframes orbit-purple {
+            0% { transform: rotate(0deg) translate(65px) rotate(0deg) scale(1.2); }
+            50% { transform: rotate(180deg) translate(65px) rotate(-180deg) scale(0.7); }
+            100% { transform: rotate(360deg) translate(65px) rotate(-360deg) scale(1.2); }
+        }
+
+        @keyframes orbit-pink {
+            0% { transform: rotate(0deg) translate(65px) rotate(0deg) scale(0.8); }
+            50% { transform: rotate(180deg) translate(65px) rotate(-180deg) scale(1.3); }
+            100% { transform: rotate(360deg) translate(65px) rotate(-360deg) scale(0.8); }
+        }
+
+        @keyframes orbit-white {
+            0% { transform: rotate(0deg) translate(65px) rotate(0deg) scale(1.2); }
+            50% { transform: rotate(180deg) translate(65px) rotate(-180deg) scale(0.7); }
+            100% { transform: rotate(360deg) translate(65px) rotate(-360deg) scale(1.2); }
+        }
+
+        /* Progress Bar */
+        .boot-progress-container {
+            width: 320px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .boot-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #8a2be2, #00f0ff);
+            box-shadow: 0 0 12px #00f0ff;
+            border-radius: 10px;
+            transition: width 0.1s linear;
+        }
+
+        .boot-progress-text {
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        /* Terminal Logs display box */
+        .boot-terminal-box {
+            width: 480px;
+            max-width: 90%;
+            height: 160px;
+            background: rgba(10, 10, 15, 0.7);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            color: #00f0ff;
+            overflow-y: auto;
+            text-align: left;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 5px 25px rgba(0,0,0,0.6);
+            scrollbar-width: none;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .boot-terminal-box::-webkit-scrollbar {
+            display: none;
+        }
+
+        .boot-terminal-line {
+            margin-bottom: 6px;
+            white-space: pre-wrap;
+            opacity: 0.85;
+            line-height: 1.4;
+        }
+
+        .boot-terminal-line.success {
+            color: #00ff66;
+            text-shadow: 0 0 4px rgba(0, 255, 102, 0.4);
+        }
+
+        .boot-terminal-line.warn {
+            color: #ffcc00;
+            text-shadow: 0 0 4px rgba(255, 204, 0, 0.4);
+        }
+
+        /* Skip Button */
+        .boot-skip-btn {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            z-index: 100;
+        }
+
+        .boot-skip-btn:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: #00f0ff;
+            color: #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
 
         /* ✅ POPUP */
         .popup-content {
@@ -136,10 +451,43 @@
 <div class="cursor-dot" data-cursor-dot></div>
 <div class="cursor-outline" data-cursor-outline></div>
 
-<!-- 🎥 LOADER -->
+<!-- 🎥 ANDROID BOOT LOADER -->
 <div id="loader">
-    <div class="loader-ring"></div>
-    INITIALIZING SYSTEM...
+    <!-- Phase 1: Tap to Power On Screen -->
+    <div class="boot-trigger-screen" id="bootTriggerScreen">
+        <div class="fingerprint-glow">
+            <i class="fas fa-power-off"></i>
+        </div>
+        <div class="boot-prompt">SMART PARKING OS</div>
+        <div class="boot-subprompt">Tap to power on device</div>
+    </div>
+
+    <!-- Phase 2: Active Boot Animation -->
+    <div class="boot-sequence-screen" id="bootSequenceScreen">
+        <div class="boot-logo-wrapper">
+            <div class="boot-logo-center">
+                <i class="fas fa-car-side"></i>
+            </div>
+            <div class="boot-dots">
+                <div class="boot-dot"></div>
+                <div class="boot-dot"></div>
+                <div class="boot-dot"></div>
+                <div class="boot-dot"></div>
+            </div>
+        </div>
+
+        <div class="boot-progress-text" id="bootProgressText">BOOTING CORE...</div>
+        
+        <div class="boot-progress-container">
+            <div class="boot-progress-bar" id="bootProgressBar"></div>
+        </div>
+
+        <div class="boot-terminal-box" id="bootTerminalBox">
+            <!-- Dynamic lines print here -->
+        </div>
+
+        <button class="boot-skip-btn" id="bootSkipBtn">Skip Boot</button>
+    </div>
 </div>
 
 <!-- ✨ PARTICLES -->
@@ -217,9 +565,189 @@
 </div>
 
 <script>
-window.addEventListener("load", function(){
-    document.getElementById("loader").style.display = "none";
-});
+    // 🎥 BOOT SEQUENCER CONTROLLER
+    (function() {
+        const isBooted = sessionStorage.getItem("system_booted") === "true";
+        const loader = document.getElementById("loader");
+        if (!loader) return;
+
+        if (isBooted) {
+            loader.style.display = "none";
+            loader.remove();
+            return;
+        }
+
+        const logLines = [
+            { text: "[    0.000000] Booting Smart Parking OS v4.0.0 (x86_64)...", type: "info" },
+            { text: "[    0.152891] Initializing CPU microcode and memory allocation...", type: "info" },
+            { text: "[    0.381291] Mounting virtual file systems /sys and /proc... [ OK ]", type: "success" },
+            { text: "[    0.612082] Checking database state (SQLite3 adapter initialized)...", type: "info" },
+            { text: "[    0.832910] Connecting to database schema parking.db... [ SUCCESS ]", type: "success" },
+            { text: "[    1.191029] Loading optical character recognition core module (OCR)...", type: "info" },
+            { text: "[    1.482012] Verifying OCR Space cloud API connection node... [ OK ]", type: "success" },
+            { text: "[    1.730982] Spawning computer vision camera feeds validator...", type: "info" },
+            { text: "[    2.052019] Initializing WebGL renderer and Torus Toroid instances...", type: "info" },
+            { text: "[    2.381902] Generating 3D parking lot digital twin nodes... [ SUCCESS ]", type: "success" },
+            { text: "[    2.691291] Loading blacklist enforcement table (2 records)... [ OK ]", type: "success" },
+            { text: "[    2.920198] Setting up Admin Authentication Gateway...", type: "info" },
+            { text: "[    3.159201] Establishing web socket telemetry pipeline...", type: "info" },
+            { text: "[    3.400192] Finalizing system modules and routing nodes... [ OK ]", type: "success" },
+            { text: "[    3.582109] SYSTEM ONLINE. PORT: 5000. READY FOR OPERATIONS.", type: "success" }
+        ];
+
+        let bootStarted = false;
+        let autoBootTimeout;
+
+        function playBootSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                // Master volume/gain
+                const masterGain = audioCtx.createGain();
+                masterGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                masterGain.gain.linearRampToValueAtTime(0.25, audioCtx.currentTime + 0.05);
+                masterGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.5);
+                masterGain.connect(audioCtx.destination);
+
+                // Resonant sweeping lowpass filter
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = "lowpass";
+                filter.frequency.setValueAtTime(150, audioCtx.currentTime);
+                filter.frequency.exponentialRampToValueAtTime(2000, audioCtx.currentTime + 1.2);
+                filter.connect(masterGain);
+
+                // Cyber swell sub-bass (sine)
+                const subOsc = audioCtx.createOscillator();
+                subOsc.type = "sine";
+                subOsc.frequency.setValueAtTime(60, audioCtx.currentTime);
+                subOsc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.8);
+                
+                const subGain = audioCtx.createGain();
+                subGain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+                subGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+                
+                subOsc.connect(subGain);
+                subGain.connect(masterGain);
+
+                // A-Major Cyber Arpeggio chime notes
+                const frequencies = [220.00, 277.18, 329.63, 440.00, 554.37, 659.25, 880.00];
+                frequencies.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const oscGain = audioCtx.createGain();
+                    
+                    osc.type = (idx % 2 === 0) ? "triangle" : "sine";
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime + (idx * 0.06));
+                    
+                    const lfo = audioCtx.createOscillator();
+                    const lfoGain = audioCtx.createGain();
+                    lfo.frequency.value = 7;
+                    lfoGain.gain.value = 2.5;
+                    lfo.connect(lfoGain);
+                    lfoGain.connect(osc.frequency);
+                    
+                    const startTime = audioCtx.currentTime + (idx * 0.06);
+                    oscGain.gain.setValueAtTime(0.001, startTime);
+                    oscGain.gain.linearRampToValueAtTime(0.12, startTime + 0.03);
+                    oscGain.gain.exponentialRampToValueAtTime(0.001, startTime + 1.6);
+                    
+                    osc.connect(filter);
+                    lfo.start(startTime);
+                    osc.start(startTime);
+                    
+                    lfo.stop(startTime + 2.0);
+                    osc.stop(startTime + 2.0);
+                });
+
+                subOsc.start(audioCtx.currentTime);
+                subOsc.stop(audioCtx.currentTime + 2.0);
+            } catch (e) {
+                console.warn("Audio Context blocked or unsupported:", e);
+            }
+        }
+
+        function startVisualBoot() {
+            if (bootStarted) return;
+            bootStarted = true;
+
+            clearTimeout(autoBootTimeout);
+
+            const trigger = document.getElementById("bootTriggerScreen");
+            const seq = document.getElementById("bootSequenceScreen");
+            if (trigger) trigger.classList.add("hidden");
+            if (seq) seq.classList.add("active");
+
+            const progressBar = document.getElementById("bootProgressBar");
+            const progressText = document.getElementById("bootProgressText");
+            const terminalBox = document.getElementById("bootTerminalBox");
+
+            let currentLine = 0;
+            let progress = 0;
+
+            function addLogLine() {
+                if (currentLine >= logLines.length) {
+                    progressBar.style.width = "100%";
+                    progressText.innerText = "System online!";
+                    setTimeout(completeBoot, 500);
+                    return;
+                }
+
+                const lineData = logLines[currentLine];
+                const lineEl = document.createElement("div");
+                lineEl.className = "boot-terminal-line";
+                if (lineData.type === "success") lineEl.classList.add("success");
+                if (lineData.type === "warn") lineEl.classList.add("warn");
+                lineEl.innerText = lineData.text;
+                terminalBox.appendChild(lineEl);
+                terminalBox.scrollTop = terminalBox.scrollHeight;
+
+                currentLine++;
+                progress = Math.min(100, Math.floor((currentLine / logLines.length) * 100));
+                progressBar.style.width = progress + "%";
+                progressText.innerText = `Booting: ${progress}%`;
+
+                const delay = 100 + Math.random() * 220; // 100-320ms simulated latency
+                setTimeout(addLogLine, delay);
+            }
+
+            setTimeout(addLogLine, 200);
+        }
+
+        function completeBoot() {
+            if (loader) {
+                loader.classList.add("loader-fade-out");
+                sessionStorage.setItem("system_booted", "true");
+                setTimeout(() => {
+                    loader.style.display = "none";
+                    loader.remove();
+                }, 800);
+            }
+        }
+
+        // Event listeners
+        const triggerScreen = document.getElementById("bootTriggerScreen");
+        if (triggerScreen) {
+            triggerScreen.addEventListener("click", function() {
+                playBootSound();
+                startVisualBoot();
+            });
+        }
+
+        const skipBtn = document.getElementById("bootSkipBtn");
+        if (skipBtn) {
+            skipBtn.addEventListener("click", function(e) {
+                e.stopPropagation();
+                completeBoot();
+            });
+        }
+
+        // Auto boot fallback if no interaction in 2.8 seconds
+        autoBootTimeout = setTimeout(() => {
+            startVisualBoot();
+        }, 2800);
+    })();
 
 document.querySelectorAll('.particles span').forEach((el) => {
     el.style.left = Math.random() * 100 + "%";
