@@ -597,6 +597,8 @@
             </div>
         </div>
 
+        <!-- Dust Title Canvas -->
+        <canvas id="bootTitleCanvas" width="450" height="70" style="margin-bottom: 10px; max-width: 100%; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.45));"></canvas>
         <div class="boot-progress-text" id="bootProgressText">BOOTING CORE...</div>
         
         <div class="boot-progress-container">
@@ -702,7 +704,7 @@
 </div>
 
 <script>
-    // 🎥 BOOT SEQUENCER CONTROLLER
+    // 🎥 BOOT SEQUENCER CONTROLLER WITH DUST ASSEMBLY TITLE
     (function() {
         const isBooted = sessionStorage.getItem("system_booted") === "true";
         const loader = document.getElementById("loader");
@@ -733,8 +735,9 @@
         ];
 
         let bootStarted = false;
-        let autoBootTimeout;
+        let progress = 0;
 
+        // --- WEB AUDIO SYNTHESIZER ---
         function playBootSound() {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -820,11 +823,102 @@
             }
         }
 
+        // --- CANVAS DUST PARTICLE TEXT ---
+        class DustParticle {
+            constructor(x, y, targetX, targetY) {
+                this.x = x;
+                this.y = y;
+                this.targetX = targetX;
+                this.targetY = targetY;
+                this.size = Math.random() * 1.5 + 0.6;
+                this.color = Math.random() > 0.4 ? '#00f0ff' : '#8a2be2';
+                this.alpha = Math.random() * 0.7 + 0.3;
+                this.vx = (Math.random() - 0.5) * 2.5;
+                this.vy = (Math.random() - 0.5) * 2.5;
+            }
+
+            update(progressFloat) {
+                if (progressFloat < 0.05) {
+                    // Shimmer/float as random dust at starting
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > 450) this.vx *= -1;
+                    if (this.y < 0 || this.y > 70) this.vy *= -1;
+                } else {
+                    // Convergence speed pull increases non-linearly with boot progress
+                    const pullForce = Math.pow(progressFloat, 2.2) * 0.12;
+                    this.x += (this.targetX - this.x) * pullForce;
+                    this.y += (this.targetY - this.y) * pullForce;
+                    // Introduce a tiny floating noise to keep it feeling like dynamic dust
+                    this.x += (Math.random() - 0.5) * 0.3 * (1 - progressFloat);
+                    this.y += (Math.random() - 0.5) * 0.3 * (1 - progressFloat);
+                }
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        let particles = [];
+        let canvas, ctx;
+
+        function initTitleParticles() {
+            canvas = document.getElementById('bootTitleCanvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+            
+            // Draw temporary title to offscreen mapping
+            const offscreen = document.createElement('canvas');
+            offscreen.width = canvas.width;
+            offscreen.height = canvas.height;
+            const oCtx = offscreen.getContext('2d');
+            
+            oCtx.fillStyle = '#ffffff';
+            oCtx.font = 'bold 36px Outfit';
+            oCtx.textAlign = 'center';
+            oCtx.textBaseline = 'middle';
+            oCtx.fillText('SMART PARKING', offscreen.width / 2, offscreen.height / 2);
+            
+            const imgData = oCtx.getImageData(0, 0, offscreen.width, offscreen.height);
+            const data = imgData.data;
+            
+            // Scan text pixels (step 3 for layout speed and density)
+            for (let y = 0; y < offscreen.height; y += 3) {
+                for (let x = 0; x < offscreen.width; x += 3) {
+                    const index = (y * offscreen.width + x) * 4;
+                    const aVal = data[index + 3];
+                    if (aVal > 120) {
+                        // Scatter dust initially at random points on canvas boundaries
+                        const startX = Math.random() * canvas.width;
+                        const startY = Math.random() * canvas.height;
+                        particles.push(new DustParticle(startX, startY, x, y));
+                    }
+                }
+            }
+        }
+
+        function animateTitle() {
+            if (!bootStarted || !ctx || !document.getElementById('bootTitleCanvas')) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const pFloat = progress / 100;
+            particles.forEach(p => {
+                p.update(pFloat);
+                p.draw(ctx);
+            });
+
+            requestAnimationFrame(animateTitle);
+        }
+
+        // --- VISUAL BOOT STATE ---
         function startVisualBoot() {
             if (bootStarted) return;
             bootStarted = true;
-
-            clearTimeout(autoBootTimeout);
 
             const trigger = document.getElementById("bootTriggerScreen");
             const seq = document.getElementById("bootSequenceScreen");
@@ -841,15 +935,19 @@
             const indWebgl = document.getElementById("indWebgl");
             const indSec = document.getElementById("indSec");
 
+            // Init and run dust text particles loop
+            initTitleParticles();
+            animateTitle();
+
             let currentLine = 0;
-            let progress = 0;
+            progress = 0;
 
             function addLogLine() {
                 if (currentLine >= logLines.length) {
                     progressBar.style.width = "100%";
                     progressText.innerText = "System online!";
                     if (indSec) indSec.className = "ind-item success";
-                    setTimeout(completeBoot, 500);
+                    setTimeout(completeBoot, 600);
                     return;
                 }
 
@@ -923,11 +1021,6 @@
                 completeBoot();
             });
         }
-
-        // Auto boot fallback if no interaction in 2.8 seconds
-        autoBootTimeout = setTimeout(() => {
-            startVisualBoot();
-        }, 2800);
     })();
 
 document.querySelectorAll('.particles span').forEach((el) => {
