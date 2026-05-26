@@ -805,62 +805,6 @@
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.4) !important;
         }
         
-        /* RED ALERT CLASS FLASHES */
-        body.red-alert-mode {
-            background-color: #1a0005 !important;
-            animation: red-alert-flash-bg 1.5s infinite alternate ease-in-out;
-        }
-
-        body.red-alert-mode nav {
-            border-bottom: 1px solid rgba(255, 0, 85, 0.6) !important;
-            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4) !important;
-            background: rgba(20, 0, 5, 0.9) !important;
-        }
-
-        body.red-alert-mode .navbar-brand span {
-            color: #ff0055 !important;
-            text-shadow: 0 0 15px #ff0055 !important;
-        }
-
-        body.red-alert-mode .navbar-brand i {
-            color: #ff0055 !important;
-            text-shadow: 0 0 15px #ff0055 !important;
-        }
-
-        body.red-alert-mode .nav-hover:hover {
-            color: #ff0055 !important;
-            text-shadow: 0 0 15px rgba(255, 0, 85, 0.8) !important;
-        }
-
-        body.red-alert-mode .nav-hover:hover i {
-            color: #ff0055 !important;
-        }
-
-        body.red-alert-mode .text-info {
-            color: #ff0055 !important;
-            text-shadow: 0 0 10px rgba(255, 0, 85, 0.5) !important;
-        }
-
-        body.red-alert-mode .glass-panel, body.red-alert-mode .premium-card {
-            border-color: rgba(255, 0, 85, 0.3) !important;
-            box-shadow: 0 10px 40px rgba(255, 0, 85, 0.15) !important;
-        }
-
-        body.red-alert-mode .text-gradient {
-            background: linear-gradient(90deg, #ff0055, #8a2be2) !important;
-            -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-        }
-
-        @keyframes red-alert-flash-bg {
-            0% { background-color: #050508; }
-            100% { background-color: #2b000a; }
-        }
-
-        @keyframes pulse-banner {
-            0% { opacity: 0.75; }
-            100% { opacity: 1.0; }
-        }
 
     </style>
 
@@ -1004,10 +948,6 @@
     {% block content %}{% endblock %}
 </div>
 
-<!-- 🚨 RED ALERT HEADER BANNER -->
-<div id="redAlertBanner" style="display: none; position: fixed; top: 0; left: 0; width: 100%; background: #ff0055; color: #fff; text-align: center; font-weight: 800; font-size: 11px; letter-spacing: 3px; padding: 8px 10px; z-index: 99999; box-shadow: 0 2px 15px rgba(255, 0, 85, 0.8); animation: pulse-banner 1s infinite alternate; pointer-events: none; text-transform: uppercase;">
-    🚨 WARNING: SECURITY BREACH IN PROGRESS - SENTRY DEFENSE ENGAGED 🚨
-</div>
 
 <!-- 🤖 VOICE CORE ASSISTANT -->
 <div id="voice-assistant-widget">
@@ -1023,8 +963,6 @@
                 <span class="cmd-tag" onclick="triggerSuggested('System Status')">System Status</span>
                 <span class="cmd-tag" onclick="triggerSuggested('Show Map')">Show Map</span>
                 <span class="cmd-tag" onclick="triggerSuggested('Scan Vehicle')">Scan Vehicle</span>
-                <span class="cmd-tag" onclick="triggerSuggested('Red Alert')">Red Alert</span>
-                <span class="cmd-tag" onclick="triggerSuggested('Self Destruct')">Self Destruct</span>
             </div>
         </div>
     </div>
@@ -1587,8 +1525,6 @@
         const closeBtn = document.getElementById("close-voice-hud");
         const transcript = document.getElementById("voiceTranscript");
         const statusText = document.getElementById("voiceStatusText");
-        const redAlertBanner = document.getElementById("redAlertBanner");
-        
         if (!widget || !micBtn || !speakerBtn) return;
 
         let waveCanvas = document.getElementById('voiceWaveCanvas');
@@ -1610,7 +1546,6 @@
 
         let active = false;
         let speaking = false;
-        let selfDestructing = false;
 
         function speakResponse(text, callback) {
             if ('speechSynthesis' in window) {
@@ -1664,12 +1599,7 @@
             let speed = 0.05;
             let linesCount = 2;
 
-            if (selfDestructing) {
-                color = '#ff0055';
-                amplitude = 18;
-                speed = 0.25;
-                linesCount = 4;
-            } else if (widget.classList.contains('listening')) {
+            if (widget.classList.contains('listening')) {
                 color = '#ff0055';
                 amplitude = 10;
                 speed = 0.15;
@@ -1739,7 +1669,6 @@
         }
 
         function deactivateAssistant() {
-            if (selfDestructing) return; 
             active = false;
             widget.classList.remove("active");
             widget.classList.remove("listening");
@@ -1758,7 +1687,7 @@
         }
 
         function startListening() {
-            if (!active || speaking || selfDestructing) return;
+            if (!active || speaking) return;
             widget.classList.add("listening");
             statusText.innerText = "LISTENING...";
             transcript.innerText = "Listening for audio command...";
@@ -1790,147 +1719,10 @@
             widget.classList.remove("listening");
         };
 
-        let sirenInterval = null;
-        let sirenOsc1 = null;
-        let sirenOsc2 = null;
-        let sirenGain = null;
-
-        function startSiren() {
-            if (sirenOsc1) return;
-            AudioFX.init();
-            const ctx = AudioFX.audioCtx;
-            const now = ctx.currentTime;
-            
-            sirenGain = ctx.createGain();
-            sirenGain.gain.setValueAtTime(0.001, now);
-            sirenGain.gain.linearRampToValueAtTime(0.18, now + 0.5);
-            sirenGain.connect(ctx.destination);
-            
-            sirenOsc1 = ctx.createOscillator();
-            sirenOsc1.type = 'sawtooth';
-            sirenOsc1.frequency.setValueAtTime(300, now);
-            sirenOsc1.connect(sirenGain);
-            sirenOsc1.start(now);
-            
-            sirenOsc2 = ctx.createOscillator();
-            sirenOsc2.type = 'sine';
-            sirenOsc2.frequency.setValueAtTime(305, now);
-            sirenOsc2.connect(sirenGain);
-            sirenOsc2.start(now);
-            
-            let time = 0;
-            sirenInterval = setInterval(() => {
-                if (!sirenOsc1 || !AudioFX.audioCtx) return;
-                const cNow = AudioFX.audioCtx.currentTime;
-                const up = (time % 2 === 0);
-                sirenOsc1.frequency.exponentialRampToValueAtTime(up ? 800 : 300, cNow + 0.9);
-                sirenOsc2.frequency.exponentialRampToValueAtTime(up ? 805 : 305, cNow + 0.9);
-                time++;
-            }, 1000);
-        }
-
-        function stopSiren() {
-            if (sirenInterval) {
-                clearInterval(sirenInterval);
-                sirenInterval = null;
-            }
-            if (sirenOsc1) { try { sirenOsc1.stop(); } catch(e) {} sirenOsc1 = null; }
-            if (sirenOsc2) { try { sirenOsc2.stop(); } catch(e) {} sirenOsc2 = null; }
-            if (sirenGain) { sirenGain.disconnect(); sirenGain = null; }
-        }
-
-        function triggerSelfDestructSequence() {
-            selfDestructing = true;
-            let count = 10;
-            
-            if (micBtn) micBtn.style.display = "none";
-            if (speakerBtn) speakerBtn.style.display = "none";
-            if (closeBtn) closeBtn.style.display = "none";
-            
-            statusText.innerText = "CRITICAL SHUTDOWN";
-            statusText.style.color = "#ff0055";
-            
-            const destructInterval = setInterval(() => {
-                if (count > 0) {
-                    AudioFX.play('tick');
-                    transcript.innerHTML = `<span style="color: #ff0055; font-size: 15px; font-weight: 800; animation: pulse-banner 0.5s infinite alternate;">⚠️ MELTDOWN IN ${count}... ⚠️</span>`;
-                    
-                    try {
-                        if ('speechSynthesis' in window) {
-                            window.speechSynthesis.cancel();
-                            const numUtter = new SpeechSynthesisUtterance(count.toString());
-                            numUtter.pitch = 0.5;
-                            numUtter.rate = 1.3;
-                            window.speechSynthesis.speak(numUtter);
-                        }
-                    } catch(e) {}
-
-                    document.body.classList.toggle('red-alert-mode');
-                    count--;
-                } else {
-                    clearInterval(destructInterval);
-                    executeTerminalShutdown();
-                }
-            }, 1000);
-        }
-
-        function executeTerminalShutdown() {
-            AudioFX.play('explosion');
-            
-            try {
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                    const farewell = new SpeechSynthesisUtterance("Goodbye, operator.");
-                    farewell.pitch = 0.4;
-                    farewell.rate = 0.8;
-                    window.speechSynthesis.speak(farewell);
-                }
-            } catch(e) {}
-
-            let shutdownLoader = document.getElementById('loader');
-            if (!shutdownLoader) {
-                shutdownLoader = document.createElement('div');
-                shutdownLoader.id = 'loader';
-                document.body.appendChild(shutdownLoader);
-            }
-            
-            shutdownLoader.className = ""; 
-            shutdownLoader.style.display = 'flex';
-            shutdownLoader.style.background = '#000000';
-            shutdownLoader.innerHTML = `
-                <div style="color: #ff0055; font-family: 'Courier New', monospace; font-size: 14px; text-shadow: 0 0 10px #ff0055; text-align: center; line-height: 2;">
-                    <div>[ SYSTEM CRITICAL: TERMINAL MELTDOWN COMPLETE ]</div>
-                    <div style="opacity: 0.5; font-size: 10px; margin-top: 10px;">Connection terminated by host.</div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                shutdownLoader.classList.add('crt-collapse');
-                document.body.style.pointerEvents = 'none';
-                document.body.style.overflow = 'hidden';
-            }, 1200);
-        }
-
         function processCommand(cmd) {
             const command = cmd.toLowerCase().trim();
 
-            if (command.includes("self destruct") || command.includes("meltdown")) {
-                speakResponse("Alert! Self-destruct sequence authorized. Terminal purge initiated.", () => {
-                    triggerSelfDestructSequence();
-                });
-            } else if (command.includes("red alert") || command.includes("intruder") || command.includes("breach")) {
-                speakResponse("Warning! Security grid breached. Flashing threat nodes.", () => {
-                    document.body.classList.add("red-alert-mode");
-                    if (redAlertBanner) redAlertBanner.style.display = "block";
-                    startSiren();
-                });
-            } else if (command.includes("green alert") || command.includes("cancel alert") || command.includes("clear alert") || command.includes("green code")) {
-                speakResponse("Security threat neutralized. Defense grid returned to standby.", () => {
-                    document.body.classList.remove("red-alert-mode");
-                    if (redAlertBanner) redAlertBanner.style.display = "none";
-                    stopSiren();
-                });
-            } else if (command.includes("hyperdrive") || command.includes("warp") || command.includes("speed")) {
+            if (command.includes("hyperdrive") || command.includes("warp") || command.includes("speed")) {
                 speakResponse("Engaging hyperdrive. Speed parameters exceeded. Hold on, operator.", () => {
                     AudioFX.play('warp');
                     window.dispatchEvent(new CustomEvent('hyperdrive', { detail: { active: true } }));
@@ -1989,7 +1781,7 @@
         }
 
         window.triggerSuggested = function(commandStr) {
-            if (speaking || selfDestructing) return;
+            if (speaking) return;
             transcript.innerText = `"${commandStr}"`;
             setTimeout(() => {
                 processCommand(commandStr);
