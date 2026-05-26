@@ -566,6 +566,22 @@ document.addEventListener("DOMContentLoaded", function() {
     terrain.position.y = -10;
     scene.add(terrain);
 
+    let speedMult = 1.0;
+    window.addEventListener('hyperdrive', (e) => {
+        const active = e.detail.active;
+        if (active) {
+            speedMult = 10.0;
+            material.color.setHex(0x8a2be2);
+            material.opacity = 0.55;
+            scene.fog.color.setHex(0x1a002b);
+        } else {
+            speedMult = 1.0;
+            material.color.setHex(0x00f0ff);
+            material.opacity = 0.25;
+            scene.fog.color.setHex(0x0a0a0f);
+        }
+    });
+
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -583,7 +599,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function animate() {
         requestAnimationFrame(animate);
         
-        const time = clock.getElapsedTime();
+        const time = clock.getElapsedTime() * speedMult;
         const position = geometry.attributes.position;
         
         for (let i = 0; i < position.count; i++) {
@@ -603,6 +619,13 @@ document.addEventListener("DOMContentLoaded", function() {
         camera.position.x += (targetX - camera.position.x) * 0.05;
         camera.position.y += (-targetY + 5 - camera.position.y) * 0.05; 
         
+        if (speedMult > 1.0) {
+            terrain.rotation.z += 0.006;
+            camera.position.z += Math.sin(Date.now() * 0.04) * 0.08; // warp vibration shake
+        } else {
+            terrain.rotation.z = 0;
+        }
+
         camera.lookAt(scene.position);
 
         renderer.render(scene, camera);

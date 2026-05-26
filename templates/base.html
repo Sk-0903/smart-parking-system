@@ -799,6 +799,69 @@
             color: #00f0ff;
         }
 
+        .voice-speaker-btn:hover {
+            transform: scale(1.1) translateY(-3px);
+            border-color: #00f0ff !important;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4) !important;
+        }
+        
+        /* RED ALERT CLASS FLASHES */
+        body.red-alert-mode {
+            background-color: #1a0005 !important;
+            animation: red-alert-flash-bg 1.5s infinite alternate ease-in-out;
+        }
+
+        body.red-alert-mode nav {
+            border-bottom: 1px solid rgba(255, 0, 85, 0.6) !important;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4) !important;
+            background: rgba(20, 0, 5, 0.9) !important;
+        }
+
+        body.red-alert-mode .navbar-brand span {
+            color: #ff0055 !important;
+            text-shadow: 0 0 15px #ff0055 !important;
+        }
+
+        body.red-alert-mode .navbar-brand i {
+            color: #ff0055 !important;
+            text-shadow: 0 0 15px #ff0055 !important;
+        }
+
+        body.red-alert-mode .nav-hover:hover {
+            color: #ff0055 !important;
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.8) !important;
+        }
+
+        body.red-alert-mode .nav-hover:hover i {
+            color: #ff0055 !important;
+        }
+
+        body.red-alert-mode .text-info {
+            color: #ff0055 !important;
+            text-shadow: 0 0 10px rgba(255, 0, 85, 0.5) !important;
+        }
+
+        body.red-alert-mode .glass-panel, body.red-alert-mode .premium-card {
+            border-color: rgba(255, 0, 85, 0.3) !important;
+            box-shadow: 0 10px 40px rgba(255, 0, 85, 0.15) !important;
+        }
+
+        body.red-alert-mode .text-gradient {
+            background: linear-gradient(90deg, #ff0055, #8a2be2) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+
+        @keyframes red-alert-flash-bg {
+            0% { background-color: #050508; }
+            100% { background-color: #2b000a; }
+        }
+
+        @keyframes pulse-banner {
+            0% { opacity: 0.75; }
+            100% { opacity: 1.0; }
+        }
+
     </style>
 
 </head>
@@ -941,6 +1004,11 @@
     {% block content %}{% endblock %}
 </div>
 
+<!-- 🚨 RED ALERT HEADER BANNER -->
+<div id="redAlertBanner" style="display: none; position: fixed; top: 0; left: 0; width: 100%; background: #ff0055; color: #fff; text-align: center; font-weight: 800; font-size: 11px; letter-spacing: 3px; padding: 8px 10px; z-index: 99999; box-shadow: 0 2px 15px rgba(255, 0, 85, 0.8); animation: pulse-banner 1s infinite alternate; pointer-events: none; text-transform: uppercase;">
+    🚨 WARNING: SECURITY BREACH IN PROGRESS - SENTRY DEFENSE ENGAGED 🚨
+</div>
+
 <!-- 🤖 VOICE CORE ASSISTANT -->
 <div id="voice-assistant-widget">
     <div class="voice-hud-panel" id="voiceHudPanel">
@@ -949,28 +1017,198 @@
             <button id="close-voice-hud"><i class="fas fa-times"></i></button>
         </div>
         <div class="hud-body">
-            <div class="waveform-container">
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-            </div>
+            <canvas id="voiceWaveCanvas" width="280" height="40" style="background: rgba(0,0,0,0.3); border-radius:10px; border: 1px solid rgba(255,255,255,0.05); margin: 5px 0;"></canvas>
             <div class="voice-transcript" id="voiceTranscript">Awaiting system activation...</div>
             <div class="suggested-commands">
                 <span class="cmd-tag" onclick="triggerSuggested('System Status')">System Status</span>
                 <span class="cmd-tag" onclick="triggerSuggested('Show Map')">Show Map</span>
                 <span class="cmd-tag" onclick="triggerSuggested('Scan Vehicle')">Scan Vehicle</span>
+                <span class="cmd-tag" onclick="triggerSuggested('Red Alert')">Red Alert</span>
                 <span class="cmd-tag" onclick="triggerSuggested('Self Destruct')">Self Destruct</span>
             </div>
         </div>
     </div>
-    <button class="voice-mic-btn" id="voiceMicBtn">
-        <i class="fas fa-microphone"></i>
-    </button>
+    <div class="voice-controls-row" style="display: flex; gap: 10px; align-items: center; pointer-events: auto;">
+        <button class="voice-speaker-btn" id="voiceSpeakerBtn" title="Toggle UI Sounds" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(10, 10, 15, 0.85); border: 2px solid rgba(0, 240, 255, 0.2); color: #00f0ff; font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 10px rgba(0, 240, 255, 0.1); backdrop-filter: blur(10px); transition: all 0.3s ease;">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="voice-mic-btn" id="voiceMicBtn">
+            <i class="fas fa-microphone"></i>
+        </button>
+    </div>
 </div>
 
 <script>
+    // --- GLOBAL WEB AUDIO SOUND FX ENGINE ---
+    window.AudioFX = {
+        audioCtx: null,
+        muted: localStorage.getItem('ui_sounds_muted') === 'true',
+
+        init() {
+            if (!this.audioCtx) {
+                this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        },
+
+        setMute(mute) {
+            this.muted = mute;
+            localStorage.setItem('ui_sounds_muted', mute);
+            const icon = document.querySelector('#voiceSpeakerBtn i');
+            if (icon) {
+                icon.className = mute ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+            }
+            const btn = document.getElementById('voiceSpeakerBtn');
+            if (btn) {
+                btn.style.borderColor = mute ? 'rgba(255, 0, 85, 0.3)' : 'rgba(0, 240, 255, 0.2)';
+                btn.style.color = mute ? '#ff0055' : '#00f0ff';
+            }
+        },
+
+        toggle() {
+            this.init();
+            this.setMute(!this.muted);
+            this.play('click');
+        },
+
+        play(type) {
+            if (this.muted && type !== 'click') return; 
+            this.init();
+            if (this.audioCtx.state === 'suspended') {
+                this.audioCtx.resume();
+            }
+
+            const ctx = this.audioCtx;
+            const now = ctx.currentTime;
+
+            try {
+                if (type === 'hover') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1200, now);
+                    gain.gain.setValueAtTime(0.012, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(now + 0.05);
+                } else if (type === 'click') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(800, now);
+                    osc.frequency.setValueAtTime(1600, now + 0.03);
+                    gain.gain.setValueAtTime(0.04, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(now + 0.12);
+                } else if (type === 'chirp') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(1800, now + 0.08);
+                    gain.gain.setValueAtTime(0.06, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(now + 0.15);
+                } else if (type === 'deactivate') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1200, now);
+                    osc.frequency.exponentialRampToValueAtTime(300, now + 0.12);
+                    gain.gain.setValueAtTime(0.06, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(now + 0.16);
+                } else if (type === 'warp') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    const filter = ctx.createBiquadFilter();
+                    
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(100, now);
+                    filter.frequency.exponentialRampToValueAtTime(6000, now + 1.5);
+                    
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(80, now);
+                    osc.frequency.exponentialRampToValueAtTime(440, now + 1.2);
+                    
+                    gain.gain.setValueAtTime(0.001, now);
+                    gain.gain.linearRampToValueAtTime(0.1, now + 0.5);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.0);
+                    
+                    osc.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(ctx.destination);
+                    
+                    osc.start();
+                    osc.stop(now + 2.1);
+                } else if (type === 'tick') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1000, now);
+                    gain.gain.setValueAtTime(0.06, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(now + 0.06);
+                } else if (type === 'explosion') {
+                    const noise = ctx.createBufferSource();
+                    const bufferSize = ctx.sampleRate * 2;
+                    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = Math.random() * 2 - 1;
+                    }
+                    noise.buffer = buffer;
+
+                    const noiseFilter = ctx.createBiquadFilter();
+                    noiseFilter.type = 'lowpass';
+                    noiseFilter.frequency.setValueAtTime(800, now);
+                    noiseFilter.frequency.exponentialRampToValueAtTime(10, now + 1.8);
+
+                    const noiseGain = ctx.createGain();
+                    noiseGain.gain.setValueAtTime(0.4, now);
+                    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 2.0);
+
+                    noise.connect(noiseFilter);
+                    noiseFilter.connect(noiseGain);
+                    noiseGain.connect(ctx.destination);
+
+                    noise.start();
+                    noise.stop(now + 2.1);
+                }
+            } catch (e) {
+                console.warn("Audio Context sound execution error:", e);
+            }
+        }
+    };
+
+    // Global Hover / Click binding utility
+    window.bindUISounds = function() {
+        const targets = document.querySelectorAll('.nav-hover, .btn, .boot-skip-btn, .cmd-tag, .glass-panel, .premium-card, .accordion-button, .fingerprint-glow');
+        targets.forEach(el => {
+            if (el.dataset.soundBound) return;
+            el.dataset.soundBound = "true";
+            el.addEventListener('mouseenter', () => {
+                AudioFX.play('hover');
+            });
+            el.addEventListener('click', () => {
+                AudioFX.play('click');
+            });
+        });
+    };
+
     // 🎥 BOOT SEQUENCER CONTROLLER WITH DUST ASSEMBLY TITLE
     (function() {
         const isBooted = sessionStorage.getItem("system_booted") === "true";
@@ -1004,15 +1242,14 @@
         let bootStarted = false;
         let progress = 0;
 
-        // --- WEB AUDIO SYNTHESIZER ---
         function playBootSound() {
             try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                AudioFX.init();
+                const audioCtx = AudioFX.audioCtx;
                 if (audioCtx.state === 'suspended') {
                     audioCtx.resume();
                 }
 
-                // Cyber digital click trigger sound
                 const clickOsc = audioCtx.createOscillator();
                 const clickGain = audioCtx.createGain();
                 clickOsc.type = "sine";
@@ -1025,14 +1262,12 @@
                 clickOsc.start();
                 clickOsc.stop(audioCtx.currentTime + 0.06);
 
-                // Master volume/gain
                 const masterGain = audioCtx.createGain();
                 masterGain.gain.setValueAtTime(0.001, audioCtx.currentTime + 0.02);
                 masterGain.gain.linearRampToValueAtTime(0.28, audioCtx.currentTime + 0.1);
                 masterGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.8);
                 masterGain.connect(audioCtx.destination);
 
-                // Resonant sweeping lowpass filter
                 const filter = audioCtx.createBiquadFilter();
                 filter.type = "lowpass";
                 filter.frequency.setValueAtTime(100, audioCtx.currentTime);
@@ -1040,7 +1275,6 @@
                 filter.Q.value = 5;
                 filter.connect(masterGain);
 
-                // Cyber swell sub-bass (triangle)
                 const subOsc = audioCtx.createOscillator();
                 subOsc.type = "triangle";
                 subOsc.frequency.setValueAtTime(45, audioCtx.currentTime + 0.02);
@@ -1053,7 +1287,6 @@
                 subOsc.connect(subGain);
                 subGain.connect(masterGain);
 
-                // Cyber chord chime arpeggio sweep (C Major 9th / Sus4)
                 const frequencies = [130.81, 196.00, 261.63, 349.23, 392.00, 587.33, 783.99, 1046.50];
                 frequencies.forEach((freq, idx) => {
                     const osc = audioCtx.createOscillator();
@@ -1090,7 +1323,6 @@
             }
         }
 
-        // --- CANVAS DUST PARTICLE TEXT ---
         class DustParticle {
             constructor(x, y, targetX, targetY) {
                 this.x = x;
@@ -1106,17 +1338,14 @@
 
             update(progressFloat) {
                 if (progressFloat < 0.05) {
-                    // Shimmer/float as random dust at starting
                     this.x += this.vx;
                     this.y += this.vy;
                     if (this.x < 0 || this.x > 450) this.vx *= -1;
                     if (this.y < 0 || this.y > 70) this.vy *= -1;
                 } else {
-                    // Convergence speed pull increases non-linearly with boot progress
                     const pullForce = Math.pow(progressFloat, 2.2) * 0.12;
                     this.x += (this.targetX - this.x) * pullForce;
                     this.y += (this.targetY - this.y) * pullForce;
-                    // Introduce a tiny floating noise to keep it feeling like dynamic dust
                     this.x += (Math.random() - 0.5) * 0.3 * (1 - progressFloat);
                     this.y += (Math.random() - 0.5) * 0.3 * (1 - progressFloat);
                 }
@@ -1139,7 +1368,6 @@
             if (!canvas) return;
             ctx = canvas.getContext('2d');
             
-            // Draw temporary title to offscreen mapping
             const offscreen = document.createElement('canvas');
             offscreen.width = canvas.width;
             offscreen.height = canvas.height;
@@ -1154,13 +1382,11 @@
             const imgData = oCtx.getImageData(0, 0, offscreen.width, offscreen.height);
             const data = imgData.data;
             
-            // Scan text pixels (step 3 for layout speed and density)
             for (let y = 0; y < offscreen.height; y += 3) {
                 for (let x = 0; x < offscreen.width; x += 3) {
                     const index = (y * offscreen.width + x) * 4;
                     const aVal = data[index + 3];
                     if (aVal > 120) {
-                        // Scatter dust initially at random points on canvas boundaries
                         const startX = Math.random() * canvas.width;
                         const startY = Math.random() * canvas.height;
                         particles.push(new DustParticle(startX, startY, x, y));
@@ -1182,7 +1408,6 @@
             requestAnimationFrame(animateTitle);
         }
 
-        // --- VISUAL BOOT STATE ---
         function startVisualBoot() {
             if (bootStarted) return;
             bootStarted = true;
@@ -1196,13 +1421,11 @@
             const progressText = document.getElementById("bootProgressText");
             const terminalBox = document.getElementById("bootTerminalBox");
 
-            // Live Core Indicators elements
             const indDb = document.getElementById("indDb");
             const indOcr = document.getElementById("indOcr");
             const indWebgl = document.getElementById("indWebgl");
             const indSec = document.getElementById("indSec");
 
-            // Init and run dust text particles loop
             initTitleParticles();
             animateTitle();
 
@@ -1232,7 +1455,6 @@
                 progressBar.style.width = progress + "%";
                 progressText.innerText = `Booting: ${progress}%`;
 
-                // Update core indicators dynamically
                 if (progress >= 15 && progress < 30) {
                     if (indDb && !indDb.classList.contains('active') && !indDb.classList.contains('success')) {
                         indDb.className = "ind-item active";
@@ -1254,7 +1476,7 @@
                     }
                 }
 
-                const delay = 100 + Math.random() * 220; // 100-320ms simulated latency
+                const delay = 80 + Math.random() * 150; 
                 setTimeout(addLogLine, delay);
             }
 
@@ -1265,14 +1487,31 @@
             if (loader) {
                 loader.classList.add("crt-collapse");
                 sessionStorage.setItem("system_booted", "true");
+                
+                try {
+                    AudioFX.init();
+                    if ('speechSynthesis' in window) {
+                        window.speechSynthesis.cancel();
+                        const welcomeUtterance = new SpeechSynthesisUtterance("System boot complete. Smart Parking online. Welcome back, operator.");
+                        welcomeUtterance.pitch = 0.95;
+                        welcomeUtterance.rate = 1.02;
+                        const voices = window.speechSynthesis.getVoices();
+                        const preferredVoice = voices.find(v => v.lang.includes('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Zira')));
+                        if (preferredVoice) welcomeUtterance.voice = preferredVoice;
+                        window.speechSynthesis.speak(welcomeUtterance);
+                    }
+                } catch(e) {
+                    console.warn("Speech synthesis error on boot:", e);
+                }
+
                 setTimeout(() => {
                     loader.style.display = "none";
                     loader.remove();
+                    window.bindUISounds();
                 }, 600);
             }
         }
 
-        // Event listeners
         const triggerScreen = document.getElementById("bootTriggerScreen");
         if (triggerScreen) {
             triggerScreen.addEventListener("click", function() {
@@ -1290,38 +1529,53 @@
         }
     })();
 
-document.querySelectorAll('.particles span').forEach((el) => {
-    el.style.left = Math.random() * 100 + "%";
-    el.style.animationDelay = Math.random() * 10 + "s";
-});
-
-/* ✅ SINGLE CURSOR SCRIPT */
-const cursorDot = document.querySelector("[data-cursor-dot]");
-const cursorOutline = document.querySelector("[data-cursor-outline]");
-
-if (window.innerWidth > 768) {
-    window.addEventListener("mousemove", function (e) {
-        cursorDot.style.left = e.clientX + "px";
-        cursorDot.style.top = e.clientY + "px";
-
-        cursorOutline.animate({
-            left: e.clientX + "px",
-            top: e.clientY + "px"
-        }, { duration: 300, fill: "forwards" });
+    document.addEventListener("DOMContentLoaded", () => {
+        window.bindUISounds();
+        
+        const icon = document.querySelector('#voiceSpeakerBtn i');
+        if (icon && localStorage.getItem('ui_sounds_muted') === 'true') {
+            icon.className = 'fas fa-volume-mute';
+            const btn = document.getElementById('voiceSpeakerBtn');
+            if (btn) {
+                btn.style.borderColor = 'rgba(255, 0, 85, 0.3)';
+                btn.style.color = '#ff0055';
+            }
+        }
     });
-}
 
-/* 🧲 MAGNETIC BUTTONS */
-document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
-    el.addEventListener('mousemove', (e) => {
-        const pos = el.getBoundingClientRect();
-        const x = e.clientX - pos.left - pos.width / 2;
-        const y = e.clientY - pos.top - pos.height / 2;
-        el.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+    document.querySelectorAll('.particles span').forEach((el) => {
+        el.style.left = Math.random() * 100 + "%";
+        el.style.animationDelay = Math.random() * 10 + "s";
     });
-    el.addEventListener('mouseout', () => {
-        el.style.transform = `translate(0px, 0px)`;
-});
+
+    /* ✅ SINGLE CURSOR SCRIPT */
+    const cursorDot = document.querySelector("[data-cursor-dot]");
+    const cursorOutline = document.querySelector("[data-cursor-outline]");
+
+    if (window.innerWidth > 768) {
+        window.addEventListener("mousemove", function (e) {
+            cursorDot.style.left = e.clientX + "px";
+            cursorDot.style.top = e.clientY + "px";
+
+            cursorOutline.animate({
+                left: e.clientX + "px",
+                top: e.clientY + "px"
+            }, { duration: 300, fill: "forwards" });
+        });
+    }
+
+    /* 🧲 MAGNETIC BUTTONS */
+    document.querySelectorAll('.btn, .home-back-btn, .voice-speaker-btn, .voice-mic-btn').forEach((el) => {
+        el.addEventListener('mousemove', (e) => {
+            const pos = el.getBoundingClientRect();
+            const x = e.clientX - pos.left - pos.width / 2;
+            const y = e.clientY - pos.top - pos.height / 2;
+            el.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
+        });
+        el.addEventListener('mouseout', () => {
+            el.style.transform = `translate(0px, 0px)`;
+        });
+    });
 </script>
 
 <script>
@@ -1329,13 +1583,18 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
     (function() {
         const widget = document.getElementById("voice-assistant-widget");
         const micBtn = document.getElementById("voiceMicBtn");
+        const speakerBtn = document.getElementById("voiceSpeakerBtn");
         const closeBtn = document.getElementById("close-voice-hud");
         const transcript = document.getElementById("voiceTranscript");
         const statusText = document.getElementById("voiceStatusText");
+        const redAlertBanner = document.getElementById("redAlertBanner");
         
-        if (!widget || !micBtn) return;
+        if (!widget || !micBtn || !speakerBtn) return;
 
-        // Browser support verification
+        let waveCanvas = document.getElementById('voiceWaveCanvas');
+        let waveCtx = waveCanvas ? waveCanvas.getContext('2d') : null;
+        let waveAnimationId = null;
+
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
             console.warn("Web Speech Recognition not supported in this browser.");
@@ -1351,8 +1610,8 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
 
         let active = false;
         let speaking = false;
+        let selfDestructing = false;
 
-        // Custom Speech Synthesizer Response
         function speakResponse(text, callback) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -1367,7 +1626,7 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
                 const preferredVoice = voices.find(v => v.lang.includes('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Zira')));
                 if (preferredVoice) utterance.voice = preferredVoice;
                 
-                utterance.pitch = 0.95; // Robotic tone
+                utterance.pitch = 0.95; 
                 utterance.rate = 1.02;
 
                 utterance.onend = function() {
@@ -1390,7 +1649,72 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
             }
         }
 
-        // Toggle HUD display
+        function drawWave() {
+            if (!waveCanvas || !waveCtx) return;
+            waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+
+            const width = waveCanvas.width;
+            const height = waveCanvas.height;
+            const centerY = height / 2;
+
+            waveCtx.lineWidth = 2;
+            
+            let color = '#00f0ff';
+            let amplitude = 2;
+            let speed = 0.05;
+            let linesCount = 2;
+
+            if (selfDestructing) {
+                color = '#ff0055';
+                amplitude = 18;
+                speed = 0.25;
+                linesCount = 4;
+            } else if (widget.classList.contains('listening')) {
+                color = '#ff0055';
+                amplitude = 10;
+                speed = 0.15;
+                linesCount = 3;
+            } else if (widget.classList.contains('speaking')) {
+                color = '#8a2be2';
+                amplitude = 14;
+                speed = 0.12;
+                linesCount = 4;
+            } else if (active) {
+                color = '#00f0ff';
+                amplitude = 4;
+                speed = 0.06;
+                linesCount = 2;
+            } else {
+                amplitude = 0.5;
+                color = 'rgba(0, 240, 255, 0.15)';
+                linesCount = 1;
+            }
+
+            const time = Date.now() * speed * 0.05;
+
+            for (let l = 0; l < linesCount; l++) {
+                waveCtx.beginPath();
+                waveCtx.strokeStyle = color;
+                waveCtx.globalAlpha = l === 0 ? 1.0 : 0.4 / l;
+
+                const offset = l * Math.PI / 3;
+                const currentAmp = amplitude * (1 - l * 0.2);
+
+                for (let x = 0; x < width; x++) {
+                    const angle = (x / width) * Math.PI * 4 + time + offset;
+                    const y = centerY + Math.sin(angle) * currentAmp * Math.sin(x / width * Math.PI);
+                    if (x === 0) {
+                        waveCtx.moveTo(x, y);
+                    } else {
+                        waveCtx.lineTo(x, y);
+                    }
+                }
+                waveCtx.stroke();
+            }
+
+            waveAnimationId = requestAnimationFrame(drawWave);
+        }
+
         function toggleAssistant() {
             if (active) {
                 deactivateAssistant();
@@ -1403,32 +1727,44 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
             active = true;
             widget.classList.add("active");
             statusText.innerText = "VOICE ACTIVE";
+            
+            if (!waveAnimationId) {
+                drawWave();
+            }
+            
+            AudioFX.play('chirp');
             speakResponse("Voice interface engaged. State command, operator.", () => {
                 startListening();
             });
         }
 
         function deactivateAssistant() {
+            if (selfDestructing) return; 
             active = false;
             widget.classList.remove("active");
             widget.classList.remove("listening");
             widget.classList.remove("speaking");
             statusText.innerText = "VOICE OFFLINE";
+            AudioFX.play('deactivate');
+            
             try { recognition.stop(); } catch(e) {}
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
             }
+            if (waveAnimationId) {
+                cancelAnimationFrame(waveAnimationId);
+                waveAnimationId = null;
+            }
         }
 
         function startListening() {
-            if (!active || speaking) return;
+            if (!active || speaking || selfDestructing) return;
             widget.classList.add("listening");
             statusText.innerText = "LISTENING...";
             transcript.innerText = "Listening for audio command...";
             try { recognition.start(); } catch (e) { console.log(e); }
         }
 
-        // Speech Recognition Events
         recognition.onresult = function(event) {
             widget.classList.remove("listening");
             const resultText = event.results[0][0].transcript;
@@ -1454,11 +1790,163 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
             widget.classList.remove("listening");
         };
 
-        // Custom command handler mapping
+        let sirenInterval = null;
+        let sirenOsc1 = null;
+        let sirenOsc2 = null;
+        let sirenGain = null;
+
+        function startSiren() {
+            if (sirenOsc1) return;
+            AudioFX.init();
+            const ctx = AudioFX.audioCtx;
+            const now = ctx.currentTime;
+            
+            sirenGain = ctx.createGain();
+            sirenGain.gain.setValueAtTime(0.001, now);
+            sirenGain.gain.linearRampToValueAtTime(0.18, now + 0.5);
+            sirenGain.connect(ctx.destination);
+            
+            sirenOsc1 = ctx.createOscillator();
+            sirenOsc1.type = 'sawtooth';
+            sirenOsc1.frequency.setValueAtTime(300, now);
+            sirenOsc1.connect(sirenGain);
+            sirenOsc1.start(now);
+            
+            sirenOsc2 = ctx.createOscillator();
+            sirenOsc2.type = 'sine';
+            sirenOsc2.frequency.setValueAtTime(305, now);
+            sirenOsc2.connect(sirenGain);
+            sirenOsc2.start(now);
+            
+            let time = 0;
+            sirenInterval = setInterval(() => {
+                if (!sirenOsc1 || !AudioFX.audioCtx) return;
+                const cNow = AudioFX.audioCtx.currentTime;
+                const up = (time % 2 === 0);
+                sirenOsc1.frequency.exponentialRampToValueAtTime(up ? 800 : 300, cNow + 0.9);
+                sirenOsc2.frequency.exponentialRampToValueAtTime(up ? 805 : 305, cNow + 0.9);
+                time++;
+            }, 1000);
+        }
+
+        function stopSiren() {
+            if (sirenInterval) {
+                clearInterval(sirenInterval);
+                sirenInterval = null;
+            }
+            if (sirenOsc1) { try { sirenOsc1.stop(); } catch(e) {} sirenOsc1 = null; }
+            if (sirenOsc2) { try { sirenOsc2.stop(); } catch(e) {} sirenOsc2 = null; }
+            if (sirenGain) { sirenGain.disconnect(); sirenGain = null; }
+        }
+
+        function triggerSelfDestructSequence() {
+            selfDestructing = true;
+            let count = 10;
+            
+            if (micBtn) micBtn.style.display = "none";
+            if (speakerBtn) speakerBtn.style.display = "none";
+            if (closeBtn) closeBtn.style.display = "none";
+            
+            statusText.innerText = "CRITICAL SHUTDOWN";
+            statusText.style.color = "#ff0055";
+            
+            const destructInterval = setInterval(() => {
+                if (count > 0) {
+                    AudioFX.play('tick');
+                    transcript.innerHTML = `<span style="color: #ff0055; font-size: 15px; font-weight: 800; animation: pulse-banner 0.5s infinite alternate;">⚠️ MELTDOWN IN ${count}... ⚠️</span>`;
+                    
+                    try {
+                        if ('speechSynthesis' in window) {
+                            window.speechSynthesis.cancel();
+                            const numUtter = new SpeechSynthesisUtterance(count.toString());
+                            numUtter.pitch = 0.5;
+                            numUtter.rate = 1.3;
+                            window.speechSynthesis.speak(numUtter);
+                        }
+                    } catch(e) {}
+
+                    document.body.classList.toggle('red-alert-mode');
+                    count--;
+                } else {
+                    clearInterval(destructInterval);
+                    executeTerminalShutdown();
+                }
+            }, 1000);
+        }
+
+        function executeTerminalShutdown() {
+            AudioFX.play('explosion');
+            
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const farewell = new SpeechSynthesisUtterance("Goodbye, operator.");
+                    farewell.pitch = 0.4;
+                    farewell.rate = 0.8;
+                    window.speechSynthesis.speak(farewell);
+                }
+            } catch(e) {}
+
+            let shutdownLoader = document.getElementById('loader');
+            if (!shutdownLoader) {
+                shutdownLoader = document.createElement('div');
+                shutdownLoader.id = 'loader';
+                document.body.appendChild(shutdownLoader);
+            }
+            
+            shutdownLoader.className = ""; 
+            shutdownLoader.style.display = 'flex';
+            shutdownLoader.style.background = '#000000';
+            shutdownLoader.innerHTML = `
+                <div style="color: #ff0055; font-family: 'Courier New', monospace; font-size: 14px; text-shadow: 0 0 10px #ff0055; text-align: center; line-height: 2;">
+                    <div>[ SYSTEM CRITICAL: TERMINAL MELTDOWN COMPLETE ]</div>
+                    <div style="opacity: 0.5; font-size: 10px; margin-top: 10px;">Connection terminated by host.</div>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                shutdownLoader.classList.add('crt-collapse');
+                document.body.style.pointerEvents = 'none';
+                document.body.style.overflow = 'hidden';
+            }, 1200);
+        }
+
         function processCommand(cmd) {
             const command = cmd.toLowerCase().trim();
 
-            if (command.includes("map") || command.includes("parking lot") || command.includes("telemetry")) {
+            if (command.includes("self destruct") || command.includes("meltdown")) {
+                speakResponse("Alert! Self-destruct sequence authorized. Terminal purge initiated.", () => {
+                    triggerSelfDestructSequence();
+                });
+            } else if (command.includes("red alert") || command.includes("intruder") || command.includes("breach")) {
+                speakResponse("Warning! Security grid breached. Flashing threat nodes.", () => {
+                    document.body.classList.add("red-alert-mode");
+                    if (redAlertBanner) redAlertBanner.style.display = "block";
+                    startSiren();
+                });
+            } else if (command.includes("green alert") || command.includes("cancel alert") || command.includes("clear alert") || command.includes("green code")) {
+                speakResponse("Security threat neutralized. Defense grid returned to standby.", () => {
+                    document.body.classList.remove("red-alert-mode");
+                    if (redAlertBanner) redAlertBanner.style.display = "none";
+                    stopSiren();
+                });
+            } else if (command.includes("hyperdrive") || command.includes("warp") || command.includes("speed")) {
+                speakResponse("Engaging hyperdrive. Speed parameters exceeded. Hold on, operator.", () => {
+                    AudioFX.play('warp');
+                    window.dispatchEvent(new CustomEvent('hyperdrive', { detail: { active: true } }));
+                });
+            } else if (command.includes("normal speed") || command.includes("cancel hyperdrive") || command.includes("stabilize")) {
+                speakResponse("Disengaging warp engines. Gravity grid normalized.", () => {
+                    window.dispatchEvent(new CustomEvent('hyperdrive', { detail: { active: false } }));
+                });
+            } else if (command.includes("system overload") || command.includes("overload")) {
+                speakResponse("Warning! Core reactor temperature critical. Reactor containment compromised.", () => {
+                    document.body.style.filter = "invert(1) hue-rotate(180deg)";
+                    setTimeout(() => {
+                        document.body.style.filter = "";
+                    }, 1500);
+                });
+            } else if (command.includes("map") || command.includes("parking lot") || command.includes("telemetry")) {
                 speakResponse("Confirmed. Redirecting to 3D parking lot telemetry.", () => {
                     window.location.href = "/map";
                 });
@@ -1491,8 +1979,6 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
                 speakResponse(`Diagnostics complete. Databases online. AI scanner response latency: 1.2 seconds. Sentry security protocols fully active. Time check: ${date}. System state green.`);
             } else if (command.includes("who are you") || command.includes("identify")) {
                 speakResponse("I am Antigravity AI, the virtual voice assistant core of the Smart Parking system. I execute commands, diagnostics, and telemetry routing.");
-            } else if (command.includes("self destruct") || command.includes("purge")) {
-                speakResponse("Alert! Self-destruct system purge sequence is unauthorized. Sentry defense grid has flagged your IP.");
             } else if (command.includes("hello") || command.includes("hey") || command.includes("online")) {
                 speakResponse("Hello operator. The system is online. State command: map, scanner, register, exit, analytics, or diagnostics.");
             } else if (command.includes("help") || command.includes("command")) {
@@ -1502,19 +1988,22 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
             }
         }
 
-        // Suggested clicks trigger
         window.triggerSuggested = function(commandStr) {
-            if (speaking) return;
+            if (speaking || selfDestructing) return;
             transcript.innerText = `"${commandStr}"`;
             setTimeout(() => {
                 processCommand(commandStr);
             }, 300);
         };
 
-        // Wire Event Listeners
         micBtn.addEventListener("click", function(e) {
             e.stopPropagation();
             toggleAssistant();
+        });
+
+        speakerBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            AudioFX.toggle();
         });
 
         closeBtn.addEventListener("click", function(e) {
@@ -1522,7 +2011,6 @@ document.querySelectorAll('.btn, .home-back-btn').forEach((el) => {
             deactivateAssistant();
         });
 
-        // Click outside closes HUD
         document.addEventListener("click", function(e) {
             if (active && !widget.contains(e.target)) {
                 deactivateAssistant();
