@@ -1816,18 +1816,13 @@
                     
                     if (commandPart.length > 0) {
                         // User said the wake word + command together (e.g. "hey system show map")
+                        transcript.innerText = `"${resultText}"`;
                         if (commandPart === "quit" || commandPart === "exit") {
-                            transcript.innerText = `"${resultText}"`;
-                            setTimeout(() => {
-                                speakResponse("System standby engaged.", () => {
-                                    deactivateAssistant();
-                                });
-                            }, 300);
+                            speakResponse("System standby engaged.", () => {
+                                deactivateAssistant();
+                            });
                         } else {
-                            transcript.innerText = `"${resultText}"`;
-                            setTimeout(() => {
-                                processCommand(commandPart);
-                            }, 600);
+                            processCommand(commandPart);
                         }
                     } else {
                         // Just wake word
@@ -1846,15 +1841,11 @@
                 const lowerCmd = resultText.toLowerCase().trim();
                 
                 if (lowerCmd === "quit" || lowerCmd === "exit" || lowerCmd === "system quit" || lowerCmd === "hey system quit") {
-                    setTimeout(() => {
-                        speakResponse("System standby engaged.", () => {
-                            deactivateAssistant();
-                        });
-                    }, 300);
+                    speakResponse("System standby engaged.", () => {
+                        deactivateAssistant();
+                    });
                 } else {
-                    setTimeout(() => {
-                        processCommand(resultText);
-                    }, 600);
+                    processCommand(resultText);
                 }
             }
         };
@@ -1942,9 +1933,7 @@
         window.triggerSuggested = function(commandStr) {
             if (speaking) return;
             transcript.innerText = `"${commandStr}"`;
-            setTimeout(() => {
-                processCommand(commandStr);
-            }, 300);
+            processCommand(commandStr);
         };
 
         micBtn.addEventListener("click", function(e) {
