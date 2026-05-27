@@ -237,6 +237,17 @@
             function downloadInvoice() {
                 calculateGST();
                 const element = document.getElementById('professionalInvoiceTemplate');
+                
+                // Clone the element to render it properly without off-screen position issues
+                const clone = element.cloneNode(true);
+                clone.style.position = 'relative';
+                clone.style.left = '0';
+                clone.style.top = '0';
+                clone.style.margin = '0 auto';
+                
+                // Append clone to body temporarily so html2pdf can capture it in-flow
+                document.body.appendChild(clone);
+                
                 const opt = {
                     margin:       12,
                     filename:     'Invoice_' + '{{ receipt.plate }}'.toUpperCase() + '.pdf',
@@ -244,7 +255,11 @@
                     html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
-                html2pdf().set(opt).from(element).save();
+                
+                html2pdf().set(opt).from(clone).save().then(() => {
+                    // Remove clone from DOM after processing completes
+                    document.body.removeChild(clone);
+                });
             }
 
             document.addEventListener('DOMContentLoaded', () => {
@@ -282,17 +297,21 @@
     body * {
         visibility: hidden;
     }
-    #invoiceSection, #invoiceSection * {
-        visibility: visible;
+    #professionalInvoiceTemplate, #professionalInvoiceTemplate * {
+        visibility: visible !important;
     }
-    #invoiceSection {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-    button, p, img {
-        display: none !important;
+    #professionalInvoiceTemplate {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        color: #1e293b !important;
+        box-shadow: none !important;
     }
 }
 </style>
