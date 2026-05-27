@@ -1607,7 +1607,22 @@
             micBtn.style.borderColor = 'rgba(0, 240, 255, 0.4)';
             micBtn.style.color = '#00f0ff';
             
-            ensureListening();
+            // Check for pending speech message from instant redirect transitions
+            const pendingMsg = sessionStorage.getItem("speech_pending_message");
+            if (pendingMsg) {
+                sessionStorage.removeItem("speech_pending_message");
+                // Open HUD visually to show speech is happening
+                active = true;
+                isWakeWordMode = false;
+                widget.classList.add("active");
+                statusText.innerText = "VOICE ACTIVE";
+                if (!waveAnimationId) {
+                    drawWave();
+                }
+                speakResponse(pendingMsg);
+            } else {
+                ensureListening();
+            }
         }
 
         function disableMic() {
@@ -1932,7 +1947,8 @@
             return bestIntent;
         }
 
-        async function getSystemStatus() {
+        let cachedSystemStatus = "Parking Status: Database online.";
+        async function updateCachedSystemStatus() {
             try {
                 const response = await fetch('/slots');
                 if (response.ok) {
@@ -1941,20 +1957,22 @@
                     const occupied = slots.filter(s => s.occupied).length;
                     const reserved = slots.filter(s => s.reserved).length;
                     const available = total - occupied - reserved;
-                    return `Parking Status: Total slots: ${total}, Occupied: ${occupied}, Reserved: ${reserved}, Available: ${available}.`;
+                    cachedSystemStatus = `Parking Status: Total slots: ${total}, Occupied: ${occupied}, Reserved: ${reserved}, Available: ${available}.`;
                 }
             } catch(e) {
-                console.warn("Status fetch failed:", e);
+                // Silently handle
             }
-            return "Parking Status: Database online.";
         }
+        // Poll status in background every 5 seconds to avoid blocking voice pipeline
+        setInterval(updateCachedSystemStatus, 5000);
+        updateCachedSystemStatus();
 
         function executeGeminiAction(action, reply) {
             if (action.startsWith("REDIRECT:")) {
                 const url = action.substring(9);
-                speakResponse(reply, () => {
-                    window.location.href = url;
-                });
+                // Save speech to session storage for the next page to say, navigating instantly
+                sessionStorage.setItem("speech_pending_message", reply);
+                window.location.href = url;
             } else if (action === "ACTION:diagnostics") {
                 speakResponse(reply);
             } else if (action === "ACTION:overload") {
@@ -2003,33 +2021,26 @@
                     }, 1500);
                 });
             } else if (intent === "map") {
-                speakResponse("Confirmed. Redirecting to 3D parking lot telemetry.", () => {
-                    window.location.href = "/map";
-                });
+                sessionStorage.setItem("speech_pending_message", "Confirmed. Redirecting to 3D parking lot telemetry.");
+                window.location.href = "/map";
             } else if (intent === "camera") {
-                speakResponse("Confirmed. Activating AI camera scanner node.", () => {
-                    window.location.href = "/camera";
-                });
+                sessionStorage.setItem("speech_pending_message", "Confirmed. Activating AI camera scanner node.");
+                window.location.href = "/camera";
             } else if (intent === "home") {
-                speakResponse("Opening main facility dashboard.", () => {
-                    window.location.href = "/";
-                });
+                sessionStorage.setItem("speech_pending_message", "Opening main facility dashboard.");
+                window.location.href = "/";
             } else if (intent === "register") {
-                speakResponse("Confirmed. Loading vehicle registration portal.", () => {
-                    window.location.href = "/register";
-                });
+                sessionStorage.setItem("speech_pending_message", "Confirmed. Loading vehicle registration portal.");
+                window.location.href = "/register";
             } else if (intent === "exit") {
-                speakResponse("Loading vehicle exit and payment terminal.", () => {
-                    window.location.href = "/exit";
-                });
+                sessionStorage.setItem("speech_pending_message", "Loading vehicle exit and payment terminal.");
+                window.location.href = "/exit";
             } else if (intent === "analytics") {
-                speakResponse("Gathering facility logs and predictive machine learning models.", () => {
-                    window.location.href = "/analytics";
-                });
+                sessionStorage.setItem("speech_pending_message", "Gathering facility logs and predictive machine learning models.");
+                window.location.href = "/analytics";
             } else if (intent === "admin") {
-                speakResponse("Authentication required. Redirecting to Admin Security Core.", () => {
-                    window.location.href = "/login";
-                });
+                sessionStorage.setItem("speech_pending_message", "Authentication required. Redirecting to Admin Security Core.");
+                window.location.href = "/login";
             } else if (intent === "diagnostic") {
                 const date = new Date().toLocaleTimeString();
                 speakResponse(`Diagnostics complete. Databases online. AI scanner response latency: 1.2 seconds. Sentry security protocols fully active. Time check: ${date}. System state green.`);
@@ -2055,7 +2066,6 @@
         }
 
         async function processCommand(cmd) {
-            const command = cmd.toLowerCase().trim();
             const apiKey = localStorage.getItem("gemini_voice_api_key");
 
             if (!apiKey) {
@@ -2067,12 +2077,10 @@
             transcript.innerText = "Analyzing audio nodes...";
             widget.classList.add("listening");
 
-            const systemStatus = await getSystemStatus();
-            
             const prompt = `System Prompt: You are Antigravity AI, the virtual voice assistant core of a smart parking system. You are speaking to the operator. You can execute commands by formatting your response in JSON with two fields: 'reply' (a short, cool conversational voice feedback response for the operator) and 'action' (the command to execute). 
 
 Current System Status:
-${systemStatus}
+${cachedSystemStatus}
 Current Time: ${new Date().toLocaleTimeString()}
 
 Available commands and actions:
@@ -2103,7 +2111,12 @@ Operator input: "${cmd}"`;
                     body: JSON.stringify({
                         contents: [{
                             parts: [{ text: prompt }]
-                        }]
+                        }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            maxOutputTokens: 150,
+                            temperature: 0.3
+                        }
                     })
                 });
 
