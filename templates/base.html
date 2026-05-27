@@ -1564,9 +1564,10 @@
         let speaking = false;
         let micEnabled = false; // Will be activated via startStandbyListening
         let isWakeWordMode = true;
+        let isRecognitionRunning = false;
 
         function ensureListening() {
-            if (!micEnabled || speaking) return;
+            if (!micEnabled || speaking || isRecognitionRunning) return;
             try {
                 recognition.start();
             } catch (e) {
@@ -1850,19 +1851,25 @@
             }
         };
 
+        recognition.onstart = function() {
+            isRecognitionRunning = true;
+        };
+
         recognition.onerror = function(event) {
             console.error("Speech Recognition Error:", event.error);
             widget.classList.remove("listening");
             
-            // If in command mode and no speech detected
-            if (!isWakeWordMode && event.error === 'no-speech') {
+            if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                console.warn("Microphone access blocked or not allowed yet.");
+                statusText.innerText = "MIC BLOCKED";
+                transcript.innerText = "Click anywhere on screen to enable microphone...";
+            } else if (!isWakeWordMode && event.error === 'no-speech') {
                 speakResponse("No command detected. Interface standby.");
-            } else {
-                ensureListening();
             }
         };
 
         recognition.onend = function() {
+            isRecognitionRunning = false;
             widget.classList.remove("listening");
             if (micEnabled && !speaking) {
                 setTimeout(ensureListening, 100);
@@ -2022,13 +2029,16 @@
             });
         }
 
-        // Standard interaction fallback for browsers that block audio/speech API automatically
-        document.addEventListener('click', function startOnInteraction() {
-            if (micEnabled && !speaking && isWakeWordMode) {
+        // Persistent click fallback to start/resume mic listening on user gesture
+        document.addEventListener('click', function() {
+            if (micEnabled && !speaking && isWakeWordMode && !isRecognitionRunning) {
+                if (statusText.innerText === "MIC BLOCKED") {
+                    statusText.innerText = "VOICE STANDBY";
+                    transcript.innerText = "Say 'Hey System' to activate...";
+                }
                 ensureListening();
             }
-            document.removeEventListener('click', startOnInteraction);
-        }, { once: true });
+        });
 
     })();
 </script>
