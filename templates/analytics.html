@@ -2,63 +2,281 @@
 
 {% block content %}
 
-<h2 class="text-center mb-4 animate__animated animate__fadeInDown">
-    📊 Advanced Analytics
-</h2>
+<!-- Custom Premium Dashboard Styling -->
+<style>
+    /* Glowing Title */
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+    .glow-title {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        background: linear-gradient(135deg, #00f0ff, #8a2be2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+    }
+    .live-pulse {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(0, 240, 255, 0.05);
+        border: 1px solid rgba(0, 240, 255, 0.2);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #00f0ff;
+        text-transform: uppercase;
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+    }
+    .pulse-dot {
+        width: 8px;
+        height: 8px;
+        background: #00f0ff;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #00f0ff;
+        animation: pulse-ring 1.5s infinite alternate ease-in-out;
+    }
+    @keyframes pulse-ring {
+        0% { transform: scale(0.85); opacity: 0.5; }
+        100% { transform: scale(1.2); opacity: 1; }
+    }
 
-<div class="container">
+    /* Cards Glow and Border Styling */
+    .telemetry-card {
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border-width: 1px;
+        position: relative;
+        overflow: hidden;
+    }
+    .telemetry-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+    .card-total { border-color: rgba(0, 240, 255, 0.25); }
+    .card-total:hover { border-color: #00f0ff; box-shadow: 0 0 20px rgba(0, 240, 255, 0.25); }
+    .card-parked { border-color: rgba(40, 199, 111, 0.25); }
+    .card-parked:hover { border-color: #28c76f; box-shadow: 0 0 20px rgba(40, 199, 111, 0.25); }
+    .card-exited { border-color: rgba(255, 0, 85, 0.25); }
+    .card-exited:hover { border-color: #ff0055; box-shadow: 0 0 20px rgba(255, 0, 85, 0.25); }
+    .card-revenue { border-color: rgba(255, 159, 67, 0.25); }
+    .card-revenue:hover { border-color: #ff9f43; box-shadow: 0 0 20px rgba(255, 159, 67, 0.25); }
 
-    <!-- 🔥 TOP CARDS -->
-    <div class="row text-center mb-4">
+    /* Card Micro-Progress Indicator */
+    .card-progress {
+        height: 3px;
+        width: 100%;
+        background: rgba(255,255,255,0.05);
+        margin-top: 15px;
+        border-radius: 2px;
+        overflow: hidden;
+    }
+    .card-progress-bar {
+        height: 100%;
+        width: 0%;
+        transition: width 1.5s ease-in-out;
+    }
 
-        <div class="col-md-3">
-            <div class="glass-panel text-white p-3 mb-3 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
-                <h5 class="text-info">📊 Total Usage</h5>
-                <h2 id="total" class="fw-bold">{{ total }}</h2>
-            </div>
+    /* Terminal Console */
+    .terminal-console {
+        background: rgba(7, 7, 10, 0.95);
+        border: 1px solid rgba(0, 240, 255, 0.2);
+        border-radius: 12px;
+        font-family: 'Fira Code', 'Courier New', Courier, monospace;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,240,255,0.05);
+        overflow: hidden;
+    }
+    .terminal-header {
+        background: rgba(255,255,255,0.03);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        color: rgba(255,255,255,0.5);
+    }
+    .terminal-dots {
+        display: flex;
+        gap: 5px;
+    }
+    .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+    }
+    .terminal-body {
+        padding: 15px;
+        height: 180px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: left;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 240, 255, 0.2) transparent;
+    }
+    .terminal-line {
+        font-size: 11px;
+        line-height: 1.4;
+        display: flex;
+        gap: 8px;
+        animation: line-fade-in 0.3s ease-out;
+    }
+    @keyframes line-fade-in {
+        0% { opacity: 0; transform: translateX(-5px); }
+        100% { opacity: 1; transform: translateX(0); }
+    }
+    .line-time { color: #8a2be2; font-weight: bold; }
+    .line-msg { color: #e2e8f0; }
+    .line-status-parked { color: #00f0ff; }
+    .line-status-exited { color: #ff9f43; }
+
+    /* Telemetry grid adjust */
+    .chart-panel {
+        height: 320px;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<div class="container animate__animated animate__fadeIn">
+
+    <!-- 🌌 DASHBOARD HEADER -->
+    <div class="dashboard-header mt-2">
+        <h2 class="glow-title m-0">📡 TELEMETRY CORE GATEWAY</h2>
+        <div class="live-pulse">
+            <span class="pulse-dot"></span>
+            LIVE TELEMETRY STREAMING
         </div>
-
-        <div class="col-md-3">
-            <div class="glass-panel text-white p-3 mb-3 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-                <h5 class="text-success">🚗 Currently Parked</h5>
-                <h2 id="parked" class="fw-bold">{{ parked }}</h2>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="glass-panel text-white p-3 mb-3 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
-                <h5 class="text-danger">🚪 Vehicles Exited</h5>
-                <h2 id="exited" class="fw-bold">{{ exited }}</h2>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="glass-panel text-white p-3 mb-3 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
-                <h5 class="text-warning">💰 Gross Revenue</h5>
-                <h2 id="revenue" class="fw-bold">₹{{ revenue }}</h2>
-            </div>
-        </div>
-
     </div>
 
-    <!-- 🔥 CHARTS SECTION -->
+    <!-- 🚀 TOP DATA ROW -->
+    <div class="row mb-4">
+        <!-- CARD 1: TOTAL USAGE -->
+        <div class="col-md-3 mb-3">
+            <div class="glass-panel telemetry-card card-total text-white p-4 h-100 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 style="color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Total Usage</h6>
+                        <h2 id="total" class="fw-bold mt-2 mb-0" style="text-shadow: 0 0 15px rgba(0, 240, 255, 0.3);">{{ total }}</h2>
+                    </div>
+                    <div style="background: rgba(0, 240, 255, 0.1); color: #00f0ff; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+                <div class="card-progress">
+                    <div class="card-progress-bar" style="background: #00f0ff; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 2: CURRENTLY PARKED -->
+        <div class="col-md-3 mb-3">
+            <div class="glass-panel telemetry-card card-parked text-white p-4 h-100 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 style="color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Currently Parked</h6>
+                        <h2 id="parked" class="fw-bold mt-2 mb-0" style="color: #28c76f; text-shadow: 0 0 15px rgba(40, 199, 111, 0.3);">{{ parked }}</h2>
+                    </div>
+                    <div style="background: rgba(40, 199, 111, 0.1); color: #28c76f; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                        <i class="fas fa-parking"></i>
+                    </div>
+                </div>
+                <div class="card-progress">
+                    <div id="parkedProgress" class="card-progress-bar" style="background: #28c76f; width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 3: VEHICLES EXITED -->
+        <div class="col-md-3 mb-3">
+            <div class="glass-panel telemetry-card card-exited text-white p-4 h-100 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 style="color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Exited System</h6>
+                        <h2 id="exited" class="fw-bold mt-2 mb-0" style="color: #ff0055; text-shadow: 0 0 15px rgba(255, 0, 85, 0.3);">{{ exited }}</h2>
+                    </div>
+                    <div style="background: rgba(255, 0, 85, 0.1); color: #ff0055; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                        <i class="fas fa-door-open"></i>
+                    </div>
+                </div>
+                <div class="card-progress">
+                    <div id="exitedProgress" class="card-progress-bar" style="background: #ff0055; width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 4: GROSS REVENUE -->
+        <div class="col-md-3 mb-3">
+            <div class="glass-panel telemetry-card card-revenue text-white p-4 h-100 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 style="color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Gross Revenue</h6>
+                        <h2 id="revenue" class="fw-bold mt-2 mb-0" style="color: #ff9f43; text-shadow: 0 0 15px rgba(255, 159, 67, 0.3);">₹{{ revenue }}</h2>
+                    </div>
+                    <div style="background: rgba(255, 159, 67, 0.1); color: #ff9f43; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                </div>
+                <div class="card-progress">
+                    <div class="card-progress-bar" style="background: #ff9f43; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🌌 MIDDLE CHARTS & CONSOLE SECTION -->
     <div class="row">
-        <!-- 🔥 STATUS DOUGHNUT -->
-        <div class="col-md-5 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.5s;">
-            <div class="glass-panel p-4 h-100">
-                <h6 class="text-center text-light mb-3">Vehicle Distribution</h6>
-                <div class="chart-container">
+        <!-- COLUMN 1: DOUGHNUT CHART -->
+        <div class="col-md-4 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.5s;">
+            <div class="glass-panel p-4 chart-panel">
+                <h6 style="font-size: 12px; font-weight: bold; letter-spacing: 1px; color: #00f0ff; text-transform: uppercase; margin-bottom: 20px; text-align: left;">
+                    <i class="fas fa-adjust me-2"></i> Vehicle distribution
+                </h6>
+                <div style="position: relative; flex: 1; min-height: 220px; width: 100%;">
                     <canvas id="statusChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <!-- 🔥 REVENUE LINE CHART -->
-        <div class="col-md-7 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.6s;">
-            <div class="glass-panel p-4 h-100">
-                <h6 class="text-center text-light mb-3">Revenue Projection</h6>
-                <div class="chart-container">
+        <!-- COLUMN 2: REVENUE TREND -->
+        <div class="col-md-8 mb-4 animate__animated animate__zoomIn" style="animation-delay: 0.6s;">
+            <div class="glass-panel p-4 chart-panel">
+                <h6 style="font-size: 12px; font-weight: bold; letter-spacing: 1px; color: #8a2be2; text-transform: uppercase; margin-bottom: 20px; text-align: left;">
+                    <i class="fas fa-coins me-2"></i> Revenue Stream Graph
+                </h6>
+                <div style="position: relative; flex: 1; min-height: 220px; width: 100%;">
                     <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🌌 BOTTOM ROW: LIVE TRANSACTION TERMINAL -->
+    <div class="row mb-5 animate__animated animate__fadeInUp" style="animation-delay: 0.7s;">
+        <div class="col-12">
+            <div class="terminal-console">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="dot" style="background: #ff0055;"></span>
+                        <span class="dot" style="background: #ff9f43;"></span>
+                        <span class="dot" style="background: #28c76f;"></span>
+                    </div>
+                    <div>CORE ACTIVITY TRANSACTION STREAM - TERMINAL CONSOLE</div>
+                    <div><i class="fas fa-terminal"></i></div>
+                </div>
+                <div class="terminal-body" id="terminalLogs">
+                    <div class="terminal-line"><span class="line-time">[SYSTEM]</span> <span class="line-msg">Connecting to transaction pipeline...</span></div>
+                    <div class="terminal-line"><span class="line-time">[SYSTEM]</span> <span class="line-msg">Parsing database structures... [ OK ]</span></div>
+                    <div class="terminal-line"><span class="line-time">[SYSTEM]</span> <span class="line-msg">Telemetry telemetry stream active.</span></div>
                 </div>
             </div>
         </div>
@@ -66,81 +284,85 @@
 
 </div>
 
-<!-- 🔥 STYLE FIX -->
-<style>
-.chart-container {
-    position: relative;
-    height: 300px; 
-    width: 100%;
-}
-</style>
-
+<!-- CHART.JS INCLUDES -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 let statusChart, revenueChart;
 
 // Setup Dark Mode Chart Defaults
-Chart.defaults.color = '#94a3b8';
+Chart.defaults.color = 'rgba(255,255,255,0.4)';
 Chart.defaults.font.family = 'Outfit';
 
 document.addEventListener("DOMContentLoaded", function () {
-
     const parked = {{ parked | default(0) }};
     const exited = {{ exited | default(0) }};
     const revenue = {{ revenue | default(0) }};
 
-    // 🔥 STATUS DOUGHNUT
+    // Initialize progress gauges
+    updateProgressGauges(parked, exited);
+
+    // 📊 STATUS DOUGHNUT
     statusChart = new Chart(document.getElementById("statusChart"), {
         type: 'doughnut',
         data: {
             labels: ['Parked', 'Exited'],
             datasets: [{
                 data: [parked, exited],
-                backgroundColor: ['#00f0ff', '#ff003c'],
-                borderColor: '#14141e',
-                borderWidth: 5,
-                hoverOffset: 10
+                backgroundColor: ['#28c76f', '#ff0055'],
+                borderColor: 'rgba(10, 10, 15, 0.95)',
+                borderWidth: 4,
+                hoverOffset: 12
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,   
-            cutout: '75%',
+            cutout: '72%',
             plugins: {
                 legend: {
                     position: 'bottom',
-                    labels: { color: '#fff', padding: 20 }
+                    labels: { color: 'rgba(255,255,255,0.7)', padding: 15, boxWidth: 12 }
                 }
             },
             animation: { animateScale: true }
         }
     });
 
-    // 🔥 REVENUE AREA CHART
+    // 📊 REVENUE AREA LINE CHART
     const ctx = document.getElementById('revenueChart').getContext('2d');
-    
-    // Create glowing gradient
-    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-    gradient.addColorStop(0, 'rgba(138, 43, 226, 0.8)');
-    gradient.addColorStop(1, 'rgba(138, 43, 226, 0.0)');
+    const gradient = ctx.createLinearGradient(0, 0, 0, 220);
+    gradient.addColorStop(0, 'rgba(138, 43, 226, 0.45)');
+    gradient.addColorStop(1, 'rgba(138, 43, 226, 0.00)');
+
+    // Mock trend history combined with the live current revenue
+    const labels = ['06:00', '09:00', '12:00', '15:00', '18:00', 'Current'];
+    const trendData = [
+        Math.floor(revenue * 0.15),
+        Math.floor(revenue * 0.4),
+        Math.floor(revenue * 0.65),
+        Math.floor(revenue * 0.8),
+        Math.floor(revenue * 0.95),
+        revenue
+    ];
 
     revenueChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Previous', 'Current Earnings'],
+            labels: labels,
             datasets: [{
                 label: 'Revenue (₹)',
-                data: [0, revenue],
+                data: trendData,
                 borderColor: '#8a2be2',
                 borderWidth: 3,
                 backgroundColor: gradient,
                 fill: true,
                 tension: 0.4,
                 pointBackgroundColor: '#00f0ff',
-                pointBorderColor: '#fff',
-                pointRadius: 6,
-                pointHoverRadius: 8
+                pointBorderColor: 'rgba(10, 10, 15, 0.95)',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
             }]
         },
         options: {
@@ -158,37 +380,113 @@ document.addEventListener("DOMContentLoaded", function () {
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: 'rgba(20, 20, 30, 0.9)',
+                    backgroundColor: 'rgba(10, 10, 15, 0.95)',
                     titleColor: '#00f0ff',
                     bodyColor: '#fff',
-                    borderColor: 'rgba(0, 240, 255, 0.5)',
+                    borderColor: 'rgba(0, 240, 255, 0.3)',
                     borderWidth: 1,
-                    padding: 12
+                    padding: 10
                 }
             }
         }
     });
 
+    // Initial Logs load
+    updateActivityLogs();
+
+    // Telemetry Polling Intervals
     setInterval(updateAnalytics, 5000);
+    setInterval(updateActivityLogs, 5000);
 });
 
-// 🔥 AUTO REFRESH
+// Update micro progress bars inside the cards
+function updateProgressGauges(parked, exited) {
+    const total = parked + exited;
+    const parkedBar = document.getElementById("parkedProgress");
+    const exitedBar = document.getElementById("exitedProgress");
+    if (total > 0) {
+        if (parkedBar) parkedBar.style.width = Math.min(100, Math.floor((parked / total) * 100)) + "%";
+        if (exitedBar) exitedBar.style.width = Math.min(100, Math.floor((exited / total) * 100)) + "%";
+    } else {
+        if (parkedBar) parkedBar.style.width = "0%";
+        if (exitedBar) exitedBar.style.width = "0%";
+    }
+}
+
+// Update live activity logs console
+let lastFetchedLogs = [];
+function updateActivityLogs() {
+    fetch('/api/activity-logs')
+        .then(res => res.json())
+        .then(data => {
+            const terminal = document.getElementById("terminalLogs");
+            if (!terminal || !data || data.length === 0) return;
+
+            // Clear dummy lines if loading actual logs
+            if (lastFetchedLogs.length === 0) {
+                terminal.innerHTML = "";
+            }
+
+            // Check if anything has changed
+            const firstLog = data[0];
+            if (lastFetchedLogs.length > 0 && lastFetchedLogs[0].time === firstLog.time && lastFetchedLogs[0].message === firstLog.message) {
+                return; // No new logs
+            }
+
+            lastFetchedLogs = data;
+            terminal.innerHTML = "";
+
+            data.forEach(log => {
+                const line = document.createElement("div");
+                line.className = "terminal-line";
+                
+                const timeSpan = document.createElement("span");
+                timeSpan.className = "line-time";
+                timeSpan.innerText = `[${log.time}]`;
+
+                const msgSpan = document.createElement("span");
+                msgSpan.className = `line-msg ${log.status === 'parked' ? 'line-status-parked' : 'line-status-exited'}`;
+                msgSpan.innerText = log.message;
+
+                line.appendChild(timeSpan);
+                line.appendChild(msgSpan);
+                terminal.appendChild(line);
+            });
+
+            // Scroll to top to show latest logs first (since order is DESC)
+            terminal.scrollTop = 0;
+        })
+        .catch(err => console.log("Activity logs error:", err));
+}
+
+// Update card stats & charts values
 function updateAnalytics() {
     fetch('/stats')
         .then(res => res.json())
         .then(data => {
-
             document.getElementById("total").innerText = data.total;
             document.getElementById("parked").innerText = data.active;
             document.getElementById("exited").innerText = data.exited;
             document.getElementById("revenue").innerText = "₹" + data.revenue;
 
-            if (statusChart && revenueChart) {
+            updateProgressGauges(data.active, data.exited);
+
+            if (statusChart) {
                 statusChart.data.datasets[0].data = [data.active, data.exited];
                 statusChart.update();
+            }
 
-                // Simple update for demonstration
-                revenueChart.data.datasets[0].data = [0, data.revenue];
+            if (revenueChart) {
+                // Update line chart dynamic trend
+                const revenue = data.revenue;
+                revenueChart.data.datasets[0].data = [
+                    Math.floor(revenue * 0.15),
+                    Math.floor(revenue * 0.4),
+                    Math.floor(revenue * 0.65),
+                    Math.floor(revenue * 0.8),
+                    Math.floor(revenue * 0.95),
+                    revenue
+                ];
                 revenueChart.update();
             }
         })

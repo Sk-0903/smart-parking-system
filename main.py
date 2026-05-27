@@ -1129,6 +1129,44 @@ def status():
         "occupied": count
     })
 
+@app.route('/api/activity-logs')
+def api_activity_logs():
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("SELECT id, name, plate, vehicle, status, entry_time, exit_time, fee, slot FROM users ORDER BY id DESC LIMIT 10")
+        rows = cur.fetchall()
+        conn.close()
+        
+        logs = []
+        for r in rows:
+            time_str = r['exit_time'] if r['status'] == 'exited' else r['entry_time']
+            # Format time cleanly
+            try:
+                # Handle isoformat conversion
+                clean_time = time_str.split('.')[0] if '.' in time_str else time_str
+                clean_time = clean_time.replace('Z', '')
+                dt = datetime.fromisoformat(clean_time)
+                formatted_time = dt.strftime('%H:%M:%S')
+            except Exception as e:
+                formatted_time = time_str[-12:-4] if len(time_str) > 12 else time_str
+                
+            if r['status'] == 'parked':
+                msg = f"Slot #{r['slot']} occupied by {r['plate']} ({r['vehicle'].upper()}) - Pilot: {r['name']}"
+            else:
+                msg = f"Slot #{r['slot']} cleared by {r['plate']} - Paid ₹{r['fee']}"
+                
+            logs.append({
+                "time": formatted_time,
+                "message": msg,
+                "status": r['status']
+            })
+        return jsonify(logs)
+    except Exception as e:
+        print("Error fetching activity logs:", e)
+        return jsonify([])
+
 if __name__ == '__main__':
     print("STARTING SERVER...")
     app.run(host="0.0.0.0", port=8000)
