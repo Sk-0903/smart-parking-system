@@ -1896,7 +1896,7 @@
                 speakResponse("Confirmed. Activating AI camera scanner node.", () => {
                     window.location.href = "/camera";
                 });
-            } else if (command.includes("home") || command.includes("dashboard") || command.includes("main")) {
+            } else if (command.includes("home") || command.includes("dashboard") || command.includes("main") || command.includes("homepage") || command.includes("facility")) {
                 speakResponse("Opening main facility dashboard.", () => {
                     window.location.href = "/";
                 });
@@ -1922,9 +1922,9 @@
             } else if (command.includes("who are you") || command.includes("identify")) {
                 speakResponse("I am Antigravity AI, the virtual voice assistant core of the Smart Parking system. I execute commands, diagnostics, and telemetry routing.");
             } else if (command.includes("hello") || command.includes("hey") || command.includes("online")) {
-                speakResponse("Hello operator. The system is online. State command: map, scanner, register, exit, analytics, or diagnostics.");
+                speakResponse("Hello operator. The system is online. State command: home, map, scanner, register, exit, analytics, or diagnostics.");
             } else if (command.includes("help") || command.includes("command")) {
-                speakResponse("Voice commands include: Show Map, Scan Vehicle, Diagnostics, Checkout, Register, Go Home, and Admin Access.");
+                speakResponse("Voice commands include: Go Home, Show Map, Scan Vehicle, Diagnostics, Checkout, Register, and Admin Access.");
             } else {
                 speakResponse(`Command node "${cmd}" unrecognized. Say Help to see compatible voice nodes.`);
             }
