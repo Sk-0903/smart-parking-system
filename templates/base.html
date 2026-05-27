@@ -1869,64 +1869,115 @@
             }
         };
 
+        function classifyIntent(cmd) {
+            const command = cmd.toLowerCase().trim();
+            
+            const intentKeywords = {
+                warp_engage: ["hyperdrive", "warp", "speed up", "go fast", "increase speed", "accelerate", "boost speed"],
+                warp_disengage: ["normal speed", "slow down", "stabilize", "normalize", "disengage warp", "cancel hyperdrive", "standard speed", "stabilise", "normalise"],
+                overload: ["overload", "explode", "self destruct", "self-destruct", "reactor critical", "critical temperature", "core melt"],
+                map: ["map", "parking lot", "telemetry", "3d view", "slots layout", "where are the cars", "show layout", "show space", "parking slots", "car positions"],
+                camera: ["scan", "camera", "scanner", "cctv", "surveillance", "optical", "reader", "plate scan", "see camera", "show camera", "feed", "view camera"],
+                home: ["home", "dashboard", "main", "facility view", "welcome page", "take me back", "homepage", "home page", "go back"],
+                register: ["park", "register", "entry", "sign up", "reserve slot", "book slot", "vehicle entry", "check in", "park car", "registration"],
+                exit: ["exit", "checkout", "payment", "pay", "bill", "check out", "leave facility", "exit gate", "receipt"],
+                analytics: ["analytics", "report", "revenue", "stat", "charts", "logs", "database reports", "database records", "graph", "history", "money"],
+                admin: ["admin", "login", "authentication", "secure core", "manager access", "administrator", "backend", "credentials"],
+                diagnostic: ["diagnostic", "status", "system check", "check database", "ping test", "latency", "checks", "healthy", "diagnose"],
+                identity: ["who are you", "identify", "your name", "creator", "developer", "what are you", "who built you"],
+                greeting: ["hello", "hey", "hi", "greetings", "good morning", "good afternoon", "good evening", "online", "whats up", "what's up"],
+                help: ["help", "command", "what can you do", "capabilities", "features", "instruction", "how to use", "options"],
+                quit: ["quit", "shutdown", "shut down", "standby", "turn off", "sleep", "close assistant", "goodbye", "bye", "go to sleep", "close hud"]
+            };
+
+            let bestIntent = null;
+            let highestScore = 0;
+
+            for (const [intent, keywords] of Object.entries(intentKeywords)) {
+                let score = 0;
+                for (const keyword of keywords) {
+                    if (command.includes(keyword)) {
+                        score += keyword.split(" ").length;
+                    }
+                }
+                if (score > highestScore) {
+                    highestScore = score;
+                    bestIntent = intent;
+                }
+            }
+
+            return bestIntent;
+        }
+
         function processCommand(cmd) {
             const command = cmd.toLowerCase().trim();
+            const intent = classifyIntent(command);
 
-            if (command.includes("hyperdrive") || command.includes("warp") || command.includes("speed")) {
+            if (intent === "warp_engage") {
                 speakResponse("Engaging hyperdrive. Speed parameters exceeded. Hold on, operator.", () => {
                     AudioFX.play('warp');
                     window.dispatchEvent(new CustomEvent('hyperdrive', { detail: { active: true } }));
                 });
-            } else if (command.includes("normal speed") || command.includes("cancel hyperdrive") || command.includes("stabilize")) {
+            } else if (intent === "warp_disengage") {
                 speakResponse("Disengaging warp engines. Gravity grid normalized.", () => {
                     window.dispatchEvent(new CustomEvent('hyperdrive', { detail: { active: false } }));
                 });
-            } else if (command.includes("system overload") || command.includes("overload")) {
+            } else if (intent === "overload") {
                 speakResponse("Warning! Core reactor temperature critical. Reactor containment compromised.", () => {
                     document.body.style.filter = "invert(1) hue-rotate(180deg)";
                     setTimeout(() => {
                         document.body.style.filter = "";
                     }, 1500);
                 });
-            } else if (command.includes("map") || command.includes("parking lot") || command.includes("telemetry")) {
+            } else if (intent === "map") {
                 speakResponse("Confirmed. Redirecting to 3D parking lot telemetry.", () => {
                     window.location.href = "/map";
                 });
-            } else if (command.includes("scan") || command.includes("camera") || command.includes("scanner") || command.includes("cctv")) {
+            } else if (intent === "camera") {
                 speakResponse("Confirmed. Activating AI camera scanner node.", () => {
                     window.location.href = "/camera";
                 });
-            } else if (command.includes("home") || command.includes("dashboard") || command.includes("main") || command.includes("homepage") || command.includes("facility")) {
+            } else if (intent === "home") {
                 speakResponse("Opening main facility dashboard.", () => {
                     window.location.href = "/";
                 });
-            } else if (command.includes("park") || command.includes("register")) {
+            } else if (intent === "register") {
                 speakResponse("Confirmed. Loading vehicle registration portal.", () => {
                     window.location.href = "/register";
                 });
-            } else if (command.includes("exit") || command.includes("checkout")) {
+            } else if (intent === "exit") {
                 speakResponse("Loading vehicle exit and payment terminal.", () => {
                     window.location.href = "/exit";
                 });
-            } else if (command.includes("analytic") || command.includes("report") || command.includes("revenue") || command.includes("stat")) {
+            } else if (intent === "analytics") {
                 speakResponse("Gathering facility logs and predictive machine learning models.", () => {
                     window.location.href = "/analytics";
                 });
-            } else if (command.includes("admin") || command.includes("core")) {
+            } else if (intent === "admin") {
                 speakResponse("Authentication required. Redirecting to Admin Security Core.", () => {
                     window.location.href = "/login";
                 });
-            } else if (command.includes("status") || command.includes("system check") || command.includes("diagnostic")) {
+            } else if (intent === "diagnostic") {
                 const date = new Date().toLocaleTimeString();
                 speakResponse(`Diagnostics complete. Databases online. AI scanner response latency: 1.2 seconds. Sentry security protocols fully active. Time check: ${date}. System state green.`);
-            } else if (command.includes("who are you") || command.includes("identify")) {
+            } else if (intent === "identity") {
                 speakResponse("I am Antigravity AI, the virtual voice assistant core of the Smart Parking system. I execute commands, diagnostics, and telemetry routing.");
-            } else if (command.includes("hello") || command.includes("hey") || command.includes("online")) {
+            } else if (intent === "greeting") {
                 speakResponse("Hello operator. The system is online. State command: home, map, scanner, register, exit, analytics, or diagnostics.");
-            } else if (command.includes("help") || command.includes("command")) {
+            } else if (intent === "help") {
                 speakResponse("Voice commands include: Go Home, Show Map, Scan Vehicle, Diagnostics, Checkout, Register, and Admin Access.");
+            } else if (intent === "quit") {
+                speakResponse("System standby engaged.", () => {
+                    deactivateAssistant();
+                });
             } else {
-                speakResponse(`Command node "${cmd}" unrecognized. Say Help to see compatible voice nodes.`);
+                const conversationalReplies = [
+                    `I hear you operator, but that is beyond my facility management protocols. Let me know if you want me to run diagnostics, register a vehicle, or show the map telemetry.`,
+                    `I understand your request, but my processors are dedicated to the Smart Parking grid. Try commanding: diagnostics, show map, check out, or registry.`,
+                    `Processing "${cmd}"... conversational node offline. I can assist you with parking lot maps, analytics, exits, or system checks.`
+                ];
+                const randomReply = conversationalReplies[Math.floor(Math.random() * conversationalReplies.length)];
+                speakResponse(randomReply);
             }
         }
 
