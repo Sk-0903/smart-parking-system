@@ -1426,6 +1426,7 @@
                 loader.classList.add("crt-collapse");
                 sessionStorage.setItem("system_booted", "true");
                 
+                let welcomeSpeechStarted = false;
                 try {
                     AudioFX.init();
                     if ('speechSynthesis' in window) {
@@ -1436,10 +1437,25 @@
                         const voices = window.speechSynthesis.getVoices();
                         const preferredVoice = voices.find(v => v.lang.includes('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Zira')));
                         if (preferredVoice) welcomeUtterance.voice = preferredVoice;
+                        
+                        welcomeUtterance.onend = function() {
+                            window.dispatchEvent(new CustomEvent('systemWelcomeSpeechComplete'));
+                        };
+                        welcomeUtterance.onerror = function() {
+                            window.dispatchEvent(new CustomEvent('systemWelcomeSpeechComplete'));
+                        };
+                        
                         window.speechSynthesis.speak(welcomeUtterance);
+                        welcomeSpeechStarted = true;
                     }
                 } catch(e) {
                     console.warn("Speech synthesis error on boot:", e);
+                }
+
+                if (!welcomeSpeechStarted) {
+                    setTimeout(() => {
+                        window.dispatchEvent(new CustomEvent('systemWelcomeSpeechComplete'));
+                    }, 100);
                 }
 
                 setTimeout(() => {
@@ -1512,12 +1528,7 @@
         });
         el.addEventListener('mouseout', () => {
             el.style.transform = `translate(0px, 0px)`;
-        });
-    });
-</script>
-
-<script>
-    // 🤖 GLOBAL AI VOICE ASSISTANT ENGINE
+           // 🤖 GLOBAL AI VOICE ASSISTANT ENGINE
     (function() {
         const widget = document.getElementById("voice-assistant-widget");
         const micBtn = document.getElementById("voiceMicBtn");
@@ -1546,6 +1557,77 @@
 
         let active = false;
         let speaking = false;
+        let micEnabled = false; // Will be activated via startStandbyListening
+        let isWakeWordMode = true;
+
+        function ensureListening() {
+            if (!micEnabled || speaking) return;
+            try {
+                recognition.start();
+            } catch (e) {
+                // Already started or starting
+            }
+        }
+
+        function startStandbyListening() {
+            micEnabled = true;
+            isWakeWordMode = true;
+            
+            // Set UI to standby state (HUD closed)
+            widget.classList.remove("active");
+            widget.classList.remove("listening");
+            widget.classList.remove("speaking");
+            statusText.innerText = "VOICE STANDBY";
+            transcript.innerText = "Say 'Hey System' to activate...";
+            
+            // Update mic button styles
+            micBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+            micBtn.style.borderColor = 'rgba(0, 240, 255, 0.4)';
+            micBtn.style.color = '#00f0ff';
+            
+            ensureListening();
+        }
+
+        function disableMic() {
+            micEnabled = false;
+            isWakeWordMode = true;
+            
+            widget.classList.remove("active");
+            widget.classList.remove("listening");
+            widget.classList.remove("speaking");
+            statusText.innerText = "VOICE OFFLINE";
+            transcript.innerText = "Microphone offline. Click mic to enable standby.";
+            
+            micBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+            micBtn.style.borderColor = 'rgba(255, 0, 85, 0.3)';
+            micBtn.style.color = '#ff0055';
+            
+            try { recognition.stop(); } catch(e) {}
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            if (waveAnimationId) {
+                cancelAnimationFrame(waveAnimationId);
+                waveAnimationId = null;
+            }
+        }
+
+        function returnToStandby() {
+            active = false;
+            isWakeWordMode = true;
+            widget.classList.remove("active");
+            widget.classList.remove("listening");
+            widget.classList.remove("speaking");
+            statusText.innerText = "VOICE STANDBY";
+            transcript.innerText = "Say 'Hey System' to activate...";
+            
+            if (waveAnimationId) {
+                cancelAnimationFrame(waveAnimationId);
+                waveAnimationId = null;
+            }
+            
+            ensureListening();
+        }
 
         function speakResponse(text, callback) {
             if ('speechSynthesis' in window) {
@@ -1555,6 +1637,9 @@
                 widget.classList.remove("listening");
                 statusText.innerText = "ASSISTANT SPEAKING";
                 transcript.innerText = text;
+
+                // Stop recognition during synthesis to prevent feedback loop
+                try { recognition.stop(); } catch(e) {}
 
                 const utterance = new SpeechSynthesisUtterance(text);
                 const voices = window.speechSynthesis.getVoices();
@@ -1567,20 +1652,31 @@
                 utterance.onend = function() {
                     speaking = false;
                     widget.classList.remove("speaking");
-                    statusText.innerText = "VOICE READY";
-                    if (callback) callback();
+                    if (callback) {
+                        callback();
+                    } else {
+                        returnToStandby();
+                    }
                 };
 
                 utterance.onerror = function() {
                     speaking = false;
                     widget.classList.remove("speaking");
-                    statusText.innerText = "VOICE READY";
+                    if (callback) {
+                        callback();
+                    } else {
+                        returnToStandby();
+                    }
                 };
 
                 window.speechSynthesis.speak(utterance);
             } else {
                 transcript.innerText = text;
-                if (callback) callback();
+                if (callback) {
+                    callback();
+                } else {
+                    returnToStandby();
+                }
             }
         }
 
@@ -1655,6 +1751,7 @@
 
         function activateAssistant() {
             active = true;
+            isWakeWordMode = false;
             widget.classList.add("active");
             statusText.innerText = "VOICE ACTIVE";
             
@@ -1669,54 +1766,111 @@
         }
 
         function deactivateAssistant() {
-            active = false;
-            widget.classList.remove("active");
-            widget.classList.remove("listening");
-            widget.classList.remove("speaking");
-            statusText.innerText = "VOICE OFFLINE";
             AudioFX.play('deactivate');
-            
-            try { recognition.stop(); } catch(e) {}
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-            if (waveAnimationId) {
-                cancelAnimationFrame(waveAnimationId);
-                waveAnimationId = null;
-            }
+            returnToStandby();
         }
 
         function startListening() {
-            if (!active || speaking) return;
+            if (!micEnabled || speaking) return;
+            isWakeWordMode = false;
             widget.classList.add("listening");
+            widget.classList.remove("speaking");
             statusText.innerText = "LISTENING...";
             transcript.innerText = "Listening for audio command...";
-            try { recognition.start(); } catch (e) { console.log(e); }
+            ensureListening();
         }
 
         recognition.onresult = function(event) {
             widget.classList.remove("listening");
             const resultText = event.results[0][0].transcript;
-            transcript.innerText = `"${resultText}"`;
+            console.log("Speech recognized:", resultText);
             
-            setTimeout(() => {
-                processCommand(resultText);
-            }, 600);
+            if (isWakeWordMode) {
+                const lowerResult = resultText.toLowerCase().trim();
+                const wakeWords = ["hey system", "hi system", "hay system", "system"];
+                let wakeWordFound = false;
+                let commandPart = "";
+                
+                for (const wake of wakeWords) {
+                    if (lowerResult.startsWith(wake)) {
+                        wakeWordFound = true;
+                        commandPart = lowerResult.substring(wake.length).trim();
+                        break;
+                    }
+                }
+                
+                if (wakeWordFound) {
+                    console.log("Wake word detected!");
+                    active = true;
+                    isWakeWordMode = false;
+                    widget.classList.add("active");
+                    statusText.innerText = "VOICE ACTIVE";
+                    if (!waveAnimationId) {
+                        drawWave();
+                    }
+                    
+                    if (commandPart.length > 0) {
+                        // User said the wake word + command together (e.g. "hey system show map")
+                        if (commandPart === "quit" || commandPart === "exit") {
+                            transcript.innerText = `"${resultText}"`;
+                            setTimeout(() => {
+                                speakResponse("System standby engaged.", () => {
+                                    deactivateAssistant();
+                                });
+                            }, 300);
+                        } else {
+                            transcript.innerText = `"${resultText}"`;
+                            setTimeout(() => {
+                                processCommand(commandPart);
+                            }, 600);
+                        }
+                    } else {
+                        // Just wake word
+                        AudioFX.play('chirp');
+                        speakResponse("Voice interface engaged. State command, operator.", () => {
+                            startListening();
+                        });
+                    }
+                } else {
+                    // Not wake word, loop back
+                    ensureListening();
+                }
+            } else {
+                // Command mode
+                transcript.innerText = `"${resultText}"`;
+                const lowerCmd = resultText.toLowerCase().trim();
+                
+                if (lowerCmd === "quit" || lowerCmd === "exit" || lowerCmd === "system quit" || lowerCmd === "hey system quit") {
+                    setTimeout(() => {
+                        speakResponse("System standby engaged.", () => {
+                            deactivateAssistant();
+                        });
+                    }, 300);
+                } else {
+                    setTimeout(() => {
+                        processCommand(resultText);
+                    }, 600);
+                }
+            }
         };
 
         recognition.onerror = function(event) {
             console.error("Speech Recognition Error:", event.error);
             widget.classList.remove("listening");
-            if (event.error === 'no-speech') {
+            
+            // If in command mode and no speech detected
+            if (!isWakeWordMode && event.error === 'no-speech') {
                 speakResponse("No command detected. Interface standby.");
             } else {
-                statusText.innerText = "VOICE READY";
-                transcript.innerText = "Error matching audio nodes.";
+                ensureListening();
             }
         };
 
         recognition.onend = function() {
             widget.classList.remove("listening");
+            if (micEnabled && !speaking) {
+                setTimeout(ensureListening, 100);
+            }
         };
 
         function processCommand(cmd) {
@@ -1790,7 +1944,11 @@
 
         micBtn.addEventListener("click", function(e) {
             e.stopPropagation();
-            toggleAssistant();
+            if (micEnabled) {
+                disableMic();
+            } else {
+                startStandbyListening();
+            }
         });
 
         speakerBtn.addEventListener("click", function(e) {
@@ -1808,6 +1966,25 @@
                 deactivateAssistant();
             }
         });
+
+        // Initialize voice assistant background state
+        const systemBooted = sessionStorage.getItem("system_booted") === "true";
+        if (systemBooted) {
+            startStandbyListening();
+        } else {
+            window.addEventListener('systemWelcomeSpeechComplete', function() {
+                startStandbyListening();
+            });
+        }
+
+        // Standard interaction fallback for browsers that block audio/speech API automatically
+        document.addEventListener('click', function startOnInteraction() {
+            if (micEnabled && !speaking && isWakeWordMode) {
+                ensureListening();
+            }
+            document.removeEventListener('click', startOnInteraction);
+        }, { once: true });
+
     })();
 </script>
 
